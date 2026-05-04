@@ -1,0 +1,35 @@
+# Environnement
+.env
+.env.local
+.env.*.local
+
+# Dépendances
+vendor/
+node_modules/
+
+# Configuration sensible
+php/config/db.php
+php/config/mail.php
+
+# Uploads utilisateurs
+assets/img/uploads/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+*.iml
+.vscode/settings.json
+*.suo
+*.user
+
+# Fichiers temporaires PHP
+*.swp
+*.swo
