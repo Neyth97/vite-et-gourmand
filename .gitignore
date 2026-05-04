@@ -14,6 +14,9 @@ php/config/mail.php
 # Uploads utilisateurs
 assets/img/uploads/
 
+# Maquettes et wireframes
+docs/
+
 # Logs
 *.log
 logs/
