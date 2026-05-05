@@ -58,11 +58,11 @@
         <div class="col-lg-6">
           <p class="hero-label">Bordeaux & Gironde</p>
           <h1>Vite livré, Toujours <em>Gourmand.</em></h1>
-          <hr>
+          <div class="hero-separator"><span class="hero-separator-dot"></span></div>
           <p>Plateaux repas, cocktails prestige et événements sur-mesure pour tous. Une seule adresse pour l'excellence culinaire.</p>
           <div class="hero-btns">
-            <a href="contact.html">Demander un devis</a>
-            <a href="menus.html">Nos menus &rarr;</a>
+            <a class="btn-devis" href="contact.html">Demander un devis</a>
+            <a class="btn-menus" href="menus.html">Nos menus &rarr;</a>
           </div>
         </div>
 
@@ -80,56 +80,72 @@
 
     <!-- Bande de chiffres clés -->
     <section id="stats">
-      <div>
-        <p>Julie & José</p>
-        <span>Fondateurs</span>
-      </div>
-      <div>
-        <p>Bordeaux</p>
-        <span>& Gironde</span>
-      </div>
-      <div>
-        <p>+130</p>
-        <span>Événements / an</span>
-      </div>
-      <div>
-        <p>+25</p>
-        <span>Ans d'expérience</span>
+      <div class="row g-0">
+        <div class="col-6 col-lg-3 stat-item">
+          <p class="stat-name">Julie & José</p>
+          <span class="stat-label">Fondateurs</span>
+        </div>
+        <div class="col-6 col-lg-3 stat-item">
+          <p class="stat-name">Bordeaux</p>
+          <span class="stat-label">& Gironde</span>
+        </div>
+        <div class="col-6 col-lg-3 stat-item">
+          <p class="stat-number">+130</p>
+          <span class="stat-label">Événements / an</span>
+        </div>
+        <div class="col-6 col-lg-3 stat-item">
+          <p class="stat-number">+25</p>
+          <span class="stat-label">Ans d'expérience</span>
+        </div>
       </div>
     </section>
 
     <!-- Services -->
     <section id="services">
-      <p><!-- Label : Ce que nous proposons --></p>
-      <h2>Nos Services</h2>
+      <div class="services-header">
+        <p class="services-label">Ce que nous proposons</p>
+        <h2>Nos Services</h2>
+        <span class="services-underline"></span>
+      </div>
 
-      <article>
-        <!-- Service 1 : image à gauche, texte à droite -->
-        <img src="" alt="Plateaux & Buffets">
-        <div>
-          <h3>Plateaux & Buffets</h3>
-          <p><!-- Description --></p>
-          <a href="services.html">Découvrir</a>
+      <article class="service-item">
+        <div class="row g-0">
+          <div class="col-lg-5">
+            <img src="../assets/img/Image2.PNG" alt="Plateaux & Buffets">
+          </div>
+          <div class="col-lg-7 service-text">
+            <h3>Plateaux & Buffets</h3>
+            <p>Buffets raffinés et plateaux repas pour tous vos moments — particuliers, collectivités, équipes ou événements familiaux.</p>
+            <a href="services.html" class="service-link">Découvrir &rarr;</a>
+          </div>
         </div>
+        <hr class="service-separator">
       </article>
 
-      <article>
-        <!-- Service 2 : texte à gauche, image à droite -->
-        <div>
-          <h3>Cocktails & Réceptions</h3>
-          <p><!-- Description --></p>
-          <a href="services.html">Découvrir</a>
+      <article class="service-item">
+        <div class="row g-0">
+          <div class="col-lg-7 service-text order-lg-1">
+            <h3>Cocktails & Réceptions</h3>
+            <p>Mise en place complète, service à table et personnel qualifié pour vos réceptions privées ou professionnelles.</p>
+            <a href="services.html" class="service-link">Découvrir &rarr;</a>
+          </div>
+          <div class="col-lg-5 order-lg-2">
+            <img src="" alt="Cocktails & Réceptions">
+          </div>
         </div>
-        <img src="" alt="Cocktails & Réceptions">
+        <hr class="service-separator">
       </article>
 
-      <article>
-        <!-- Service 3 : image à gauche, texte à droite -->
-        <img src="" alt="Événements sur-mesure">
-        <div>
-          <h3>Événements sur-mesure</h3>
-          <p><!-- Description --></p>
-          <a href="services.html">Découvrir</a>
+      <article class="service-item">
+        <div class="row g-0">
+          <div class="col-lg-5">
+            <img src="" alt="Événements sur-mesure">
+          </div>
+          <div class="col-lg-7 service-text">
+            <h3>Événements sur-mesure</h3>
+            <p>Galas, séminaires, mariages, anniversaires — conception et logistique complètes pour que vous profitiez pleinement.</p>
+            <a href="services.html" class="service-link">Découvrir &rarr;</a>
+          </div>
         </div>
       </article>
     </section>
