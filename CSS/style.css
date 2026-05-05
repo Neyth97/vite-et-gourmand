@@ -108,12 +108,23 @@ body {
 }
 
 #hero .hero-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #888888;
+}
+
+#hero .hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background-color: #c8a84b;
 }
 
 #hero h1 {
@@ -130,12 +141,30 @@ body {
   font-style: italic;
 }
 
-#hero hr {
-  border: none;
-  border-top: 1px solid #333333;
+.hero-separator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin: 1.5rem 0;
   width: 60%;
 }
+
+.hero-separator::before,
+.hero-separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #333333;
+}
+
+.hero-separator-dot {
+  width: 8px;
+  height: 8px;
+  border: 1px solid #c8a84b;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 
 #hero p {
   font-family: 'Cormorant Garamond', serif;
@@ -151,7 +180,8 @@ body {
   margin-top: 2rem;
 }
 
-#hero .hero-btns a {
+#hero .btn-devis,
+#hero .btn-menus {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
@@ -161,28 +191,83 @@ body {
   padding: 0.75rem 1.5rem;
 }
 
-#hero .hero-btns a:first-child {
-  background-color: transparent;
+#hero .btn-devis {
+  background-color: #c8a84b;
   border: 1px solid #c8a84b;
-  color: #c8a84b;
+  color: #080808;
 }
 
-#hero .hero-btns a:last-child {
+#hero .btn-menus {
+  background-color: transparent;
+  border: 1px solid #444444;
   color: #ffffff;
-  border: 1px solid transparent;
 }
 
 /* Colonne image */
 #hero .col-lg-6:last-child {
   position: relative;
   padding: 0;
+  overflow: hidden;
+  max-height: calc(100vh - 80px);
 }
 
 #hero .col-lg-6:last-child img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 70%;
   display: block;
+}
+
+#hero .col-lg-6:last-child::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(to right, #080808, transparent);
+  z-index: 1;
+}
+
+/* ============================================================
+   Stats
+   ============================================================ */
+#stats {
+  border-top: 1px solid #1c1c1c;
+  border-bottom: 1px solid #1c1c1c;
+}
+
+.stat-item {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  border-right: 1px solid #1c1c1c;
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: #c8a84b;
+  margin-bottom: 0.3rem;
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #c8a84b;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #666666;
 }
 
 /* Badge stat */
