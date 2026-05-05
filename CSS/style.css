@@ -40,6 +40,8 @@
   background-color: #080808;
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
+  padding-left: 8rem;
+  padding-right: 8rem;
 }
 
 .navbar .nav-link {
@@ -83,4 +85,129 @@ body {
   background-color: #080808;
   color: #c0bbb2;
   font-family: 'Cormorant Garamond', serif;
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+#hero {
+  min-height: calc(100vh - 80px);
+  overflow: hidden;
+}
+
+#hero .row {
+  min-height: calc(100vh - 80px);
+}
+
+/* Colonne texte */
+#hero .col-lg-6:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 4rem 5rem 8rem;
+}
+
+#hero .hero-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #888888;
+}
+
+#hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-top: 1rem;
+}
+
+#hero h1 em {
+  color: #c8a84b;
+  font-style: italic;
+}
+
+#hero hr {
+  border: none;
+  border-top: 1px solid #333333;
+  margin: 1.5rem 0;
+  width: 60%;
+}
+
+#hero p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #c0bbb2;
+  line-height: 1.7;
+}
+
+#hero .hero-btns {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+#hero .hero-btns a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+}
+
+#hero .hero-btns a:first-child {
+  background-color: transparent;
+  border: 1px solid #c8a84b;
+  color: #c8a84b;
+}
+
+#hero .hero-btns a:last-child {
+  color: #ffffff;
+  border: 1px solid transparent;
+}
+
+/* Colonne image */
+#hero .col-lg-6:last-child {
+  position: relative;
+  padding: 0;
+}
+
+#hero .col-lg-6:last-child img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Badge stat */
+#hero .hero-badge {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: #080808;
+  padding: 1rem 1.5rem;
+  text-align: center;
+}
+
+#hero .hero-badge p {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-style: normal;
+  margin: 0;
+}
+
+#hero .hero-badge span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #888888;
 }
