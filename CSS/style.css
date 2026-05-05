@@ -9,6 +9,11 @@
 /* ============================================================
    Navbar
    ============================================================ */
+.navbar-brand {
+  font-family: 'Playfair Display', serif;
+  color: #ffffff;
+}
+
 .navbar {
   background-color: #080808;
   padding-top: 1.2rem;
