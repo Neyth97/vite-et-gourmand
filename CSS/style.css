@@ -462,6 +462,76 @@ body {
 }
 
 /* ============================================================
+   CTA
+   ============================================================ */
+#cta {
+  padding: 5rem 2rem;
+  border-top: 1px solid #1c1c1c;
+  border-bottom: 1px solid #1c1c1c;
+}
+
+.cta-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+}
+
+.cta-logo {
+  width: 50px;
+  opacity: 0.6;
+}
+
+#cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+#cta p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #c0bbb2;
+  margin: 0;
+}
+
+.cta-btns {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.cta-btns .btn-devis {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  background-color: #c8a84b;
+  border: 1px solid #c8a84b;
+  color: #080808;
+}
+
+.cta-btns .btn-menus {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 1px solid #444444;
+  color: #ffffff;
+}
+
+/* ============================================================
    Témoignages
    ============================================================ */
 #temoignages {
