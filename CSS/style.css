@@ -462,6 +462,87 @@ body {
 }
 
 /* ============================================================
+   Témoignages
+   ============================================================ */
+#temoignages {
+  padding: 5rem 8rem;
+}
+
+.temoignages-header {
+  margin-bottom: 3rem;
+}
+
+.temoignages-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  margin-bottom: 0.75rem;
+}
+
+#temoignages h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.temoignages-underline {
+  display: block;
+  width: 3.5rem;
+  height: 2px;
+  background-color: #c8a84b;
+}
+
+.temoignage-card {
+  background-color: #0f0f0f;
+  border: 1px solid #1e1e1e;
+  padding: 2.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.temoignage-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #c8a84b;
+  line-height: 1;
+}
+
+.temoignage-card p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: #d4cfc6;
+  line-height: 1.8;
+  flex: 1;
+}
+
+.temoignage-card cite {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-style: normal;
+}
+
+.temoignage-card cite strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.temoignage-card cite span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: #666666;
+}
+
+/* ============================================================
    Stats
    ============================================================ */
 #stats {
