@@ -276,15 +276,17 @@ body {
   bottom: 2rem;
   right: 2rem;
   background-color: #080808;
+  border: 1px solid rgba(200, 168, 75, 0.4);
   padding: 1rem 1.5rem;
   text-align: center;
+  z-index: 2;
 }
 
 #hero .hero-badge p {
   font-family: 'Playfair Display', serif;
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #c8a84b;
   font-style: normal;
   margin: 0;
 }
@@ -294,5 +296,5 @@ body {
   font-size: 0.6rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #888888;
+  color: #c8a84b;
 }
