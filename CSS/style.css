@@ -17,6 +17,10 @@
   line-height: 1.2;
 }
 
+.navbar-brand:hover {
+  color: #ffffff;
+}
+
 .brand-subtitle {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.6rem;
