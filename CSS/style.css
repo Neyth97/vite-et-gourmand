@@ -48,11 +48,16 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #666666;
 }
 
 .navbar .nav-link:hover {
   color: #c8a84b;
+}
+
+.navbar .nav-link.active {
+  color: #ffffff;
+  border-bottom: 2px solid #c8a84b;
 }
 
 .btn-connexion {
