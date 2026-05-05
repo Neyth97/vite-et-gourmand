@@ -116,7 +116,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #888888;
+  color: #c8a84b;
 }
 
 #hero .hero-label::before {
@@ -248,26 +248,27 @@ body {
   border-right: none;
 }
 
-.stat-name {
+#stats .stat-name {
   font-family: 'Playfair Display', serif;
   font-size: 1.6rem;
   color: #c8a84b;
   margin-bottom: 0.3rem;
 }
 
-.stat-number {
+#stats .stat-number {
   font-family: 'Playfair Display', serif;
   font-size: 2rem;
   color: #c8a84b;
   margin-bottom: 0.3rem;
 }
 
-.stat-label {
+#stats .stat-label {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.6rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #666666;
+  display: block;
 }
 
 /* Badge stat */
