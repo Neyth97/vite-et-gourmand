@@ -6,6 +6,47 @@
 /* ============================================================
    Base
    ============================================================ */
+/* ============================================================
+   Navbar
+   ============================================================ */
+.navbar {
+  background-color: #080808;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
+.navbar .nav-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.navbar .nav-link:hover {
+  color: #c8a84b;
+}
+
+.btn-connexion {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  padding: 0.4rem 1.2rem;
+  border-radius: 0;
+}
+
+.btn-connexion:hover {
+  background-color: #c8a84b;
+  border-color: #c8a84b;
+  color: #080808;
+}
+
+
 body {
   background-color: #080808;
   color: #c0bbb2;
