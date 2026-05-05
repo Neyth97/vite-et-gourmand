@@ -462,6 +462,115 @@ body {
 }
 
 /* ============================================================
+   Footer
+   ============================================================ */
+.footer-main {
+  padding: 4rem 8rem;
+  border-top: 1px solid #1c1c1c;
+}
+
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.footer-brand-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  margin-bottom: 1.5rem;
+}
+
+.footer-horaires {
+  font-style: normal;
+}
+
+.footer-horaires p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: #aaaaaa;
+  margin-bottom: 0.3rem;
+}
+
+.footer-horaires span {
+  color: #c8a84b;
+}
+
+.footer-col-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  margin-bottom: 1.25rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: #888888;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #c8a84b;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 8rem;
+  border-top: 1px solid #1c1c1c;
+}
+
+.footer-bottom small {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  color: #555555;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #c8a84b;
+  color: #c8a84b;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.footer-socials a:hover {
+  background-color: #c8a84b;
+  color: #080808;
+}
+
+/* ============================================================
    CTA
    ============================================================ */
 #cta {

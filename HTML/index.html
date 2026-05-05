@@ -241,41 +241,51 @@
   </main>
 
   <footer>
-    <div>
-      <!-- Colonne 1 : Nom + sous-titre + horaires -->
-      <p>Vite & Gourmand</p>
-      <p><!-- Sous-titre traiteur --></p>
-      <address>
-        <!-- Horaires -->
-      </address>
-    </div>
-    <nav>
-      <!-- Colonne 2 : Navigation -->
-      <p>Navigation</p>
-      <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="menus.html">Menus</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="a-propos.html">À propos</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <div>
-      <!-- Colonne 3 : Légal -->
-      <p>Légal</p>
-      <ul>
-        <li><a href="mentions-legales.html">Mentions légales</a></li>
-        <li><a href="cgv.html">CGV</a></li>
-      </ul>
+    <div class="footer-main">
+      <div class="row">
+
+        <!-- Colonne 1 : Nom + sous-titre + horaires -->
+        <div class="col-lg-4 footer-col">
+          <p class="footer-brand">Vite & Gourmand</p>
+          <p class="footer-brand-sub">Traiteur professionnel</p>
+          <address class="footer-horaires">
+            <p><span>Lun-Ven :</span> 7h00 – 21h00</p>
+            <p><span>Samedi :</span> 8h00 – 18h00</p>
+            <p><span>Dimanche :</span> Fermé</p>
+          </address>
+        </div>
+
+        <!-- Colonne 2 : Navigation -->
+        <div class="col-lg-4 footer-col">
+          <p class="footer-col-title">Navigation</p>
+          <ul class="footer-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="menus.html">Menus</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Colonne 3 : Légal -->
+        <div class="col-lg-4 footer-col">
+          <p class="footer-col-title">Légal</p>
+          <ul class="footer-links">
+            <li><a href="mentions-legales.html">Mentions légales</a></li>
+            <li><a href="cgv.html">CGV</a></li>
+          </ul>
+        </div>
+
+      </div>
     </div>
 
     <!-- Barre basse -->
-    <div>
-      <small>&copy; 2026 Vite & Gourmand — Bordeaux. Tous droits réservés.</small>
-      <ul>
-        <li><a href="#"><!-- X (Twitter) --></a></li>
-        <li><a href="#"><!-- Instagram --></a></li>
-        <li><a href="#"><!-- Facebook --></a></li>
+    <div class="footer-bottom">
+      <small>&copy; 2026 Vite & Gourmand — Bordeaux · Tous droits réservés.</small>
+      <ul class="footer-socials">
+        <li><a href="#" aria-label="X (Twitter)"><i class="bi bi-twitter-x"></i></a></li>
+        <li><a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a></li>
+        <li><a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a></li>
       </ul>
     </div>
   </footer>
