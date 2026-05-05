@@ -294,6 +294,13 @@ body {
   background: linear-gradient(to left, #080808, transparent);
 }
 
+/* Fondu noir sur le côté gauche (image à droite) */
+.service-img-wrapper.service-img-right::after {
+  right: auto;
+  left: 0;
+  background: linear-gradient(to right, #080808, transparent);
+}
+
 .service-text {
   display: flex;
   flex-direction: column;
