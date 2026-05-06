@@ -1,3 +1,213 @@
 /* ===========================
    PAGE CONTACT
    =========================== */
+
+/* --- En-tête de page --- */
+#contact-header {
+  padding: 4rem 8rem 2rem;
+}
+
+#contact-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+#contact-header p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #c0bbb2;
+  margin: 0;
+}
+
+/* --- Section contenu --- */
+#contact-content {
+  padding: 2rem 8rem 5rem;
+}
+
+/* --- Label "onglet" commun aux deux panneaux --- */
+.contact-panel-label {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  border: 1px solid #c8a84b;
+  padding: 0.3rem 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Panneau formulaire --- */
+.contact-form-panel {
+  padding: 2.5rem 3rem 2.5rem 0;
+}
+
+.contact-form-panel h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+/* --- Labels des champs --- */
+.contact-form-panel .form-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #888888;
+  margin-bottom: 0.4rem;
+}
+
+.contact-form-panel .form-label span {
+  color: #c8a84b;
+}
+
+/* --- Inputs et textarea --- */
+.contact-form-panel .form-control {
+  background-color: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  border-radius: 0;
+  color: #c0bbb2;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  padding: 0.6rem 0.9rem;
+}
+
+.contact-form-panel .form-control::placeholder {
+  color: #444444;
+  font-style: italic;
+}
+
+.contact-form-panel .form-control:focus {
+  background-color: #0f0f0f;
+  border-color: #c8a84b;
+  box-shadow: none;
+  color: #c0bbb2;
+}
+
+/* --- Boutons radio stylisés en pills --- */
+.contact-form-panel .form-check {
+  padding: 0;
+  margin: 0;
+}
+
+.contact-form-panel .form-check-input[type="radio"] {
+  display: none;
+}
+
+.contact-form-panel .form-check-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #888888;
+  border: 1px solid #2a2a2a;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+
+.contact-form-panel .form-check-label:hover {
+  border-color: #c8a84b;
+  color: #c8a84b;
+}
+
+.contact-form-panel .form-check-input[type="radio"]:checked + .form-check-label {
+  background-color: #c8a84b;
+  border-color: #c8a84b;
+  color: #080808;
+}
+
+/* --- Checkbox RGPD --- */
+.contact-form-panel .form-check-input[type="checkbox"] {
+  display: inline-block;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  min-width: 15px;
+  border: 1px solid #2a2a2a;
+  background-color: #0f0f0f;
+  border-radius: 0;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.contact-form-panel .form-check-input[type="checkbox"]:checked {
+  background-color: #c8a84b;
+  border-color: #c8a84b;
+}
+
+.contact-form-panel .form-check-input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.7rem;
+  color: #080808;
+  font-weight: 700;
+}
+
+.contact-form-panel .form-check-input[type="checkbox"]:focus {
+  box-shadow: none;
+  border-color: #c8a84b;
+}
+
+.contact-form-panel .form-check-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  color: #888888;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.contact-form-panel .form-check-label a {
+  color: #c8a84b;
+  text-decoration: none;
+}
+
+.contact-form-panel .form-check-label a:hover {
+  text-decoration: underline;
+}
+
+/* --- Bouton envoi --- */
+.btn-envoyer {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background-color: #c8a84b;
+  border: 1px solid #c8a84b;
+  color: #080808;
+  padding: 0.75rem 1.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-envoyer:hover {
+  background-color: transparent;
+  color: #c8a84b;
+}
+
+/* --- Mention champs obligatoires --- */
+.mention-obligatoire {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  color: #555555;
+}
