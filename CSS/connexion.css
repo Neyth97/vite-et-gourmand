@@ -1,0 +1,209 @@
+/* ============================================================
+   Page Connexion
+   ============================================================ */
+
+/* Layout : deux colonnes pleine hauteur */
+.connexion-wrapper {
+  display: flex;
+  min-height: calc(100vh - 81px);
+}
+
+/* --- Colonne image (gauche) --- */
+.connexion-img-col {
+  position: relative;
+  flex: 0 0 50%;
+  overflow: hidden;
+}
+
+.connexion-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.connexion-img-overlay {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+}
+
+.connexion-img-overlay h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0;
+}
+
+.connexion-img-overlay h1 em {
+  color: #c8a84b;
+  font-style: italic;
+}
+
+/* --- Colonne formulaire (droite) --- */
+.connexion-form-col {
+  flex: 0 0 50%;
+  background-color: #080808;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 5rem;
+}
+
+.connexion-form-inner {
+  width: 100%;
+  max-width: 460px;
+}
+
+/* Badge "Espace client" */
+.connexion-badge {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  border: 1px solid #c8a84b;
+  padding: 0.3rem 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Titre */
+.connexion-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+/* Sous-titre */
+.connexion-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #888888;
+  margin-bottom: 2.5rem;
+}
+
+/* --- Champs --- */
+.form-group-custom {
+  margin-bottom: 1.5rem;
+}
+
+.form-group-custom label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888888;
+  margin-bottom: 0.5rem;
+}
+
+.form-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.form-label-row label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888888;
+  margin: 0;
+}
+
+.input-custom {
+  width: 100%;
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  color: #ffffff;
+  padding: 0.85rem 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-custom::placeholder {
+  color: #444444;
+}
+
+.input-custom:focus {
+  border-color: #c8a84b;
+}
+
+/* Lien doré */
+.link-gold {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  color: #c8a84b;
+  text-decoration: none;
+}
+
+.link-gold:hover {
+  text-decoration: underline;
+  color: #c8a84b;
+}
+
+/* --- Checkbox --- */
+.form-check-custom {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.check-custom {
+  width: 14px;
+  height: 14px;
+  accent-color: #c8a84b;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.form-check-custom label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: #888888;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* --- Bouton connexion --- */
+.btn-submit {
+  width: 100%;
+  background-color: #c8a84b;
+  color: #080808;
+  border: none;
+  padding: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.btn-submit:hover {
+  background-color: #b8943e;
+}
+
+/* --- Lien inscription --- */
+.connexion-register {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: #888888;
+  text-align: center;
+  margin: 0;
+}
