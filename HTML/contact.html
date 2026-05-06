@@ -50,7 +50,132 @@
   </header>
 
   <main>
-    <!-- Contenu de la page contact à venir -->
+
+    <!-- En-tête de page -->
+    <section id="contact-header">
+      <h1>Contactez-nous</h1>
+      <p>Une question, un projet ? Nous vous répondons sous 24h.</p>
+    </section>
+
+    <!-- Contenu principal : formulaire + coordonnées -->
+    <section id="contact-content">
+      <div class="row g-0">
+
+        <!-- Colonne gauche : formulaire -->
+        <div class="col-lg-8">
+          <div class="contact-form-panel">
+            <p class="contact-panel-label">Formulaire de contact</p>
+            <h2>Parlons de votre projet</h2>
+
+            <form action="#" method="POST" novalidate>
+
+              <!-- Nom / Prénom / Email / Téléphone -->
+              <div class="row g-3">
+                <div class="col-sm-6 col-lg-3">
+                  <label for="nom" class="form-label">Nom <span aria-hidden="true">*</span></label>
+                  <input type="text" class="form-control" id="nom" name="nom" placeholder="Votre nom" required>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <label for="prenom" class="form-label">Prénom <span aria-hidden="true">*</span></label>
+                  <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <label for="email" class="form-label">Email <span aria-hidden="true">*</span></label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="exemple@email.com" required>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <label for="telephone" class="form-label">Téléphone</label>
+                  <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="06 xx xx xx xx">
+                </div>
+              </div>
+
+              <!-- Société -->
+              <div class="row g-3 mt-1">
+                <div class="col-12">
+                  <label for="societe" class="form-label">Société / Organisation</label>
+                  <input type="text" class="form-control" id="societe" name="societe" placeholder="Nom de votre entreprise">
+                </div>
+              </div>
+
+              <!-- Type de demande -->
+              <div class="row g-3 mt-1">
+                <div class="col-12">
+                  <p class="form-label mb-2">Type de demande <span aria-hidden="true">*</span></p>
+                  <div class="d-flex flex-wrap gap-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type_demande" id="plateaux" value="plateaux" checked required>
+                      <label class="form-check-label" for="plateaux">Plateaux & Buffets</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type_demande" id="cocktail" value="cocktail">
+                      <label class="form-check-label" for="cocktail">Cocktail / Réception</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type_demande" id="evenement" value="evenement">
+                      <label class="form-check-label" for="evenement">Événement sur-mesure</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type_demande" id="autre" value="autre">
+                      <label class="form-check-label" for="autre">Autre</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Nombre de personnes / Date souhaitée -->
+              <div class="row g-3 mt-1">
+                <div class="col-sm-6">
+                  <label for="nb_personnes" class="form-label">Nombre de personnes</label>
+                  <input type="number" class="form-control" id="nb_personnes" name="nb_personnes" placeholder="Ex : 30" min="1">
+                </div>
+                <div class="col-sm-6">
+                  <label for="date_souhaitee" class="form-label">Date souhaitée</label>
+                  <input type="date" class="form-control" id="date_souhaitee" name="date_souhaitee">
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div class="row g-3 mt-1">
+                <div class="col-12">
+                  <label for="message" class="form-label">Votre message <span aria-hidden="true">*</span></label>
+                  <textarea class="form-control" id="message" name="message" rows="5" placeholder="Décrivez votre projet, vos contraintes, vos attentes…" required></textarea>
+                </div>
+              </div>
+
+              <!-- RGPD -->
+              <div class="row g-3 mt-1">
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rgpd" name="rgpd" required>
+                    <label class="form-check-label" for="rgpd">
+                      J'accepte que mes données soient utilisées pour traiter ma demande conformément à la <a href="mentions-legales.html">politique de confidentialité</a>.
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bouton + mention champs obligatoires -->
+              <div class="row g-3 mt-2 align-items-center">
+                <div class="col-auto">
+                  <button type="submit" class="btn-envoyer">Envoyer ma demande</button>
+                </div>
+                <div class="col-auto">
+                  <small class="mention-obligatoire">* Champs obligatoires</small>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- Colonne droite : coordonnées (à venir) -->
+        <div class="col-lg-4">
+          <!-- Section coordonnées à venir -->
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <footer>
