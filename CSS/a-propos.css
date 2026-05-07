@@ -161,14 +161,14 @@
 .fondateur-img-wrapper {
   position: relative;
   overflow: hidden;
-  height: 520px;
+  height: 700px;
 }
 
 .fondateur-img-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   display: block;
 }
 
