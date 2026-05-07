@@ -158,6 +158,12 @@
   border-right: 1px solid #1c1c1c;
 }
 
+#fondateurs .col-md-6:first-child .fondateur-img-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: unset;
+}
+
 .fondateur-img-wrapper {
   position: relative;
   overflow: hidden;
