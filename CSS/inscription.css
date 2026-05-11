@@ -143,6 +143,15 @@
   border-color: #c8a84b;
 }
 
+/* Hint mot de passe */
+.password-hint {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  color: #555555;
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+
 /* Lien doré */
 .link-gold {
   font-family: 'Montserrat', sans-serif;
