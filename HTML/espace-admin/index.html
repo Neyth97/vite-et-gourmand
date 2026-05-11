@@ -371,7 +371,49 @@
 
       <!-- ===== SECTION : EMPLOYÉS ===== -->
       <section id="section-employes" class="ee-section" style="display:none">
-        <!-- Contenu à venir -->
+
+        <h1 class="ee-page-title">Employés</h1>
+
+        <div class="ee-subsection">
+          <div class="ee-subsection-header">
+            <h2 class="ee-subsection-title">Comptes employés</h2>
+            <button class="ee-btn ee-btn-primary" data-modal="modal-ajouter-employe">
+              <i class="bi bi-person-plus"></i> Ajouter un employé
+            </button>
+          </div>
+
+          <div class="ee-table-wrapper">
+            <table class="ee-table">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Adresse email</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Marie Martin</td>
+                  <td>marie.martin@vite-et-gourmand.fr</td>
+                  <td><span class="ee-badge badge-accepte">Actif</span></td>
+                  <td class="ee-actions">
+                    <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-desactiver-employe-1">Désactiver</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Thomas Girard</td>
+                  <td>thomas.girard@vite-et-gourmand.fr</td>
+                  <td><span class="ee-badge badge-terminee">Inactif</span></td>
+                  <td class="ee-actions">
+                    <button class="ee-btn ee-btn-sm ee-btn-primary" data-modal="modal-activer-employe-2">Réactiver</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </section>
 
       <!-- ===== SECTION : STATISTIQUES ===== -->
@@ -572,6 +614,61 @@
           <button type="submit" class="ee-btn ee-btn-primary">Enregistrer</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL : AJOUTER UN EMPLOYÉ ===== -->
+  <div class="ee-modal-overlay" id="modal-ajouter-employe" style="display:none">
+    <div class="ee-modal">
+      <div class="ee-modal-header">
+        <h2>Ajouter un employé</h2>
+        <button class="ee-modal-close" data-modal="modal-ajouter-employe"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <p class="ee-modal-info">Un e-mail de notification sera envoyé à l'employé. Le mot de passe ne sera pas communiqué dans ce mail — il devra se rapprocher de l'administrateur pour l'obtenir.</p>
+      <form action="#" method="post">
+        <div class="ee-form-group">
+          <label for="employe-email">Adresse email (identifiant)</label>
+          <input type="email" id="employe-email" name="email" placeholder="prenom.nom@vite-et-gourmand.fr" required>
+        </div>
+        <div class="ee-form-group">
+          <label for="employe-password">Mot de passe</label>
+          <input type="password" id="employe-password" name="password" placeholder="••••••••" required>
+        </div>
+        <div class="ee-modal-footer">
+          <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-ajouter-employe">Annuler</button>
+          <button type="submit" class="ee-btn ee-btn-primary">Créer le compte</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL : DÉSACTIVER UN EMPLOYÉ ===== -->
+  <div class="ee-modal-overlay" id="modal-desactiver-employe-1" style="display:none">
+    <div class="ee-modal">
+      <div class="ee-modal-header">
+        <h2>Désactiver le compte</h2>
+        <button class="ee-modal-close" data-modal="modal-desactiver-employe-1"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <p class="ee-modal-info">Êtes-vous sûr de vouloir désactiver le compte de <strong>Marie Martin</strong> ? Elle ne pourra plus se connecter à son espace.</p>
+      <div class="ee-modal-footer">
+        <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-desactiver-employe-1">Annuler</button>
+        <button type="submit" class="ee-btn ee-btn-danger">Désactiver</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL : RÉACTIVER UN EMPLOYÉ ===== -->
+  <div class="ee-modal-overlay" id="modal-activer-employe-2" style="display:none">
+    <div class="ee-modal">
+      <div class="ee-modal-header">
+        <h2>Réactiver le compte</h2>
+        <button class="ee-modal-close" data-modal="modal-activer-employe-2"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <p class="ee-modal-info">Êtes-vous sûr de vouloir réactiver le compte de <strong>Thomas Girard</strong> ?</p>
+      <div class="ee-modal-footer">
+        <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-activer-employe-2">Annuler</button>
+        <button type="submit" class="ee-btn ee-btn-primary">Réactiver</button>
+      </div>
     </div>
   </div>
 
