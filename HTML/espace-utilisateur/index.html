@@ -14,12 +14,12 @@
 </head>
 <body>
 
-  <!-- Barre de navigation simplifiée -->
+  <!-- Header -->
   <header class="eu-header">
     <div class="eu-header-inner">
       <a href="../index.html" class="eu-logo">Vite & Gourmand</a>
-      <span class="eu-user-name">Bonjour, Prénom</span>
-      <a href="../connexion.html" class="eu-logout">Déconnexion</a>
+      <span class="eu-user-name">Bonjour, Jean Dupont</span>
+      <a href="../connexion.html" class="eu-logout"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
     </div>
   </header>
 
@@ -29,20 +29,484 @@
     <aside class="eu-sidebar">
       <nav>
         <ul class="eu-nav">
-          <li><a href="#" class="eu-nav-link active">Mes commandes</a></li>
-          <li><a href="#" class="eu-nav-link">Mes informations</a></li>
+          <li>
+            <a href="#" class="eu-nav-link active" data-section="commandes">
+              <i class="bi bi-bag"></i> Mes commandes
+            </a>
+          </li>
+          <li>
+            <a href="#" class="eu-nav-link" data-section="informations">
+              <i class="bi bi-person"></i> Mes informations
+            </a>
+          </li>
         </ul>
       </nav>
     </aside>
 
     <!-- Contenu principal -->
     <main class="eu-main">
-      <!-- Contenu à venir -->
-    </main>
 
+      <!-- ===== SECTION : MES COMMANDES ===== -->
+      <section id="section-commandes" class="eu-section">
+
+        <h1 class="eu-page-title">Mes commandes</h1>
+
+        <!-- Commande 1 : En attente (modifiable / annulable) -->
+        <div class="eu-order-card">
+          <div class="eu-order-header">
+            <div class="eu-order-meta">
+              <span class="eu-order-num">Commande #1042</span>
+              <span class="eu-badge badge-attente">En attente</span>
+            </div>
+            <button class="eu-toggle-btn" data-target="detail-1042">
+              Voir le détail <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+
+          <div class="eu-order-summary">
+            <span><i class="bi bi-fork-knife"></i> Menu Noël Prestige</span>
+            <span><i class="bi bi-people"></i> 12 personnes</span>
+            <span><i class="bi bi-calendar"></i> 24 décembre 2026</span>
+            <span class="eu-order-price">336,00 €</span>
+          </div>
+
+          <!-- Détail dépliable -->
+          <div class="eu-order-detail" id="detail-1042" style="display:none">
+            <div class="eu-detail-grid">
+              <div>
+                <p class="eu-detail-label">Menu</p>
+                <p class="eu-detail-value">Menu Noël Prestige</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Nombre de personnes</p>
+                <p class="eu-detail-value">12</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Date de prestation</p>
+                <p class="eu-detail-value">24 décembre 2026</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Heure de livraison</p>
+                <p class="eu-detail-value">12h30</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Adresse de livraison</p>
+                <p class="eu-detail-value">45 allée des Pins, 33000 Bordeaux</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Prix menu</p>
+                <p class="eu-detail-value">336,00 €</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Frais de livraison</p>
+                <p class="eu-detail-value">Inclus (Bordeaux)</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Total</p>
+                <p class="eu-detail-value eu-detail-total">336,00 €</p>
+              </div>
+            </div>
+
+            <div class="eu-order-actions">
+              <button class="eu-btn eu-btn-secondary" data-modal="modal-modifier-1042">
+                <i class="bi bi-pencil"></i> Modifier
+              </button>
+              <button class="eu-btn eu-btn-danger" data-modal="modal-annuler-1042">
+                <i class="bi bi-x-circle"></i> Annuler
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Commande 2 : En préparation (suivi visible) -->
+        <div class="eu-order-card">
+          <div class="eu-order-header">
+            <div class="eu-order-meta">
+              <span class="eu-order-num">Commande #1038</span>
+              <span class="eu-badge badge-preparation">En préparation</span>
+            </div>
+            <button class="eu-toggle-btn" data-target="detail-1038">
+              Voir le détail <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+
+          <div class="eu-order-summary">
+            <span><i class="bi bi-fork-knife"></i> Menu Classique Entreprise</span>
+            <span><i class="bi bi-people"></i> 20 personnes</span>
+            <span><i class="bi bi-calendar"></i> 15 mai 2026</span>
+            <span class="eu-order-price">580,00 €</span>
+          </div>
+
+          <div class="eu-order-detail" id="detail-1038" style="display:none">
+            <div class="eu-detail-grid">
+              <div>
+                <p class="eu-detail-label">Menu</p>
+                <p class="eu-detail-value">Menu Classique Entreprise</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Nombre de personnes</p>
+                <p class="eu-detail-value">20</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Date de prestation</p>
+                <p class="eu-detail-value">15 mai 2026</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Heure de livraison</p>
+                <p class="eu-detail-value">11h00</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Adresse de livraison</p>
+                <p class="eu-detail-value">8 cours du Médoc, 33300 Bordeaux</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Prix menu</p>
+                <p class="eu-detail-value">522,00 € <small>(-10% fidélité)</small></p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Frais de livraison</p>
+                <p class="eu-detail-value">Inclus (Bordeaux)</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Total</p>
+                <p class="eu-detail-value eu-detail-total">522,00 €</p>
+              </div>
+            </div>
+
+            <!-- Suivi de commande -->
+            <div class="eu-tracking">
+              <h3 class="eu-tracking-title">Suivi de la commande</h3>
+              <ul class="eu-timeline">
+                <li class="eu-timeline-item done">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">Commande reçue</p>
+                    <p class="eu-timeline-date">08 mai 2026 — 14h22</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item done">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">Acceptée</p>
+                    <p class="eu-timeline-date">09 mai 2026 — 09h05</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item active">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">En préparation</p>
+                    <p class="eu-timeline-date">14 mai 2026 — 07h30</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">En cours de livraison</p>
+                    <p class="eu-timeline-date">—</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">Livrée</p>
+                    <p class="eu-timeline-date">—</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">Terminée</p>
+                    <p class="eu-timeline-date">—</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Commande 3 : Terminée (avis à laisser) -->
+        <div class="eu-order-card">
+          <div class="eu-order-header">
+            <div class="eu-order-meta">
+              <span class="eu-order-num">Commande #1021</span>
+              <span class="eu-badge badge-terminee">Terminée</span>
+            </div>
+            <button class="eu-toggle-btn" data-target="detail-1021">
+              Voir le détail <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+
+          <div class="eu-order-summary">
+            <span><i class="bi bi-fork-knife"></i> Menu Pâques Végétarien</span>
+            <span><i class="bi bi-people"></i> 8 personnes</span>
+            <span><i class="bi bi-calendar"></i> 20 avril 2026</span>
+            <span class="eu-order-price">195,00 €</span>
+          </div>
+
+          <div class="eu-order-detail" id="detail-1021" style="display:none">
+            <div class="eu-detail-grid">
+              <div>
+                <p class="eu-detail-label">Menu</p>
+                <p class="eu-detail-value">Menu Pâques Végétarien</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Nombre de personnes</p>
+                <p class="eu-detail-value">8</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Date de prestation</p>
+                <p class="eu-detail-value">20 avril 2026</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Heure de livraison</p>
+                <p class="eu-detail-value">13h00</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Adresse de livraison</p>
+                <p class="eu-detail-value">3 rue du Lac, 33700 Mérignac</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Prix menu</p>
+                <p class="eu-detail-value">180,00 €</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Frais de livraison</p>
+                <p class="eu-detail-value">15,00 € (hors Bordeaux)</p>
+              </div>
+              <div>
+                <p class="eu-detail-label">Total</p>
+                <p class="eu-detail-value eu-detail-total">195,00 €</p>
+              </div>
+            </div>
+
+            <!-- Suivi complet -->
+            <div class="eu-tracking">
+              <h3 class="eu-tracking-title">Suivi de la commande</h3>
+              <ul class="eu-timeline">
+                <li class="eu-timeline-item done">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">Commande reçue</p>
+                    <p class="eu-timeline-date">10 avril 2026 — 18h44</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item done">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">Acceptée</p>
+                    <p class="eu-timeline-date">11 avril 2026 — 08h30</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item done">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">En préparation</p>
+                    <p class="eu-timeline-date">20 avril 2026 — 07h00</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item done">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">En cours de livraison</p>
+                    <p class="eu-timeline-date">20 avril 2026 — 12h10</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item done">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">Livrée</p>
+                    <p class="eu-timeline-date">20 avril 2026 — 12h58</p>
+                  </div>
+                </li>
+                <li class="eu-timeline-item done">
+                  <span class="eu-timeline-dot"></span>
+                  <div class="eu-timeline-content">
+                    <p class="eu-timeline-status">Terminée</p>
+                    <p class="eu-timeline-date">20 avril 2026 — 12h58</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Formulaire avis -->
+            <div class="eu-review">
+              <h3 class="eu-review-title">Laisser un avis</h3>
+              <form action="#" method="post">
+                <div class="eu-stars" role="group" aria-label="Note sur 5">
+                  <input type="radio" id="star5" name="note" value="5">
+                  <label for="star5"><i class="bi bi-star-fill"></i></label>
+                  <input type="radio" id="star4" name="note" value="4">
+                  <label for="star4"><i class="bi bi-star-fill"></i></label>
+                  <input type="radio" id="star3" name="note" value="3">
+                  <label for="star3"><i class="bi bi-star-fill"></i></label>
+                  <input type="radio" id="star2" name="note" value="2">
+                  <label for="star2"><i class="bi bi-star-fill"></i></label>
+                  <input type="radio" id="star1" name="note" value="1">
+                  <label for="star1"><i class="bi bi-star-fill"></i></label>
+                </div>
+                <div class="eu-form-group">
+                  <label for="commentaire">Votre commentaire</label>
+                  <textarea id="commentaire" name="commentaire" rows="4" placeholder="Partagez votre expérience…"></textarea>
+                </div>
+                <button type="submit" class="eu-btn eu-btn-primary">Envoyer l'avis</button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===== SECTION : MES INFORMATIONS ===== -->
+      <section id="section-informations" class="eu-section" style="display:none">
+
+        <h1 class="eu-page-title">Mes informations</h1>
+
+        <form action="#" method="post" class="eu-info-form">
+
+          <div class="eu-form-row">
+            <div class="eu-form-group">
+              <label for="prenom">Prénom</label>
+              <input type="text" id="prenom" name="prenom" value="Jean">
+            </div>
+            <div class="eu-form-group">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" value="Dupont">
+            </div>
+          </div>
+
+          <div class="eu-form-group">
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" name="email" value="jean.dupont@email.com">
+          </div>
+
+          <div class="eu-form-group">
+            <label for="gsm">Numéro de téléphone</label>
+            <input type="tel" id="gsm" name="gsm" value="+33 6 12 34 56 78">
+          </div>
+
+          <div class="eu-form-group">
+            <label for="adresse">Adresse postale</label>
+            <input type="text" id="adresse" name="adresse" value="45 allée des Pins, 33000 Bordeaux">
+          </div>
+
+          <hr class="eu-separator">
+
+          <h2 class="eu-section-subtitle">Modifier le mot de passe</h2>
+
+          <div class="eu-form-group">
+            <label for="mdp-actuel">Mot de passe actuel</label>
+            <input type="password" id="mdp-actuel" name="mdp_actuel" placeholder="••••••••">
+          </div>
+
+          <div class="eu-form-row">
+            <div class="eu-form-group">
+              <label for="mdp-nouveau">Nouveau mot de passe</label>
+              <input type="password" id="mdp-nouveau" name="mdp_nouveau" placeholder="••••••••">
+            </div>
+            <div class="eu-form-group">
+              <label for="mdp-confirm">Confirmer le mot de passe</label>
+              <input type="password" id="mdp-confirm" name="mdp_confirm" placeholder="••••••••">
+            </div>
+          </div>
+
+          <div class="eu-form-actions">
+            <button type="submit" class="eu-btn eu-btn-primary">Enregistrer les modifications</button>
+          </div>
+
+        </form>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal : Modifier une commande -->
+  <div class="eu-modal-overlay" id="modal-modifier-1042" style="display:none">
+    <div class="eu-modal">
+      <div class="eu-modal-header">
+        <h2>Modifier la commande #1042</h2>
+        <button class="eu-modal-close" data-modal="modal-modifier-1042"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <form action="#" method="post">
+        <div class="eu-form-row">
+          <div class="eu-form-group">
+            <label for="mod-date">Date de prestation</label>
+            <input type="date" id="mod-date" name="date" value="2026-12-24">
+          </div>
+          <div class="eu-form-group">
+            <label for="mod-heure">Heure de livraison</label>
+            <input type="time" id="mod-heure" name="heure" value="12:30">
+          </div>
+        </div>
+        <div class="eu-form-group">
+          <label for="mod-adresse">Adresse de livraison</label>
+          <input type="text" id="mod-adresse" name="adresse" value="45 allée des Pins, 33000 Bordeaux">
+        </div>
+        <div class="eu-form-group">
+          <label for="mod-personnes">Nombre de personnes</label>
+          <input type="number" id="mod-personnes" name="personnes" value="12" min="1">
+        </div>
+        <div class="eu-modal-footer">
+          <button type="button" class="eu-btn eu-btn-secondary" data-modal="modal-modifier-1042">Annuler</button>
+          <button type="submit" class="eu-btn eu-btn-primary">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal : Annuler une commande -->
+  <div class="eu-modal-overlay" id="modal-annuler-1042" style="display:none">
+    <div class="eu-modal">
+      <div class="eu-modal-header">
+        <h2>Annuler la commande #1042</h2>
+        <button class="eu-modal-close" data-modal="modal-annuler-1042"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <p class="eu-modal-body">Êtes-vous sûr de vouloir annuler la commande <strong>#1042</strong> ? Cette action est irréversible.</p>
+      <div class="eu-modal-footer">
+        <button type="button" class="eu-btn eu-btn-secondary" data-modal="modal-annuler-1042">Retour</button>
+        <button type="submit" class="eu-btn eu-btn-danger">Confirmer l'annulation</button>
+      </div>
+    </div>
   </div>
 
   <!-- Bootstrap 5 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navigation sidebar
+    document.querySelectorAll('.eu-nav-link').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.eu-nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        document.querySelectorAll('.eu-section').forEach(s => s.style.display = 'none');
+        document.getElementById('section-' + link.dataset.section).style.display = 'block';
+      });
+    });
+
+    // Dépliage détail commande
+    document.querySelectorAll('.eu-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.dataset.target);
+        const icon = btn.querySelector('i');
+        if (target.style.display === 'none') {
+          target.style.display = 'block';
+          icon.className = 'bi bi-chevron-up';
+        } else {
+          target.style.display = 'none';
+          icon.className = 'bi bi-chevron-down';
+        }
+      });
+    });
+
+    // Ouverture / fermeture modals
+    document.querySelectorAll('[data-modal]').forEach(el => {
+      el.addEventListener('click', () => {
+        const modal = document.getElementById(el.dataset.modal);
+        modal.style.display = modal.style.display === 'none' ? 'flex' : 'none';
+      });
+    });
+  </script>
+
 </body>
 </html>
