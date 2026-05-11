@@ -9,65 +9,570 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <!-- CSS espace admin -->
+  <!-- CSS espace employé (réutilisé) -->
+  <link rel="stylesheet" href="../../CSS/espace-employe.css">
+  <!-- CSS espace admin (spécifique) -->
   <link rel="stylesheet" href="../../CSS/espace-admin.css">
 </head>
 <body>
 
   <!-- Header -->
-  <header class="ea-header">
-    <div class="ea-header-inner">
-      <a href="../index.html" class="ea-logo">Vite & Gourmand</a>
+  <header class="ee-header">
+    <div class="ee-header-inner">
+      <a href="../index.html" class="ee-logo">Vite & Gourmand</a>
       <span class="ea-role-badge">Administrateur</span>
-      <span class="ea-user-name">Bonjour, José</span>
-      <a href="../connexion.html" class="ea-logout"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
+      <span class="ee-user-name">Bonjour, José</span>
+      <a href="../connexion.html" class="ee-logout"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
     </div>
   </header>
 
-  <div class="ea-layout">
+  <div class="ee-layout">
 
     <!-- Sidebar -->
-    <aside class="ea-sidebar">
+    <aside class="ee-sidebar">
       <nav>
-        <ul class="ea-nav">
-          <li><a href="#" class="ea-nav-link active" data-section="commandes"><i class="bi bi-bag"></i> Commandes</a></li>
-          <li><a href="#" class="ea-nav-link" data-section="menus"><i class="bi bi-journal-text"></i> Menus & plats</a></li>
-          <li><a href="#" class="ea-nav-link" data-section="horaires"><i class="bi bi-clock"></i> Horaires</a></li>
-          <li><a href="#" class="ea-nav-link" data-section="avis"><i class="bi bi-star"></i> Avis clients</a></li>
-          <li><a href="#" class="ea-nav-link" data-section="employes"><i class="bi bi-people"></i> Employés</a></li>
-          <li><a href="#" class="ea-nav-link" data-section="statistiques"><i class="bi bi-bar-chart"></i> Statistiques</a></li>
+        <ul class="ee-nav">
+          <li><a href="#" class="ee-nav-link active" data-section="commandes"><i class="bi bi-bag"></i> Commandes</a></li>
+          <li><a href="#" class="ee-nav-link" data-section="menus"><i class="bi bi-journal-text"></i> Menus & plats</a></li>
+          <li><a href="#" class="ee-nav-link" data-section="horaires"><i class="bi bi-clock"></i> Horaires</a></li>
+          <li><a href="#" class="ee-nav-link" data-section="avis"><i class="bi bi-star"></i> Avis clients</a></li>
+          <li><a href="#" class="ee-nav-link" data-section="employes"><i class="bi bi-people"></i> Employés</a></li>
+          <li><a href="#" class="ee-nav-link" data-section="statistiques"><i class="bi bi-bar-chart"></i> Statistiques</a></li>
         </ul>
       </nav>
     </aside>
 
     <!-- Contenu principal -->
-    <main class="ea-main">
+    <main class="ee-main">
 
-      <section id="section-commandes" class="ea-section">
+      <!-- ===== SECTION : COMMANDES ===== -->
+      <section id="section-commandes" class="ee-section">
+
+        <h1 class="ee-page-title">Commandes</h1>
+
+        <div class="ee-filters">
+          <form action="#" method="get" class="ee-filter-form">
+            <div class="ee-filter-group">
+              <label for="filtre-statut">Statut</label>
+              <select id="filtre-statut" name="statut">
+                <option value="">Tous</option>
+                <option value="en-attente">En attente</option>
+                <option value="accepte">Acceptée</option>
+                <option value="preparation">En préparation</option>
+                <option value="livraison">En cours de livraison</option>
+                <option value="livre">Livrée</option>
+                <option value="materiel">En attente retour matériel</option>
+                <option value="terminee">Terminée</option>
+                <option value="annulee">Annulée</option>
+              </select>
+            </div>
+            <div class="ee-filter-group">
+              <label for="filtre-client">Client</label>
+              <input type="text" id="filtre-client" name="client" placeholder="Nom ou e-mail…">
+            </div>
+            <button type="submit" class="ee-btn ee-btn-primary">Filtrer</button>
+          </form>
+        </div>
+
+        <div class="ee-table-wrapper">
+          <table class="ee-table">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Client</th>
+                <th>Menu</th>
+                <th>Date prestation</th>
+                <th>Personnes</th>
+                <th>Total</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#1042</td>
+                <td>
+                  <p class="ee-client-name">Jean Dupont</p>
+                  <p class="ee-client-contact">jean.dupont@email.com — 06 12 34 56 78</p>
+                </td>
+                <td>Menu Noël Prestige</td>
+                <td>24 déc. 2026 — 12h30</td>
+                <td>12</td>
+                <td>336,00 €</td>
+                <td><span class="ee-badge badge-attente">En attente</span></td>
+                <td class="ee-actions">
+                  <button class="ee-btn ee-btn-sm ee-btn-primary" data-modal="modal-statut-1042">Mettre à jour</button>
+                  <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-annuler-1042">Annuler</button>
+                </td>
+              </tr>
+              <tr>
+                <td>#1041</td>
+                <td>
+                  <p class="ee-client-name">Sophie Bernard</p>
+                  <p class="ee-client-contact">s.bernard@email.com — 06 98 76 54 32</p>
+                </td>
+                <td>Menu Classique Entreprise</td>
+                <td>18 mai 2026 — 11h00</td>
+                <td>30</td>
+                <td>870,00 €</td>
+                <td><span class="ee-badge badge-accepte">Acceptée</span></td>
+                <td class="ee-actions">
+                  <button class="ee-btn ee-btn-sm ee-btn-primary" data-modal="modal-statut-1041">Mettre à jour</button>
+                  <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-annuler-1041">Annuler</button>
+                </td>
+              </tr>
+              <tr>
+                <td>#1038</td>
+                <td>
+                  <p class="ee-client-name">Marc Lefebvre</p>
+                  <p class="ee-client-contact">marc.lefebvre@email.com — 07 11 22 33 44</p>
+                </td>
+                <td>Menu Pâques Végétarien</td>
+                <td>15 mai 2026 — 13h00</td>
+                <td>20</td>
+                <td>522,00 €</td>
+                <td><span class="ee-badge badge-preparation">En préparation</span></td>
+                <td class="ee-actions">
+                  <button class="ee-btn ee-btn-sm ee-btn-primary" data-modal="modal-statut-1038">Mettre à jour</button>
+                  <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-annuler-1038">Annuler</button>
+                </td>
+              </tr>
+              <tr>
+                <td>#1021</td>
+                <td>
+                  <p class="ee-client-name">Claire Morin</p>
+                  <p class="ee-client-contact">claire.morin@email.com — 06 55 44 33 22</p>
+                </td>
+                <td>Menu Événement Prestige</td>
+                <td>20 avr. 2026 — 19h00</td>
+                <td>50</td>
+                <td>1 450,00 €</td>
+                <td><span class="ee-badge badge-terminee">Terminée</span></td>
+                <td class="ee-actions">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- ===== SECTION : MENUS & PLATS ===== -->
+      <section id="section-menus" class="ee-section" style="display:none">
+
+        <h1 class="ee-page-title">Menus & plats</h1>
+
+        <div class="ee-subsection">
+          <div class="ee-subsection-header">
+            <h2 class="ee-subsection-title">Menus</h2>
+            <button class="ee-btn ee-btn-primary" data-modal="modal-ajouter-menu">
+              <i class="bi bi-plus"></i> Ajouter un menu
+            </button>
+          </div>
+          <div class="ee-table-wrapper">
+            <table class="ee-table">
+              <thead>
+                <tr>
+                  <th>Titre</th>
+                  <th>Thème</th>
+                  <th>Régime</th>
+                  <th>Prix (min.)</th>
+                  <th>Pers. min.</th>
+                  <th>Stock</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Menu Noël Prestige</td>
+                  <td>Noël</td>
+                  <td>Classique</td>
+                  <td>280,00 €</td>
+                  <td>10</td>
+                  <td>8</td>
+                  <td class="ee-actions">
+                    <button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-menu-1">Modifier</button>
+                    <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-supprimer-menu-1">Supprimer</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Menu Classique Entreprise</td>
+                  <td>Classique</td>
+                  <td>Classique</td>
+                  <td>580,00 €</td>
+                  <td>20</td>
+                  <td>5</td>
+                  <td class="ee-actions">
+                    <button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-menu-2">Modifier</button>
+                    <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-supprimer-menu-2">Supprimer</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Menu Pâques Végétarien</td>
+                  <td>Pâques</td>
+                  <td>Végétarien</td>
+                  <td>180,00 €</td>
+                  <td>8</td>
+                  <td>12</td>
+                  <td class="ee-actions">
+                    <button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-menu-3">Modifier</button>
+                    <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-supprimer-menu-3">Supprimer</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="ee-subsection">
+          <div class="ee-subsection-header">
+            <h2 class="ee-subsection-title">Plats</h2>
+            <button class="ee-btn ee-btn-primary" data-modal="modal-ajouter-plat">
+              <i class="bi bi-plus"></i> Ajouter un plat
+            </button>
+          </div>
+          <div class="ee-table-wrapper">
+            <table class="ee-table">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Type</th>
+                  <th>Allergènes</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Foie gras mi-cuit</td>
+                  <td>Entrée</td>
+                  <td>Gluten, œufs, lait</td>
+                  <td class="ee-actions">
+                    <button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-plat-1">Modifier</button>
+                    <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-supprimer-plat-1">Supprimer</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Magret de canard aux cèpes</td>
+                  <td>Plat</td>
+                  <td>—</td>
+                  <td class="ee-actions">
+                    <button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-plat-2">Modifier</button>
+                    <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-supprimer-plat-2">Supprimer</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Bûche de Noël artisanale</td>
+                  <td>Dessert</td>
+                  <td>Gluten, œufs, lait, fruits à coque</td>
+                  <td class="ee-actions">
+                    <button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-plat-3">Modifier</button>
+                    <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-supprimer-plat-3">Supprimer</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===== SECTION : HORAIRES ===== -->
+      <section id="section-horaires" class="ee-section" style="display:none">
+
+        <h1 class="ee-page-title">Horaires</h1>
+
+        <div class="ee-table-wrapper">
+          <table class="ee-table">
+            <thead>
+              <tr>
+                <th>Jour</th>
+                <th>Ouverture</th>
+                <th>Fermeture</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Lundi</td><td>07h00</td><td>21h00</td>
+                <td><button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-horaire-1">Modifier</button></td>
+              </tr>
+              <tr>
+                <td>Mardi</td><td>07h00</td><td>21h00</td>
+                <td><button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-horaire-2">Modifier</button></td>
+              </tr>
+              <tr>
+                <td>Mercredi</td><td>07h00</td><td>21h00</td>
+                <td><button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-horaire-3">Modifier</button></td>
+              </tr>
+              <tr>
+                <td>Jeudi</td><td>07h00</td><td>21h00</td>
+                <td><button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-horaire-4">Modifier</button></td>
+              </tr>
+              <tr>
+                <td>Vendredi</td><td>07h00</td><td>21h00</td>
+                <td><button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-horaire-5">Modifier</button></td>
+              </tr>
+              <tr>
+                <td>Samedi</td><td>08h00</td><td>18h00</td>
+                <td><button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-horaire-6">Modifier</button></td>
+              </tr>
+              <tr>
+                <td>Dimanche</td>
+                <td colspan="2" class="ee-closed">Fermé</td>
+                <td><button class="ee-btn ee-btn-sm ee-btn-secondary" data-modal="modal-modifier-horaire-7">Modifier</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- ===== SECTION : AVIS CLIENTS ===== -->
+      <section id="section-avis" class="ee-section" style="display:none">
+
+        <h1 class="ee-page-title">Avis clients</h1>
+
+        <div class="ee-table-wrapper">
+          <table class="ee-table">
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Commande</th>
+                <th>Note</th>
+                <th>Commentaire</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Jean Dupont</td>
+                <td>#1021</td>
+                <td><span class="ee-stars">★★★★★</span></td>
+                <td>Excellent service, très professionnel. Je recommande vivement !</td>
+                <td class="ee-actions">
+                  <button class="ee-btn ee-btn-sm ee-btn-primary">Valider</button>
+                  <button class="ee-btn ee-btn-sm ee-btn-danger">Refuser</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Claire Morin</td>
+                <td>#1019</td>
+                <td><span class="ee-stars">★★★★☆</span></td>
+                <td>Très bon repas, livraison légèrement en retard mais rien de grave.</td>
+                <td class="ee-actions">
+                  <button class="ee-btn ee-btn-sm ee-btn-primary">Valider</button>
+                  <button class="ee-btn ee-btn-sm ee-btn-danger">Refuser</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- ===== SECTION : EMPLOYÉS ===== -->
+      <section id="section-employes" class="ee-section" style="display:none">
         <!-- Contenu à venir -->
       </section>
 
-      <section id="section-menus" class="ea-section" style="display:none">
-        <!-- Contenu à venir -->
-      </section>
-
-      <section id="section-horaires" class="ea-section" style="display:none">
-        <!-- Contenu à venir -->
-      </section>
-
-      <section id="section-avis" class="ea-section" style="display:none">
-        <!-- Contenu à venir -->
-      </section>
-
-      <section id="section-employes" class="ea-section" style="display:none">
-        <!-- Contenu à venir -->
-      </section>
-
-      <section id="section-statistiques" class="ea-section" style="display:none">
+      <!-- ===== SECTION : STATISTIQUES ===== -->
+      <section id="section-statistiques" class="ee-section" style="display:none">
         <!-- Contenu à venir -->
       </section>
 
     </main>
+  </div>
+
+  <!-- ===== MODALS : MISE À JOUR STATUT ===== -->
+  <div class="ee-modal-overlay" id="modal-statut-1042" style="display:none">
+    <div class="ee-modal">
+      <div class="ee-modal-header">
+        <h2>Mettre à jour la commande #1042</h2>
+        <button class="ee-modal-close" data-modal="modal-statut-1042"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <form action="#" method="post">
+        <div class="ee-form-group">
+          <label for="statut-1042">Nouveau statut</label>
+          <select id="statut-1042" name="statut">
+            <option value="accepte">Acceptée</option>
+            <option value="preparation">En préparation</option>
+            <option value="livraison">En cours de livraison</option>
+            <option value="livre">Livrée</option>
+            <option value="materiel">En attente du retour de matériel</option>
+            <option value="terminee">Terminée</option>
+          </select>
+        </div>
+        <div class="ee-modal-footer">
+          <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-statut-1042">Annuler</button>
+          <button type="submit" class="ee-btn ee-btn-primary">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL : ANNULER COMMANDE ===== -->
+  <div class="ee-modal-overlay" id="modal-annuler-1042" style="display:none">
+    <div class="ee-modal">
+      <div class="ee-modal-header">
+        <h2>Annuler la commande #1042</h2>
+        <button class="ee-modal-close" data-modal="modal-annuler-1042"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <p class="ee-modal-info">Avant d'annuler cette commande, vous devez avoir contacté le client.</p>
+      <form action="#" method="post">
+        <div class="ee-form-group">
+          <label for="contact-mode-1042">Mode de contact utilisé</label>
+          <select id="contact-mode-1042" name="contact_mode" required>
+            <option value="">— Sélectionner —</option>
+            <option value="gsm">Appel GSM</option>
+            <option value="mail">E-mail</option>
+          </select>
+        </div>
+        <div class="ee-form-group">
+          <label for="contact-motif-1042">Motif d'annulation</label>
+          <textarea id="contact-motif-1042" name="motif" rows="3" placeholder="Décrivez le motif d'annulation…" required></textarea>
+        </div>
+        <div class="ee-modal-footer">
+          <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-annuler-1042">Retour</button>
+          <button type="submit" class="ee-btn ee-btn-danger">Confirmer l'annulation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL : MODIFIER UN MENU ===== -->
+  <div class="ee-modal-overlay" id="modal-modifier-menu-1" style="display:none">
+    <div class="ee-modal ee-modal-large">
+      <div class="ee-modal-header">
+        <h2>Modifier le menu</h2>
+        <button class="ee-modal-close" data-modal="modal-modifier-menu-1"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <form action="#" method="post">
+        <div class="ee-form-group">
+          <label for="menu-titre">Titre</label>
+          <input type="text" id="menu-titre" name="titre" value="Menu Noël Prestige" required>
+        </div>
+        <div class="ee-form-row">
+          <div class="ee-form-group">
+            <label for="menu-theme">Thème</label>
+            <select id="menu-theme" name="theme">
+              <option value="noel" selected>Noël</option>
+              <option value="paques">Pâques</option>
+              <option value="classique">Classique</option>
+              <option value="evenement">Événement</option>
+            </select>
+          </div>
+          <div class="ee-form-group">
+            <label for="menu-regime">Régime</label>
+            <select id="menu-regime" name="regime">
+              <option value="classique" selected>Classique</option>
+              <option value="vegetarien">Végétarien</option>
+              <option value="vegan">Vegan</option>
+            </select>
+          </div>
+        </div>
+        <div class="ee-form-group">
+          <label for="menu-description">Description</label>
+          <textarea id="menu-description" name="description" rows="3"></textarea>
+        </div>
+        <div class="ee-form-row">
+          <div class="ee-form-group">
+            <label for="menu-personnes-min">Personnes minimum</label>
+            <input type="number" id="menu-personnes-min" name="personnes_min" value="10" min="1">
+          </div>
+          <div class="ee-form-group">
+            <label for="menu-prix">Prix (pour le min. de personnes)</label>
+            <input type="number" id="menu-prix" name="prix" value="280" step="0.01" min="0">
+          </div>
+          <div class="ee-form-group">
+            <label for="menu-stock">Stock disponible</label>
+            <input type="number" id="menu-stock" name="stock" value="8" min="0">
+          </div>
+        </div>
+        <div class="ee-form-group">
+          <label for="menu-conditions">Conditions</label>
+          <textarea id="menu-conditions" name="conditions" rows="2" placeholder="Ex : commander 7 jours avant la prestation…"></textarea>
+        </div>
+        <div class="ee-modal-footer">
+          <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-modifier-menu-1">Annuler</button>
+          <button type="submit" class="ee-btn ee-btn-primary">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL : SUPPRIMER UN MENU ===== -->
+  <div class="ee-modal-overlay" id="modal-supprimer-menu-1" style="display:none">
+    <div class="ee-modal">
+      <div class="ee-modal-header">
+        <h2>Supprimer le menu</h2>
+        <button class="ee-modal-close" data-modal="modal-supprimer-menu-1"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <p class="ee-modal-info">Êtes-vous sûr de vouloir supprimer le menu <strong>Menu Noël Prestige</strong> ? Cette action est irréversible.</p>
+      <div class="ee-modal-footer">
+        <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-supprimer-menu-1">Annuler</button>
+        <button type="submit" class="ee-btn ee-btn-danger">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL : MODIFIER UN PLAT ===== -->
+  <div class="ee-modal-overlay" id="modal-modifier-plat-1" style="display:none">
+    <div class="ee-modal">
+      <div class="ee-modal-header">
+        <h2>Modifier le plat</h2>
+        <button class="ee-modal-close" data-modal="modal-modifier-plat-1"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <form action="#" method="post">
+        <div class="ee-form-group">
+          <label for="plat-nom">Nom du plat</label>
+          <input type="text" id="plat-nom" name="nom" value="Foie gras mi-cuit" required>
+        </div>
+        <div class="ee-form-group">
+          <label for="plat-type">Type</label>
+          <select id="plat-type" name="type">
+            <option value="entree" selected>Entrée</option>
+            <option value="plat">Plat</option>
+            <option value="dessert">Dessert</option>
+          </select>
+        </div>
+        <div class="ee-form-group">
+          <label for="plat-allergenes">Allergènes</label>
+          <input type="text" id="plat-allergenes" name="allergenes" value="Gluten, œufs, lait">
+        </div>
+        <div class="ee-modal-footer">
+          <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-modifier-plat-1">Annuler</button>
+          <button type="submit" class="ee-btn ee-btn-primary">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MODAL : MODIFIER UN HORAIRE ===== -->
+  <div class="ee-modal-overlay" id="modal-modifier-horaire-1" style="display:none">
+    <div class="ee-modal">
+      <div class="ee-modal-header">
+        <h2>Modifier l'horaire — Lundi</h2>
+        <button class="ee-modal-close" data-modal="modal-modifier-horaire-1"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <form action="#" method="post">
+        <div class="ee-form-row">
+          <div class="ee-form-group">
+            <label for="horaire-ouverture">Ouverture</label>
+            <input type="time" id="horaire-ouverture" name="ouverture" value="07:00">
+          </div>
+          <div class="ee-form-group">
+            <label for="horaire-fermeture">Fermeture</label>
+            <input type="time" id="horaire-fermeture" name="fermeture" value="21:00">
+          </div>
+        </div>
+        <div class="ee-form-group">
+          <label><input type="checkbox" name="ferme"> Fermé ce jour</label>
+        </div>
+        <div class="ee-modal-footer">
+          <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-modifier-horaire-1">Annuler</button>
+          <button type="submit" class="ee-btn ee-btn-primary">Enregistrer</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- Bootstrap 5 JS -->
