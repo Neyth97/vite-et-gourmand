@@ -1,3 +1,186 @@
 /* ============================================================
    Page Services
    ============================================================ */
+
+/* --- En-tête --- */
+.services-hero {
+  background-color: #080808;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+}
+
+.services-badge {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  border: 1px solid #c8a84b;
+  padding: 0.3rem 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.services-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.services-title em {
+  color: #c8a84b;
+  font-style: italic;
+}
+
+.services-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #888888;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- Section liste --- */
+.services-section {
+  background-color: #080808;
+  padding: 4rem 2rem;
+}
+
+.services-container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* --- Item service --- */
+.service-item {
+  display: flex;
+  gap: 3rem;
+  padding: 2.5rem 0;
+}
+
+.service-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1e1e1e;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 60px;
+  text-align: right;
+}
+
+.service-content {
+  flex: 1;
+}
+
+.service-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.service-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  color: #888888;
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+
+/* --- Liste à puces --- */
+.service-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0;
+}
+
+.service-list li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  color: #888888;
+  line-height: 1.7;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.service-list li::before {
+  content: '—';
+  color: #c8a84b;
+  position: absolute;
+  left: 0;
+  display: none;
+}
+
+.list-label {
+  color: #c8a84b;
+  font-weight: 600;
+}
+
+/* --- Note de bas de service --- */
+.service-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  color: #555555;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+/* Lien doré */
+.link-gold {
+  color: #c8a84b;
+  text-decoration: none;
+}
+
+.link-gold:hover {
+  text-decoration: underline;
+  color: #c8a84b;
+}
+
+/* --- Séparateur --- */
+.service-divider {
+  height: 1px;
+  background-color: #1a1a1a;
+}
+
+/* --- CTA --- */
+.services-cta {
+  background-color: #0f0f0f;
+  border-top: 1px solid #1a1a1a;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.cta-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #888888;
+  margin-bottom: 1.5rem;
+}
+
+.btn-cta {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #080808;
+  background-color: #c8a84b;
+  padding: 0.9rem 2.5rem;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.btn-cta:hover {
+  background-color: #b8943e;
+  color: #080808;
+}
