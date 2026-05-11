@@ -98,4 +98,264 @@ body {
 .ee-main {
   flex: 1;
   padding: 2rem 2.5rem;
+  overflow-x: auto;
+}
+
+.ee-page-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Filtres --- */
+.ee-filters {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.ee-filter-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ee-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ee-filter-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+}
+
+.ee-filter-group select,
+.ee-filter-group input {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: #1a1a1a;
+  outline: none;
+  background-color: #fff;
+  min-width: 180px;
+}
+
+.ee-filter-group select:focus,
+.ee-filter-group input:focus { border-color: #1a1a1a; }
+
+/* --- Tableau --- */
+.ee-table-wrapper {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.ee-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.ee-table thead {
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ee-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  white-space: nowrap;
+}
+
+.ee-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #1a1a1a;
+  vertical-align: middle;
+}
+
+.ee-table tbody tr:last-child td { border-bottom: none; }
+.ee-table tbody tr:hover { background-color: #fafafa; }
+
+.ee-client-name { font-weight: 600; margin-bottom: 0.15rem; }
+.ee-client-contact { font-size: 0.78rem; color: #888; }
+
+.ee-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+
+.ee-closed { color: #aaa; font-style: italic; }
+
+/* --- Badges statut --- */
+.ee-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-attente     { background-color: #fff3cd; color: #856404; }
+.badge-accepte     { background-color: #d1e7dd; color: #0a5c36; }
+.badge-preparation { background-color: #cfe2ff; color: #084298; }
+.badge-livraison   { background-color: #d0e8ff; color: #0a4a8a; }
+.badge-terminee    { background-color: #e2e3e5; color: #383d41; }
+.badge-materiel    { background-color: #fde8d8; color: #8a3a00; }
+
+/* --- Étoiles avis --- */
+.ee-stars { color: #f5a623; font-size: 1rem; }
+
+/* --- Sous-sections (menus & plats) --- */
+.ee-subsection { margin-bottom: 2.5rem; }
+
+.ee-subsection-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.ee-subsection-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* --- Boutons --- */
+.ee-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+
+.ee-btn:hover { opacity: 0.85; }
+.ee-btn-sm { padding: 0.35rem 0.75rem; font-size: 0.78rem; }
+
+.ee-btn-primary   { background-color: #1a1a1a; color: #fff; }
+.ee-btn-secondary { background-color: #e0e0e0; color: #1a1a1a; }
+.ee-btn-danger    { background-color: #dc3545; color: #fff; }
+
+/* --- Formulaires --- */
+.ee-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.ee-form-group label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+}
+
+.ee-form-group input,
+.ee-form-group select,
+.ee-form-group textarea {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.875rem;
+  color: #1a1a1a;
+  outline: none;
+  background-color: #fff;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+.ee-form-group input:focus,
+.ee-form-group select:focus,
+.ee-form-group textarea:focus { border-color: #1a1a1a; }
+
+.ee-form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+/* --- Modals --- */
+.ee-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.ee-modal {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.ee-modal-large { max-width: 640px; }
+
+.ee-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.ee-modal-header h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.ee-modal-close {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #888;
+  cursor: pointer;
+}
+
+.ee-modal-info {
+  font-size: 0.875rem;
+  color: #555;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+  background-color: #fff8e1;
+  border-left: 3px solid #f5a623;
+  padding: 0.75rem 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.ee-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
 }
