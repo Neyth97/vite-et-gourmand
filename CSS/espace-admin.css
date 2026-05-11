@@ -100,3 +100,19 @@ body {
   padding: 2rem 2.5rem;
   overflow-x: auto;
 }
+
+/* --- Cartes statistiques --- */
+.stat-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1.25rem;
+}

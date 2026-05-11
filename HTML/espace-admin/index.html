@@ -418,7 +418,44 @@
 
       <!-- ===== SECTION : STATISTIQUES ===== -->
       <section id="section-statistiques" class="ee-section" style="display:none">
-        <!-- Contenu à venir -->
+
+        <h1 class="ee-page-title">Statistiques</h1>
+
+        <!-- Commandes par menu -->
+        <div class="stat-card">
+          <h2 class="stat-card-title">Nombre de commandes par menu</h2>
+          <canvas id="chart-commandes"></canvas>
+        </div>
+
+        <!-- Chiffre d'affaires -->
+        <div class="stat-card">
+          <h2 class="stat-card-title">Chiffre d'affaires</h2>
+
+          <form action="#" method="get" class="ee-filter-form" style="margin-bottom: 1.5rem;">
+            <div class="ee-filter-group">
+              <label for="ca-menu">Menu</label>
+              <select id="ca-menu" name="menu">
+                <option value="">Tous les menus</option>
+                <option value="1">Menu Noël Prestige</option>
+                <option value="2">Menu Classique Entreprise</option>
+                <option value="3">Menu Pâques Végétarien</option>
+                <option value="4">Menu Événement Prestige</option>
+              </select>
+            </div>
+            <div class="ee-filter-group">
+              <label for="ca-date-debut">Du</label>
+              <input type="date" id="ca-date-debut" name="date_debut">
+            </div>
+            <div class="ee-filter-group">
+              <label for="ca-date-fin">Au</label>
+              <input type="date" id="ca-date-fin" name="date_fin">
+            </div>
+            <button type="submit" class="ee-btn ee-btn-primary">Filtrer</button>
+          </form>
+
+          <canvas id="chart-ca"></canvas>
+        </div>
+
       </section>
 
     </main>
@@ -674,7 +711,10 @@
 
   <!-- Bootstrap 5 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="../../JS/espace-admin.js"></script>
+  <script src="../../JS/espace-admin-charts.js"></script>
 
 </body>
 </html>
