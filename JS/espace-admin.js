@@ -1,9 +1,9 @@
-document.querySelectorAll('.ea-nav-link').forEach(link => {
+document.querySelectorAll('.ee-nav-link').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
-    document.querySelectorAll('.ea-nav-link').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.ee-nav-link').forEach(l => l.classList.remove('active'));
     link.classList.add('active');
-    document.querySelectorAll('.ea-section').forEach(s => s.style.display = 'none');
+    document.querySelectorAll('.ee-section').forEach(s => s.style.display = 'none');
     document.getElementById('section-' + link.dataset.section).style.display = 'block';
   });
 });
