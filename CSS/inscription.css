@@ -136,7 +136,7 @@
 }
 
 .input-custom::placeholder {
-  color: #444444;
+  color: #888888;
 }
 
 .input-custom:focus {
@@ -147,7 +147,7 @@
 .password-hint {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.7rem;
-  color: #555555;
+  color: #888888;
   margin-top: 0.4rem;
   margin-bottom: 0;
 }
