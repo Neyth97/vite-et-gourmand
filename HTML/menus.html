@@ -62,6 +62,64 @@
       </div>
     </section>
 
+    <!-- Filtres -->
+    <section id="menus-filtres">
+      <form id="filtres-form" novalidate>
+
+        <div class="row g-3 align-items-end">
+
+          <!-- Thème -->
+          <div class="col-lg-2 col-md-4 col-sm-6">
+            <label class="filtres-label" for="filtre-theme">Thème</label>
+            <select class="filtres-select form-select" id="filtre-theme" name="theme">
+              <option value="">Tous les thèmes</option>
+              <option value="classique">Classique</option>
+              <option value="noel">Noël</option>
+              <option value="paques">Pâques</option>
+              <option value="evenement">Événement</option>
+            </select>
+          </div>
+
+          <!-- Régime -->
+          <div class="col-lg-2 col-md-4 col-sm-6">
+            <label class="filtres-label" for="filtre-regime">Régime</label>
+            <select class="filtres-select form-select" id="filtre-regime" name="regime">
+              <option value="">Tous les régimes</option>
+              <option value="classique">Classique</option>
+              <option value="vegetarien">Végétarien</option>
+              <option value="vegan">Vegan</option>
+            </select>
+          </div>
+
+          <!-- Prix minimum -->
+          <div class="col-lg-2 col-md-4 col-sm-6">
+            <label class="filtres-label" for="filtre-prix-min">Prix min. (€)</label>
+            <input class="filtres-input form-control" type="number" id="filtre-prix-min" name="prix-min" min="0" placeholder="Ex : 100">
+          </div>
+
+          <!-- Prix maximum -->
+          <div class="col-lg-2 col-md-4 col-sm-6">
+            <label class="filtres-label" for="filtre-prix-max">Prix max. (€)</label>
+            <input class="filtres-input form-control" type="number" id="filtre-prix-max" name="prix-max" min="0" placeholder="Ex : 300">
+          </div>
+
+          <!-- Nombre de personnes minimum -->
+          <div class="col-lg-2 col-md-4 col-sm-6">
+            <label class="filtres-label" for="filtre-personnes">Personnes min.</label>
+            <input class="filtres-input form-control" type="number" id="filtre-personnes" name="personnes" min="1" placeholder="Ex : 10">
+          </div>
+
+          <!-- Boutons -->
+          <div class="col-lg-2 col-md-4 col-sm-6 d-flex gap-2">
+            <button type="submit" class="filtres-btn-appliquer" id="btn-filtrer">Filtrer</button>
+            <button type="reset" class="filtres-btn-reset" id="btn-reset">Réinitialiser</button>
+          </div>
+
+        </div>
+
+      </form>
+    </section>
+
     <!-- Grille des menus -->
     <section id="menus-grille">
       <div class="row g-4" id="menus-liste">
