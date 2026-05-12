@@ -74,3 +74,122 @@
   line-height: 1.7;
   margin: 0;
 }
+
+/* ============================================================
+   Grille des menus
+   ============================================================ */
+#menus-grille {
+  padding: 5rem 8rem;
+}
+
+.menu-card {
+  background-color: #0f0f0f;
+  border: 1px solid #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: border-color 0.3s;
+}
+
+.menu-card:hover {
+  border-color: rgba(200, 168, 75, 0.4);
+}
+
+/* Zone image (placeholder) */
+.menu-card-img-wrapper {
+  position: relative;
+  height: 200px;
+  background-color: #161616;
+}
+
+/* Badge thème */
+.menu-card-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #080808;
+  background-color: #c8a84b;
+  padding: 0.3rem 0.75rem;
+}
+
+/* Corps de la carte */
+.menu-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.75rem;
+}
+
+.menu-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.menu-card-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: #c0bbb2;
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* Méta (personnes + prix) */
+.menu-card-meta {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.menu-card-meta li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  color: #888888;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.menu-card-meta li i {
+  color: #c8a84b;
+  font-size: 0.85rem;
+}
+
+.menu-card-meta strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Bouton */
+.menu-card-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  align-self: flex-start;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #c8a84b;
+  border: 1px solid #c8a84b;
+  padding: 0.6rem 1.25rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-card-btn:hover {
+  background-color: #c8a84b;
+  color: #080808;
+}
