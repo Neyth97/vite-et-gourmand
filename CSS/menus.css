@@ -317,3 +317,21 @@
 .menu-card-conditions strong {
   color: #ffffff;
 }
+
+.menu-card-allergenes {
+  color: #888888;
+}
+
+.menu-card-allergenes i {
+  color: #c8a84b;
+}
+
+.menu-card-allergenes a {
+  color: #c8a84b;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200, 168, 75, 0.4);
+}
+
+.menu-card-allergenes a:hover {
+  border-bottom-color: #c8a84b;
+}
