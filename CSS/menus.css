@@ -178,11 +178,19 @@
   border-color: rgba(200, 168, 75, 0.4);
 }
 
-/* Zone image (placeholder) */
+/* Zone image */
 .menu-card-img-wrapper {
   position: relative;
   height: 200px;
   background-color: #161616;
+  overflow: hidden;
+}
+
+.menu-card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Badge thème */
