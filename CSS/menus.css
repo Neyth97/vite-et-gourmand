@@ -192,3 +192,25 @@
   background-color: #c8a84b;
   color: #080808;
 }
+
+/* Stock */
+.menu-card-stock {
+  color: #5a9e6f;
+}
+
+.menu-card-stock i {
+  color: #5a9e6f;
+}
+
+.menu-card-stock--low {
+  color: #c0724a;
+}
+
+.menu-card-stock--low i {
+  color: #c0724a;
+}
+
+.menu-card-stock strong,
+.menu-card-stock--low strong {
+  color: inherit;
+}
