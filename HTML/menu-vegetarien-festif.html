@@ -11,6 +11,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <!-- CSS global (navbar, footer) -->
   <link rel="stylesheet" href="../CSS/style.css">
+  <!-- CSS page détail menu -->
+  <link rel="stylesheet" href="../CSS/menu-detail.css">
 </head>
 <body>
 
@@ -46,6 +48,193 @@
   </header>
 
   <main>
+
+    <!-- Retour aux menus -->
+    <section id="detail-breadcrumb">
+      <a href="menus.html"><i class="bi bi-arrow-left" aria-hidden="true"></i> Retour aux menus</a>
+    </section>
+
+    <!-- Image principale du menu -->
+    <section id="detail-hero">
+      <div id="detail-hero-img">
+        <!-- Image principale à brancher ici -->
+      </div>
+      <div id="detail-hero-content">
+        <span class="detail-badge-theme">Événement</span>
+        <span class="detail-badge-regime">Végétarien</span>
+        <h1>Végétarien Festif</h1>
+      </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <section id="detail-content">
+      <div class="row">
+
+        <!-- Colonne gauche : description, composition, galerie -->
+        <div class="col-lg-8">
+
+          <!-- Description -->
+          <div class="detail-bloc">
+            <h2>À propos de ce menu</h2>
+            <p>
+              Une cuisine végétarienne créative et savoureuse, conçue pour prouver que l'absence
+              de viande ne rime pas avec compromis. Julie et José ont élaboré ce menu festif
+              autour de légumes rôtis, de céréales gourmandes et de préparations généreuses
+              qui raviront les végétariens comme les omnivores. Idéal pour tous vos événements
+              qui souhaitent une option inclusive et raffinée.
+            </p>
+          </div>
+
+          <!-- Composition du menu -->
+          <div class="detail-bloc">
+            <h2>Composition du menu</h2>
+
+            <!-- Entrée -->
+            <article class="detail-plat">
+              <h3><span class="detail-plat-type">Entrée</span> Tartare de betterave &amp; chèvre frais aux noix</h3>
+              <div class="detail-plat-img">
+                <!-- Image plat à brancher ici -->
+              </div>
+              <p>
+                Tartare de betteraves rouges et jaunes marinées à l'huile d'olive et au vinaigre
+                balsamique, surmonté d'une quenelle de chèvre frais aux herbes et parsemé de cerneaux
+                de noix torréfiés. Servi avec des croutons à l'ail.
+              </p>
+              <div class="detail-allergenes">
+                <p><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> <strong>Allergènes :</strong></p>
+                <ul>
+                  <li>Lait (chèvre frais)</li>
+                  <li>Fruits à coques (noix)</li>
+                  <li>Gluten (croutons)</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Plat -->
+            <article class="detail-plat">
+              <h3><span class="detail-plat-type">Plat</span> Risotto aux champignons des bois &amp; parmesan affiné</h3>
+              <div class="detail-plat-img">
+                <!-- Image plat à brancher ici -->
+              </div>
+              <p>
+                Risotto crémeux aux champignons des bois — cèpes, girolles et pleurotes —
+                mantecato au beurre et au parmesan 24 mois, avec des copeaux de truffe noire
+                en finition. Un plat généreux et festif, servi bien chaud.
+              </p>
+              <div class="detail-allergenes">
+                <p><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> <strong>Allergènes :</strong></p>
+                <ul>
+                  <li>Lait (beurre, parmesan)</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Dessert -->
+            <article class="detail-plat">
+              <h3><span class="detail-plat-type">Dessert</span> Fondant au chocolat noir &amp; crème anglaise vanille</h3>
+              <div class="detail-plat-img">
+                <!-- Image plat à brancher ici -->
+              </div>
+              <p>
+                Fondant au chocolat noir 70 % au cœur coulant, servi tiède avec une crème anglaise
+                à la vanille de Madagascar et une quenelle de glace vanille. Un dessert incontournable
+                qui clôture le repas en beauté.
+              </p>
+              <div class="detail-allergenes">
+                <p><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> <strong>Allergènes :</strong></p>
+                <ul>
+                  <li>Lait (beurre, crème, glace)</li>
+                  <li>Œufs</li>
+                  <li>Gluten (farine)</li>
+                </ul>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Galerie -->
+          <div class="detail-bloc">
+            <h2>Galerie</h2>
+            <div id="detail-galerie">
+              <div class="detail-galerie-img"><!-- Image galerie 1 --></div>
+              <div class="detail-galerie-img"><!-- Image galerie 2 --></div>
+              <div class="detail-galerie-img"><!-- Image galerie 3 --></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Colonne droite : fiche technique, conditions, bouton commander -->
+        <div class="col-lg-4">
+
+          <!-- Fiche technique -->
+          <div class="detail-bloc detail-fiche">
+            <h2>Informations</h2>
+            <ul>
+              <li>
+                <i class="bi bi-tag" aria-hidden="true"></i>
+                <span>Prix</span>
+                <strong>À partir de 190 €</strong>
+              </li>
+              <li>
+                <i class="bi bi-people" aria-hidden="true"></i>
+                <span>Personnes minimum</span>
+                <strong>10 personnes</strong>
+              </li>
+              <li>
+                <i class="bi bi-palette" aria-hidden="true"></i>
+                <span>Thème</span>
+                <strong>Événement</strong>
+              </li>
+              <li>
+                <i class="bi bi-leaf" aria-hidden="true"></i>
+                <span>Régime</span>
+                <strong>Végétarien</strong>
+              </li>
+              <li>
+                <i class="bi bi-box-seam" aria-hidden="true"></i>
+                <span>Stock disponible</span>
+                <strong>2 commandes</strong>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Conditions du menu (mis en évidence) -->
+          <div class="detail-conditions" role="alert">
+            <h2><i class="bi bi-info-circle-fill" aria-hidden="true"></i> Conditions de commande</h2>
+            <ul>
+              <li>
+                <i class="bi bi-clock" aria-hidden="true"></i>
+                <span>Ce menu doit être commandé <strong>au minimum 72h avant</strong> la date de la prestation.</span>
+              </li>
+              <li>
+                <i class="bi bi-thermometer-half" aria-hidden="true"></i>
+                <span>Précaution de stockage : conserver entre <strong>0°C et 4°C</strong> jusqu'au service.</span>
+              </li>
+              <li>
+                <i class="bi bi-people" aria-hidden="true"></i>
+                <span>Minimum de <strong>10 personnes</strong> obligatoire à la commande.</span>
+              </li>
+              <li>
+                <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+                <span>Stock très limité — <strong>plus que 2 commandes disponibles</strong>.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bouton Commander -->
+          <div class="detail-cta">
+            <a href="connexion.html" class="detail-btn-commander">
+              <i class="bi bi-bag-check" aria-hidden="true"></i>
+              Commander ce menu
+            </a>
+            <p class="detail-cta-note">Une connexion est requise pour passer commande.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
 
   </main>
 

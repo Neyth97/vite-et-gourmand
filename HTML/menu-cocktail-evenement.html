@@ -11,6 +11,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <!-- CSS global (navbar, footer) -->
   <link rel="stylesheet" href="../CSS/style.css">
+  <!-- CSS page détail menu -->
+  <link rel="stylesheet" href="../CSS/menu-detail.css">
 </head>
 <body>
 
@@ -46,6 +48,197 @@
   </header>
 
   <main>
+
+    <!-- Retour aux menus -->
+    <section id="detail-breadcrumb">
+      <a href="menus.html"><i class="bi bi-arrow-left" aria-hidden="true"></i> Retour aux menus</a>
+    </section>
+
+    <!-- Image principale du menu -->
+    <section id="detail-hero">
+      <div id="detail-hero-img">
+        <!-- Image principale à brancher ici -->
+      </div>
+      <div id="detail-hero-content">
+        <span class="detail-badge-theme">Événement</span>
+        <span class="detail-badge-regime">Classique</span>
+        <h1>Cocktail Événement</h1>
+      </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <section id="detail-content">
+      <div class="row">
+
+        <!-- Colonne gauche : description, composition, galerie -->
+        <div class="col-lg-8">
+
+          <!-- Description -->
+          <div class="detail-bloc">
+            <h2>À propos de ce menu</h2>
+            <p>
+              Cocktail dînatoire haut de gamme conçu pour impressionner lors de vos réceptions
+              professionnelles, galas ou événements privés. Julie et José proposent un service
+              en verrines et pièces cocktail, alliant présentation soignée et saveurs raffinées.
+              Ce format convivial favorise les échanges tout en garantissant une expérience gastronomique
+              mémorable pour chacun de vos invités.
+            </p>
+          </div>
+
+          <!-- Composition du menu -->
+          <div class="detail-bloc">
+            <h2>Composition du menu</h2>
+
+            <!-- Entrée -->
+            <article class="detail-plat">
+              <h3><span class="detail-plat-type">Verrines</span> Assortiment de verrines gastronomiques</h3>
+              <div class="detail-plat-img">
+                <!-- Image plat à brancher ici -->
+              </div>
+              <p>
+                Sélection de verrines raffinées servies à la dégustation : verrine avocat-crevette
+                au citron vert, verrine de mousse de saumon fumé &amp; fromage frais aux herbes,
+                et verrine de gaspacho de tomates anciennes au basilic frais.
+              </p>
+              <div class="detail-allergenes">
+                <p><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> <strong>Allergènes :</strong></p>
+                <ul>
+                  <li>Crustacés (crevettes)</li>
+                  <li>Poisson (saumon)</li>
+                  <li>Lait (fromage frais)</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Plat -->
+            <article class="detail-plat">
+              <h3><span class="detail-plat-type">Pièces salées</span> Assortiment de pièces cocktail salées</h3>
+              <div class="detail-plat-img">
+                <!-- Image plat à brancher ici -->
+              </div>
+              <p>
+                Mini-brochettes de bœuf au poivre vert, feuilletés au chèvre &amp; miel,
+                blinis au saumon &amp; crème fraîche, et mini-burgers de canard confit.
+                Toutes les pièces sont préparées et dressées le jour même pour garantir la fraîcheur.
+              </p>
+              <div class="detail-allergenes">
+                <p><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> <strong>Allergènes :</strong></p>
+                <ul>
+                  <li>Gluten (feuilletés, blinis)</li>
+                  <li>Lait (chèvre, crème)</li>
+                  <li>Œufs (blinis)</li>
+                  <li>Poisson (saumon)</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Dessert -->
+            <article class="detail-plat">
+              <h3><span class="detail-plat-type">Mignardises</span> Plateau de mignardises sucrées</h3>
+              <div class="detail-plat-img">
+                <!-- Image plat à brancher ici -->
+              </div>
+              <p>
+                Macarons assortis (framboise, chocolat, pistache), mini-tartelettes aux fruits de saison,
+                truffes au chocolat noir et guimauves artisanales. Un plateau généreux pour clôturer
+                le cocktail sur une note sucrée et élégante.
+              </p>
+              <div class="detail-allergenes">
+                <p><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> <strong>Allergènes :</strong></p>
+                <ul>
+                  <li>Gluten (tartelettes)</li>
+                  <li>Lait (chocolat, crème)</li>
+                  <li>Œufs (macarons)</li>
+                  <li>Fruits à coques (pistache, amande)</li>
+                </ul>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Galerie -->
+          <div class="detail-bloc">
+            <h2>Galerie</h2>
+            <div id="detail-galerie">
+              <div class="detail-galerie-img"><!-- Image galerie 1 --></div>
+              <div class="detail-galerie-img"><!-- Image galerie 2 --></div>
+              <div class="detail-galerie-img"><!-- Image galerie 3 --></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Colonne droite : fiche technique, conditions, bouton commander -->
+        <div class="col-lg-4">
+
+          <!-- Fiche technique -->
+          <div class="detail-bloc detail-fiche">
+            <h2>Informations</h2>
+            <ul>
+              <li>
+                <i class="bi bi-tag" aria-hidden="true"></i>
+                <span>Prix</span>
+                <strong>À partir de 360 €</strong>
+              </li>
+              <li>
+                <i class="bi bi-people" aria-hidden="true"></i>
+                <span>Personnes minimum</span>
+                <strong>20 personnes</strong>
+              </li>
+              <li>
+                <i class="bi bi-palette" aria-hidden="true"></i>
+                <span>Thème</span>
+                <strong>Événement</strong>
+              </li>
+              <li>
+                <i class="bi bi-leaf" aria-hidden="true"></i>
+                <span>Régime</span>
+                <strong>Classique</strong>
+              </li>
+              <li>
+                <i class="bi bi-box-seam" aria-hidden="true"></i>
+                <span>Stock disponible</span>
+                <strong>5 commandes</strong>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Conditions du menu (mis en évidence) -->
+          <div class="detail-conditions" role="alert">
+            <h2><i class="bi bi-info-circle-fill" aria-hidden="true"></i> Conditions de commande</h2>
+            <ul>
+              <li>
+                <i class="bi bi-clock" aria-hidden="true"></i>
+                <span>Ce menu doit être commandé <strong>au minimum 3 semaines avant</strong> la date de la prestation.</span>
+              </li>
+              <li>
+                <i class="bi bi-thermometer-half" aria-hidden="true"></i>
+                <span>Précaution de stockage : conserver entre <strong>0°C et 4°C</strong> jusqu'au service.</span>
+              </li>
+              <li>
+                <i class="bi bi-people" aria-hidden="true"></i>
+                <span>Minimum de <strong>20 personnes</strong> obligatoire à la commande.</span>
+              </li>
+              <li>
+                <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                <span>Un supplément livraison peut s'appliquer <strong>hors Bordeaux</strong> (5 € + 0,59 €/km).</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bouton Commander -->
+          <div class="detail-cta">
+            <a href="connexion.html" class="detail-btn-commander">
+              <i class="bi bi-bag-check" aria-hidden="true"></i>
+              Commander ce menu
+            </a>
+            <p class="detail-cta-note">Une connexion est requise pour passer commande.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
 
   </main>
 

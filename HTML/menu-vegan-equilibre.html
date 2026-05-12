@@ -11,6 +11,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <!-- CSS global (navbar, footer) -->
   <link rel="stylesheet" href="../CSS/style.css">
+  <!-- CSS page détail menu -->
+  <link rel="stylesheet" href="../CSS/menu-detail.css">
 </head>
 <body>
 
@@ -46,6 +48,185 @@
   </header>
 
   <main>
+
+    <!-- Retour aux menus -->
+    <section id="detail-breadcrumb">
+      <a href="menus.html"><i class="bi bi-arrow-left" aria-hidden="true"></i> Retour aux menus</a>
+    </section>
+
+    <!-- Image principale du menu -->
+    <section id="detail-hero">
+      <div id="detail-hero-img">
+        <!-- Image principale à brancher ici -->
+      </div>
+      <div id="detail-hero-content">
+        <span class="detail-badge-theme">Classique</span>
+        <span class="detail-badge-regime">Vegan</span>
+        <h1>Vegan Équilibré</h1>
+      </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <section id="detail-content">
+      <div class="row">
+
+        <!-- Colonne gauche : description, composition, galerie -->
+        <div class="col-lg-8">
+
+          <!-- Description -->
+          <div class="detail-bloc">
+            <h2>À propos de ce menu</h2>
+            <p>
+              100 % végétal, 100 % savoureux. Julie et José ont conçu ce menu entièrement vegan
+              avec la même exigence que leurs autres formules : des produits frais, des associations
+              de saveurs soignées et une présentation élégante. De l'entrée fraîche au dessert fruité,
+              ce menu prouve que la cuisine vegan peut être à la fois festive, généreuse et gastronomique.
+              Convient à toutes les tables.
+            </p>
+          </div>
+
+          <!-- Composition du menu -->
+          <div class="detail-bloc">
+            <h2>Composition du menu</h2>
+
+            <!-- Entrée -->
+            <article class="detail-plat">
+              <h3><span class="detail-plat-type">Entrée</span> Gaspacho de tomates anciennes &amp; basilic frais</h3>
+              <div class="detail-plat-img">
+                <!-- Image plat à brancher ici -->
+              </div>
+              <p>
+                Gaspacho onctueux de tomates anciennes du jardin, mixé avec du concombre,
+                poivron rouge et basilic frais. Servi frais avec une brunoise de légumes croquants
+                et un filet d'huile d'olive extra vierge. Frais et léger pour bien commencer.
+              </p>
+              <div class="detail-allergenes">
+                <p><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> <strong>Allergènes :</strong></p>
+                <ul>
+                  <li>Aucun allergène majeur</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Plat -->
+            <article class="detail-plat">
+              <h3><span class="detail-plat-type">Plat</span> Curry de légumes &amp; pois chiches, riz basmati au lait de coco</h3>
+              <div class="detail-plat-img">
+                <!-- Image plat à brancher ici -->
+              </div>
+              <p>
+                Curry parfumé de légumes de saison — patate douce, courgette, épinards — et pois chiches
+                mijotés dans une sauce au lait de coco et aux épices douces (curcuma, gingembre, coriandre).
+                Servi avec un riz basmati cuit à la citronnelle.
+              </p>
+              <div class="detail-allergenes">
+                <p><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> <strong>Allergènes :</strong></p>
+                <ul>
+                  <li>Légumineuses (pois chiches)</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Dessert -->
+            <article class="detail-plat">
+              <h3><span class="detail-plat-type">Dessert</span> Panna cotta coco &amp; fruits de la passion</h3>
+              <div class="detail-plat-img">
+                <!-- Image plat à brancher ici -->
+              </div>
+              <p>
+                Panna cotta végétale au lait de coco et à l'agar-agar, servie avec un coulis de fruits
+                de la passion frais et quelques suprêmes de mangue. Un dessert léger, exotique et
+                entièrement vegan pour clôturer le repas en fraîcheur.
+              </p>
+              <div class="detail-allergenes">
+                <p><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> <strong>Allergènes :</strong></p>
+                <ul>
+                  <li>Aucun allergène majeur</li>
+                </ul>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Galerie -->
+          <div class="detail-bloc">
+            <h2>Galerie</h2>
+            <div id="detail-galerie">
+              <div class="detail-galerie-img"><!-- Image galerie 1 --></div>
+              <div class="detail-galerie-img"><!-- Image galerie 2 --></div>
+              <div class="detail-galerie-img"><!-- Image galerie 3 --></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Colonne droite : fiche technique, conditions, bouton commander -->
+        <div class="col-lg-4">
+
+          <!-- Fiche technique -->
+          <div class="detail-bloc detail-fiche">
+            <h2>Informations</h2>
+            <ul>
+              <li>
+                <i class="bi bi-tag" aria-hidden="true"></i>
+                <span>Prix</span>
+                <strong>À partir de 150 €</strong>
+              </li>
+              <li>
+                <i class="bi bi-people" aria-hidden="true"></i>
+                <span>Personnes minimum</span>
+                <strong>8 personnes</strong>
+              </li>
+              <li>
+                <i class="bi bi-palette" aria-hidden="true"></i>
+                <span>Thème</span>
+                <strong>Classique</strong>
+              </li>
+              <li>
+                <i class="bi bi-leaf" aria-hidden="true"></i>
+                <span>Régime</span>
+                <strong>Vegan</strong>
+              </li>
+              <li>
+                <i class="bi bi-box-seam" aria-hidden="true"></i>
+                <span>Stock disponible</span>
+                <strong>10 commandes</strong>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Conditions du menu (mis en évidence) -->
+          <div class="detail-conditions" role="alert">
+            <h2><i class="bi bi-info-circle-fill" aria-hidden="true"></i> Conditions de commande</h2>
+            <ul>
+              <li>
+                <i class="bi bi-clock" aria-hidden="true"></i>
+                <span>Ce menu doit être commandé <strong>au minimum 48h avant</strong> la date de la prestation.</span>
+              </li>
+              <li>
+                <i class="bi bi-thermometer-half" aria-hidden="true"></i>
+                <span>Précaution de stockage : conserver entre <strong>0°C et 4°C</strong> jusqu'au service.</span>
+              </li>
+              <li>
+                <i class="bi bi-people" aria-hidden="true"></i>
+                <span>Minimum de <strong>8 personnes</strong> obligatoire à la commande.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bouton Commander -->
+          <div class="detail-cta">
+            <a href="connexion.html" class="detail-btn-commander">
+              <i class="bi bi-bag-check" aria-hidden="true"></i>
+              Commander ce menu
+            </a>
+            <p class="detail-cta-note">Une connexion est requise pour passer commande.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
 
   </main>
 
