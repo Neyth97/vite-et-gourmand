@@ -1,0 +1,469 @@
+/* ============================================================
+   Page Détail Menu
+   ============================================================ */
+
+/* ============================================================
+   Breadcrumb
+   ============================================================ */
+#detail-breadcrumb {
+  padding: 1.5rem 8rem;
+  border-bottom: 1px solid #1c1c1c;
+}
+
+#detail-breadcrumb a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#detail-breadcrumb a:hover {
+  color: #ffffff;
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+#detail-hero {
+  position: relative;
+  height: 460px;
+  overflow: hidden;
+}
+
+#detail-hero-img {
+  width: 100%;
+  height: 100%;
+  background-color: #161616;
+}
+
+#detail-hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#detail-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.9) 30%, rgba(8,8,8,0.3) 100%);
+  z-index: 1;
+}
+
+#detail-hero-content {
+  position: absolute;
+  bottom: 3rem;
+  left: 8rem;
+  z-index: 2;
+}
+
+.detail-badge-theme,
+.detail-badge-regime {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.85rem;
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.detail-badge-theme {
+  background-color: #c8a84b;
+  color: #080808;
+}
+
+.detail-badge-regime {
+  background-color: transparent;
+  border: 1px solid #c8a84b;
+  color: #c8a84b;
+}
+
+#detail-hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* ============================================================
+   Contenu principal
+   ============================================================ */
+#detail-content {
+  padding: 5rem 8rem;
+}
+
+/* ============================================================
+   Blocs génériques
+   ============================================================ */
+.detail-bloc {
+  margin-bottom: 4rem;
+}
+
+.detail-bloc h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.detail-bloc h2::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 2px;
+  background-color: #c8a84b;
+  margin-top: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-bloc p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: #c0bbb2;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   Plats (entrée / plat / dessert)
+   ============================================================ */
+.detail-plat {
+  padding: 2rem 0;
+  border-top: 1px solid #1c1c1c;
+}
+
+.detail-plat:last-child {
+  border-bottom: 1px solid #1c1c1c;
+}
+
+.detail-plat h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.detail-plat-type {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #080808;
+  background-color: #c8a84b;
+  padding: 0.25rem 0.65rem;
+  flex-shrink: 0;
+}
+
+.detail-plat-img {
+  width: 100%;
+  height: 200px;
+  background-color: #161616;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.detail-plat-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.detail-plat p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: #c0bbb2;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   Allergènes
+   ============================================================ */
+.detail-allergenes {
+  background-color: #0f0f0f;
+  border-left: 3px solid #c8a84b;
+  padding: 0.9rem 1.25rem;
+}
+
+.detail-allergenes p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  margin-bottom: 0.5rem;
+}
+
+.detail-allergenes p i {
+  margin-right: 0.4rem;
+}
+
+.detail-allergenes ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.detail-allergenes ul li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  color: #aaaaaa;
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  padding: 0.2rem 0.65rem;
+}
+
+/* ============================================================
+   Galerie
+   ============================================================ */
+#detail-galerie {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.detail-galerie-img {
+  height: 180px;
+  background-color: #161616;
+  overflow: hidden;
+}
+
+.detail-galerie-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.detail-galerie-img:hover img {
+  transform: scale(1.05);
+}
+
+/* ============================================================
+   Sidebar — Fiche technique
+   ============================================================ */
+.detail-fiche {
+  background-color: #0f0f0f;
+  border: 1px solid #1e1e1e;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-fiche h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.detail-fiche h2::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background-color: #c8a84b;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.detail-fiche ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.detail-fiche ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #1c1c1c;
+}
+
+.detail-fiche ul li:last-child {
+  border-bottom: none;
+}
+
+.detail-fiche ul li i {
+  color: #c8a84b;
+  font-size: 1rem;
+  flex-shrink: 0;
+  width: 18px;
+  text-align: center;
+}
+
+.detail-fiche ul li span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #666666;
+  flex: 1;
+}
+
+.detail-fiche ul li strong {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ============================================================
+   Conditions (mis en évidence)
+   ============================================================ */
+.detail-conditions {
+  background-color: #100e00;
+  border: 1px solid #c8a84b;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-conditions h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detail-conditions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.detail-conditions ul li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  color: #c0bbb2;
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.detail-conditions ul li i {
+  color: #c8a84b;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.detail-conditions ul li strong {
+  color: #ffffff;
+}
+
+/* ============================================================
+   Bouton Commander
+   ============================================================ */
+.detail-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-btn-commander {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: #c8a84b;
+  color: #080808;
+  border: 1px solid #c8a84b;
+  padding: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.detail-btn-commander:hover {
+  background-color: transparent;
+  color: #c8a84b;
+}
+
+.detail-cta-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  color: #666666;
+  text-align: center;
+  margin: 0;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 991px) {
+  #detail-breadcrumb {
+    padding: 1.25rem 2rem;
+  }
+
+  #detail-hero-content {
+    left: 2rem;
+    right: 2rem;
+  }
+
+  #detail-hero-content h1 {
+    font-size: 2.4rem;
+  }
+
+  #detail-content {
+    padding: 3rem 2rem;
+  }
+
+  #detail-galerie {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  #detail-hero {
+    height: 360px;
+  }
+
+  #detail-hero-content h1 {
+    font-size: 1.9rem;
+  }
+
+  #detail-galerie {
+    grid-template-columns: 1fr;
+  }
+}
