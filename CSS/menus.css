@@ -214,3 +214,15 @@
 .menu-card-stock--low strong {
   color: inherit;
 }
+
+.menu-card-conditions {
+  color: #888888;
+}
+
+.menu-card-conditions i {
+  color: #c8a84b;
+}
+
+.menu-card-conditions strong {
+  color: #ffffff;
+}
