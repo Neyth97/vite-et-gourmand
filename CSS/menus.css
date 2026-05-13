@@ -326,3 +326,37 @@
   color: #c8a84b;
 }
 
+/* ============================================================
+   Responsive — mobile (< lg = 992px)
+   ============================================================ */
+@media (max-width: 991.98px) {
+
+  .menus-banner-inner h1 {
+    font-size: 2.6rem;
+  }
+
+  #menus-filtres {
+    padding: 2rem 1.5rem;
+  }
+
+  #menus-grille {
+    padding: 3rem 1.5rem;
+  }
+}
+
+/* ============================================================
+   Responsive — petit mobile (< sm = 576px)
+   ============================================================ */
+@media (max-width: 575.98px) {
+
+  .menus-banner-inner h1 {
+    font-size: 2rem;
+  }
+
+  /* Boutons filtres pleine largeur */
+  .filtres-btn-appliquer,
+  .filtres-btn-reset {
+    width: 100%;
+  }
+}
+

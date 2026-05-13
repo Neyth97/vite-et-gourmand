@@ -379,3 +379,78 @@
   height: 100%;
   background: linear-gradient(to right, #080808, transparent);
 }
+
+/* ============================================================
+   Responsive — mobile (< lg = 992px)
+   ============================================================ */
+@media (max-width: 991.98px) {
+
+  #banniere-page {
+    padding: 3rem 1.5rem 2rem;
+  }
+
+  #banniere-page h1 {
+    font-size: 2.4rem;
+  }
+
+  /* Histoire : supprimer le gradient latéral */
+  .histoire-img-wrapper::after {
+    display: none;
+  }
+
+  .histoire-text {
+    padding: 2rem 1.5rem;
+  }
+
+  /* Fondateurs : stacker, remplacer border-right par border-bottom */
+  #fondateurs .col-md-6:first-child {
+    border-right: none;
+    border-bottom: 1px solid #1c1c1c;
+  }
+
+  .fondateur-img-wrapper {
+    height: 380px;
+  }
+
+  .fondateur-info {
+    padding: 1.5rem 1.5rem 2rem;
+  }
+
+  /* Valeurs */
+  #valeurs {
+    padding: 3rem 1.5rem;
+  }
+
+  /* Engagements */
+  .engagements-text {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .engagements-img-wrapper {
+    min-height: 280px;
+  }
+
+  .engagements-img-wrapper::after {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Responsive — petit mobile (< sm = 576px)
+   ============================================================ */
+@media (max-width: 575.98px) {
+
+  #banniere-page h1 {
+    font-size: 2rem;
+  }
+
+  #histoire h2,
+  #engagements h2 {
+    font-size: 2rem;
+  }
+
+  .histoire-stats {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}

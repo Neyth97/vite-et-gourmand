@@ -184,3 +184,23 @@
   background-color: #b8943e;
   color: #080808;
 }
+
+/* ============================================================
+   Responsive — petit mobile (< sm = 576px)
+   ============================================================ */
+@media (max-width: 575.98px) {
+
+  .services-title {
+    font-size: 2.5rem;
+  }
+
+  /* Réduire l'espace entre numéro et contenu */
+  .service-item {
+    gap: 1.5rem;
+  }
+
+  .service-number {
+    font-size: 2rem;
+    width: 40px;
+  }
+}

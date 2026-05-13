@@ -218,3 +218,41 @@
   text-align: center;
   margin: 0;
 }
+
+/* ============================================================
+   Responsive — mobile (< lg = 992px)
+   ============================================================ */
+@media (max-width: 991.98px) {
+
+  .inscription-wrapper {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .inscription-img-col {
+    flex: none;
+    width: 100%;
+    height: 280px;
+    max-height: none;
+  }
+
+  .inscription-img-col::after {
+    background: linear-gradient(to bottom, transparent 30%, #080808 100%);
+  }
+
+  .inscription-img-overlay {
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+
+  .inscription-img-overlay h1 {
+    font-size: 2.4rem;
+  }
+
+  .inscription-form-col {
+    flex: none;
+    width: 100%;
+    padding: 2.5rem 1.5rem 3rem;
+    align-items: flex-start;
+  }
+}
