@@ -57,7 +57,7 @@
     <!-- Image principale du menu -->
     <section id="detail-hero">
       <div id="detail-hero-img">
-        <!-- Image principale à brancher ici -->
+        <img src="../assets/menus%20details/cocktails%20evenements/pièces%20salées.PNG" alt="Assortiment de pièces cocktail salées">
       </div>
       <div id="detail-hero-content">
         <span class="detail-badge-theme">Événement</span>
@@ -93,7 +93,7 @@
             <article class="detail-plat">
               <h3><span class="detail-plat-type">Verrines</span> Assortiment de verrines gastronomiques</h3>
               <div class="detail-plat-img">
-                <!-- Image plat à brancher ici -->
+                <img src="../assets/menus%20details/cocktails%20evenements/verrines.PNG" alt="Assortiment de verrines gastronomiques">
               </div>
               <p>
                 Sélection de verrines raffinées servies à la dégustation : verrine avocat-crevette
@@ -114,7 +114,7 @@
             <article class="detail-plat">
               <h3><span class="detail-plat-type">Pièces salées</span> Assortiment de pièces cocktail salées</h3>
               <div class="detail-plat-img">
-                <!-- Image plat à brancher ici -->
+                <img src="../assets/menus%20details/cocktails%20evenements/pièces%20salées.PNG" alt="Assortiment de pièces cocktail salées">
               </div>
               <p>
                 Mini-brochettes de bœuf au poivre vert, feuilletés au chèvre &amp; miel,
@@ -136,7 +136,7 @@
             <article class="detail-plat">
               <h3><span class="detail-plat-type">Mignardises</span> Plateau de mignardises sucrées</h3>
               <div class="detail-plat-img">
-                <!-- Image plat à brancher ici -->
+                <img src="../assets/menus%20details/cocktails%20evenements/mignardises.PNG" alt="Plateau de mignardises sucrées">
               </div>
               <p>
                 Macarons assortis (framboise, chocolat, pistache), mini-tartelettes aux fruits de saison,
@@ -160,9 +160,15 @@
           <div class="detail-bloc">
             <h2>Galerie</h2>
             <div id="detail-galerie">
-              <div class="detail-galerie-img"><!-- Image galerie 1 --></div>
-              <div class="detail-galerie-img"><!-- Image galerie 2 --></div>
-              <div class="detail-galerie-img"><!-- Image galerie 3 --></div>
+              <div class="detail-galerie-img">
+                <img src="../assets/menus%20details/cocktails%20evenements/verrines.PNG" alt="Verrines gastronomiques">
+              </div>
+              <div class="detail-galerie-img">
+                <img src="../assets/menus%20details/cocktails%20evenements/pièces%20salées.PNG" alt="Pièces cocktail salées">
+              </div>
+              <div class="detail-galerie-img">
+                <img src="../assets/menus%20details/cocktails%20evenements/mignardises.PNG" alt="Plateau de mignardises">
+              </div>
             </div>
           </div>
 
@@ -287,6 +293,12 @@
       </ul>
     </div>
   </footer>
+
+  <!-- Lightbox galerie -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie" hidden>
+    <button id="lightbox-close" aria-label="Fermer"><i class="bi bi-x-lg"></i></button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../JS/main.js"></script>
