@@ -212,7 +212,7 @@ input[type="time"].input-cmd {
   top: 1.5rem;
 }
 
-.commande-recap h2 {
+.commande-recap h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
   font-weight: 700;
@@ -220,7 +220,7 @@ input[type="time"].input-cmd {
   margin-bottom: 0.5rem;
 }
 
-.commande-recap h2::after {
+.commande-recap h3::after {
   content: '';
   display: block;
   width: 2.5rem;
