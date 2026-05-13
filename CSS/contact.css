@@ -350,3 +350,51 @@
 .dot-inclus  { background-color: #4caf50; }
 .dot-frais   { background-color: #c8a84b; }
 .dot-devis   { background-color: #555555; }
+
+/* ============================================================
+   Responsive — mobile (< lg = 992px)
+   ============================================================ */
+@media (max-width: 991.98px) {
+
+  #contact-header {
+    padding: 2.5rem 1.5rem 1.5rem;
+  }
+
+  #contact-content {
+    padding: 1.5rem 1.5rem 3rem;
+  }
+
+  .contact-form-panel {
+    padding: 1.5rem 0 2rem;
+  }
+
+  /* Coordonnées : passe sous le formulaire, séparation par une ligne */
+  .contact-coords-panel {
+    padding: 2rem 0 1.5rem;
+    border-left: none;
+    border-top: 1px solid #1c1c1c;
+    height: auto;
+  }
+}
+
+/* ============================================================
+   Responsive — petit mobile (< sm = 576px)
+   ============================================================ */
+@media (max-width: 575.98px) {
+
+  #contact-header h1 {
+    font-size: 2.2rem;
+  }
+
+  /* Bouton envoi pleine largeur */
+  .btn-envoyer {
+    width: 100%;
+  }
+
+  /* Mention obligatoire en dessous centrée */
+  .mention-obligatoire {
+    display: block;
+    text-align: center;
+    margin-top: 0.25rem;
+  }
+}
