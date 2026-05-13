@@ -1,0 +1,380 @@
+/* ============================================================
+   Page Commande
+   ============================================================ */
+
+/* ============================================================
+   Breadcrumb
+   ============================================================ */
+#commande-breadcrumb {
+  padding: 1.5rem 8rem;
+  border-bottom: 1px solid #1c1c1c;
+}
+
+#commande-breadcrumb a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#commande-breadcrumb a:hover {
+  color: #ffffff;
+}
+
+/* ============================================================
+   En-tête de page
+   ============================================================ */
+#commande-header {
+  padding: 3.5rem 8rem 0;
+}
+
+.commande-badge {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  border: 1px solid #c8a84b;
+  padding: 0.3rem 0.85rem;
+  margin-bottom: 1rem;
+}
+
+#commande-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+#commande-header p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #888888;
+  margin: 0;
+}
+
+/* ============================================================
+   Contenu du formulaire
+   ============================================================ */
+#commande-content {
+  padding: 3rem 8rem 5rem;
+}
+
+/* ============================================================
+   Sections du formulaire
+   ============================================================ */
+.commande-section {
+  background-color: #0f0f0f;
+  border: 1px solid #1e1e1e;
+  padding: 2rem 2rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.commande-section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.commande-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: #c8a84b;
+  color: #080808;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.commande-section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.commande-section-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  color: #666666;
+  margin-bottom: 1.5rem;
+  padding-left: 3rem;
+}
+
+/* ============================================================
+   Champs du formulaire
+   ============================================================ */
+.form-group-cmd {
+  margin-bottom: 1.25rem;
+}
+
+.form-group-cmd label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888888;
+  margin-bottom: 0.5rem;
+}
+
+.required {
+  color: #c8a84b;
+}
+
+.input-cmd {
+  width: 100%;
+  background-color: #111111;
+  border: 1px solid #2a2a2a;
+  color: #ffffff;
+  padding: 0.85rem 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+
+.input-cmd::placeholder {
+  color: #444444;
+}
+
+.input-cmd:focus {
+  border-color: #c8a84b;
+}
+
+.input-cmd[readonly] {
+  background-color: #0d0d0d;
+  color: #666666;
+  border-color: #1a1a1a;
+  cursor: default;
+}
+
+/* Select */
+select.input-cmd {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23888888' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+select.input-cmd option {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+/* Date & time inputs */
+input[type="date"].input-cmd,
+input[type="time"].input-cmd {
+  color-scheme: dark;
+}
+
+.input-hint {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  color: #666666;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.input-hint i {
+  color: #c8a84b;
+  margin-right: 0.3rem;
+}
+
+/* ============================================================
+   Récapitulatif (sidebar droite)
+   ============================================================ */
+.commande-recap {
+  background-color: #0f0f0f;
+  border: 1px solid #1e1e1e;
+  padding: 2rem;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.commande-recap h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.commande-recap h2::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background-color: #c8a84b;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.recap-ligne {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.6rem 0;
+}
+
+.recap-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  color: #888888;
+  letter-spacing: 0.05em;
+}
+
+.recap-value {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: right;
+}
+
+.recap-menu .recap-value {
+  font-size: 0.75rem;
+  max-width: 55%;
+  line-height: 1.4;
+}
+
+.recap-separateur {
+  border-top: 1px solid #1c1c1c;
+  margin: 0.5rem 0;
+}
+
+.recap-reduction .recap-label {
+  color: #6aad6a;
+}
+
+.recap-reduction-value {
+  color: #6aad6a;
+}
+
+.recap-total .recap-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+}
+
+.recap-total .recap-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #c8a84b;
+}
+
+.recap-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  color: #555555;
+  line-height: 1.5;
+  margin-top: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.recap-note i {
+  color: #c8a84b;
+  margin-right: 0.3rem;
+}
+
+/* ============================================================
+   Bouton commander
+   ============================================================ */
+.btn-commander {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  background-color: #c8a84b;
+  color: #080808;
+  border: 1px solid #c8a84b;
+  padding: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin-bottom: 1rem;
+}
+
+.btn-commander:hover {
+  background-color: transparent;
+  color: #c8a84b;
+}
+
+.recap-cgv {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  color: #555555;
+  text-align: center;
+  margin: 0;
+}
+
+.recap-cgv a {
+  color: #c8a84b;
+  text-decoration: none;
+}
+
+.recap-cgv a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 991px) {
+  #commande-breadcrumb {
+    padding: 1.25rem 2rem;
+  }
+
+  #commande-header {
+    padding: 2.5rem 2rem 0;
+  }
+
+  #commande-header h1 {
+    font-size: 2.2rem;
+  }
+
+  #commande-content {
+    padding: 2rem 2rem 4rem;
+  }
+
+  .commande-recap {
+    position: static;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 575px) {
+  #commande-header h1 {
+    font-size: 1.8rem;
+  }
+}
