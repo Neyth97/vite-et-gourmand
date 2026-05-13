@@ -57,7 +57,7 @@
     <!-- Image principale du menu -->
     <section id="detail-hero">
       <div id="detail-hero-img">
-        <!-- Image principale à brancher ici -->
+        <img src="../assets/menus%20details/vegan%20équilibré/curry.PNG" alt="Curry de légumes et pois chiches, riz basmati au lait de coco">
       </div>
       <div id="detail-hero-content">
         <span class="detail-badge-theme">Classique</span>
@@ -93,7 +93,7 @@
             <article class="detail-plat">
               <h3><span class="detail-plat-type">Entrée</span> Gaspacho de tomates anciennes &amp; basilic frais</h3>
               <div class="detail-plat-img">
-                <!-- Image plat à brancher ici -->
+                <img src="../assets/menus%20details/vegan%20équilibré/gaspacho.PNG" alt="Gaspacho de tomates anciennes et basilic frais">
               </div>
               <p>
                 Gaspacho onctueux de tomates anciennes du jardin, mixé avec du concombre,
@@ -112,7 +112,7 @@
             <article class="detail-plat">
               <h3><span class="detail-plat-type">Plat</span> Curry de légumes &amp; pois chiches, riz basmati au lait de coco</h3>
               <div class="detail-plat-img">
-                <!-- Image plat à brancher ici -->
+                <img src="../assets/menus%20details/vegan%20équilibré/curry.PNG" alt="Curry de légumes et pois chiches, riz basmati au lait de coco">
               </div>
               <p>
                 Curry parfumé de légumes de saison — patate douce, courgette, épinards — et pois chiches
@@ -131,7 +131,7 @@
             <article class="detail-plat">
               <h3><span class="detail-plat-type">Dessert</span> Panna cotta coco &amp; fruits de la passion</h3>
               <div class="detail-plat-img">
-                <!-- Image plat à brancher ici -->
+                <img src="../assets/menus%20details/vegan%20équilibré/pannacotta.PNG" alt="Panna cotta coco et fruits de la passion">
               </div>
               <p>
                 Panna cotta végétale au lait de coco et à l'agar-agar, servie avec un coulis de fruits
@@ -152,9 +152,15 @@
           <div class="detail-bloc">
             <h2>Galerie</h2>
             <div id="detail-galerie">
-              <div class="detail-galerie-img"><!-- Image galerie 1 --></div>
-              <div class="detail-galerie-img"><!-- Image galerie 2 --></div>
-              <div class="detail-galerie-img"><!-- Image galerie 3 --></div>
+              <div class="detail-galerie-img">
+                <img src="../assets/menus%20details/vegan%20équilibré/gaspacho.PNG" alt="Gaspacho de tomates anciennes">
+              </div>
+              <div class="detail-galerie-img">
+                <img src="../assets/menus%20details/vegan%20équilibré/curry.PNG" alt="Curry de légumes et pois chiches">
+              </div>
+              <div class="detail-galerie-img">
+                <img src="../assets/menus%20details/vegan%20équilibré/pannacotta.PNG" alt="Panna cotta coco fruits de la passion">
+              </div>
             </div>
           </div>
 
@@ -275,6 +281,12 @@
       </ul>
     </div>
   </footer>
+
+  <!-- Lightbox galerie -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie" hidden>
+    <button id="lightbox-close" aria-label="Fermer"><i class="bi bi-x-lg"></i></button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../JS/main.js"></script>
