@@ -57,7 +57,7 @@
     <!-- Image principale du menu -->
     <section id="detail-hero">
       <div id="detail-hero-img">
-        <!-- Image principale à brancher ici -->
+        <img src="../assets/menus%20details/paques%20en%20famille/gigot.PNG" alt="Gigot d'agneau de lait rôti et légumes de saison">
       </div>
       <div id="detail-hero-content">
         <span class="detail-badge-theme">Pâques</span>
@@ -92,7 +92,7 @@
             <article class="detail-plat">
               <h3><span class="detail-plat-type">Entrée</span> Asperges blanches &amp; sauce mousseline aux herbes</h3>
               <div class="detail-plat-img">
-                <!-- Image plat à brancher ici -->
+                <img src="../assets/menus%20details/paques%20en%20famille/asperge.PNG" alt="Asperges blanches et sauce mousseline aux herbes">
               </div>
               <p>
                 Asperges blanches de la région, cuites à la vapeur et servies tièdes, accompagnées
@@ -112,7 +112,7 @@
             <article class="detail-plat">
               <h3><span class="detail-plat-type">Plat</span> Gigot d'agneau de lait rôti &amp; légumes de saison</h3>
               <div class="detail-plat-img">
-                <!-- Image plat à brancher ici -->
+                <img src="../assets/menus%20details/paques%20en%20famille/gigot.PNG" alt="Gigot d'agneau de lait rôti et légumes de saison">
               </div>
               <p>
                 Gigot d'agneau de lait du Quercy rôti à l'ail et au romarin, accompagné de légumes
@@ -131,7 +131,7 @@
             <article class="detail-plat">
               <h3><span class="detail-plat-type">Dessert</span> Charlotte aux fraises &amp; coulis de fruits rouges</h3>
               <div class="detail-plat-img">
-                <!-- Image plat à brancher ici -->
+                <img src="../assets/menus%20details/paques%20en%20famille/charlotte.PNG" alt="Charlotte aux fraises et coulis de fruits rouges">
               </div>
               <p>
                 Charlotte légère aux fraises de saison, sur biscuits à la cuillère imbibés de sirop
@@ -154,9 +154,15 @@
           <div class="detail-bloc">
             <h2>Galerie</h2>
             <div id="detail-galerie">
-              <div class="detail-galerie-img"><!-- Image galerie 1 --></div>
-              <div class="detail-galerie-img"><!-- Image galerie 2 --></div>
-              <div class="detail-galerie-img"><!-- Image galerie 3 --></div>
+              <div class="detail-galerie-img">
+                <img src="../assets/menus%20details/paques%20en%20famille/asperge.PNG" alt="Asperges blanches sauce mousseline">
+              </div>
+              <div class="detail-galerie-img">
+                <img src="../assets/menus%20details/paques%20en%20famille/gigot.PNG" alt="Gigot d'agneau rôti">
+              </div>
+              <div class="detail-galerie-img">
+                <img src="../assets/menus%20details/paques%20en%20famille/charlotte.PNG" alt="Charlotte aux fraises">
+              </div>
             </div>
           </div>
 
@@ -277,6 +283,12 @@
       </ul>
     </div>
   </footer>
+
+  <!-- Lightbox galerie -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image agrandie" hidden>
+    <button id="lightbox-close" aria-label="Fermer"><i class="bi bi-x-lg"></i></button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../JS/main.js"></script>
