@@ -214,11 +214,49 @@ body {
 .badge-accepte     { background-color: #d1e7dd; color: #0a5c36; }
 .badge-preparation { background-color: #cfe2ff; color: #084298; }
 .badge-livraison   { background-color: #d0e8ff; color: #0a4a8a; }
+.badge-livre       { background-color: #c3e6cb; color: #155724; }
 .badge-terminee    { background-color: #e2e3e5; color: #383d41; }
 .badge-materiel    { background-color: #fde8d8; color: #8a3a00; }
+.badge-annulee     { background-color: #f8d7da; color: #721c24; }
 
 /* --- Étoiles avis --- */
 .ee-stars { color: #f5a623; font-size: 1rem; }
+
+/* --- Badge compteur sidebar --- */
+.ee-badge-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  border-radius: 10px;
+  background-color: #dc3545;
+  color: #fff;
+  margin-left: auto;
+}
+
+/* --- Checkboxes allergènes --- */
+.ee-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  padding: 0.5rem 0;
+}
+
+.ee-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #333;
+  cursor: pointer;
+}
 
 /* --- Sous-sections (menus & plats) --- */
 .ee-subsection { margin-bottom: 2.5rem; }
