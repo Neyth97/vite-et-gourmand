@@ -157,6 +157,8 @@ body {
 .badge-livraison  { background-color: #d0e8ff; color: #0a4a8a; }
 .badge-terminee   { background-color: #e2e3e5; color: #383d41; }
 .badge-materiel   { background-color: #fde8d8; color: #8a3a00; }
+.badge-livre      { background-color: #a8e6cf; color: #0a5c36; }
+.badge-annulee    { background-color: #f8d7da; color: #842029; }
 
 /* --- Bouton toggle --- */
 .eu-toggle-btn {
