@@ -64,7 +64,7 @@ if (!$commande) {
             <li class="nav-item"><a class="nav-link" href="menus.php">Menus</a></li>
             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="espace-utilisateur/index.html">
+              <a class="nav-link" href="espace-utilisateur/index.php">
                 <i class="bi bi-person-circle" aria-hidden="true"></i>
                 <?= htmlspecialchars($_SESSION['prenom'] ?? 'Mon espace') ?>
               </a>
@@ -158,7 +158,7 @@ if (!$commande) {
 
       <!-- Actions -->
       <div class="confirmation-actions">
-        <a href="espace-utilisateur/index.html" class="btn-confirmation-primary">
+        <a href="espace-utilisateur/index.php" class="btn-confirmation-primary">
           <i class="bi bi-person-circle" aria-hidden="true"></i>
           Voir mes commandes
         </a>
