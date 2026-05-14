@@ -1,0 +1,11 @@
+Options -Indexes
+
+RewriteEngine On
+
+# Redirections permanentes des anciennes URLs .html vers .php
+Redirect 301 /vite-et-gourmand/HTML/menus.html               /vite-et-gourmand/HTML/menus.php
+Redirect 301 /vite-et-gourmand/HTML/connexion.html            /vite-et-gourmand/HTML/connexion.php
+Redirect 301 /vite-et-gourmand/HTML/inscription.html          /vite-et-gourmand/HTML/inscription.php
+Redirect 301 /vite-et-gourmand/HTML/commande.html             /vite-et-gourmand/HTML/commande.php
+Redirect 301 /vite-et-gourmand/HTML/menu-detail.html          /vite-et-gourmand/HTML/menu-detail.php
+Redirect 301 /vite-et-gourmand/HTML/mot-de-passe-oublie.html  /vite-et-gourmand/HTML/mot-de-passe-oublie.php
