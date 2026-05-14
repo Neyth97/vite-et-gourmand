@@ -36,7 +36,7 @@ function isUtilisateur(): bool
 function requireConnexion(): void
 {
     if (!isConnecte()) {
-        header('Location: /vite-et-gourmand/HTML/connexion.html');
+        header('Location: /vite-et-gourmand/HTML/connexion.php');
         exit;
     }
 }
