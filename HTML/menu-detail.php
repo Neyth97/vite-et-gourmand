@@ -173,7 +173,7 @@ $prix_base   = $menu['nombre_personne_minimum'] * $menu['prix_par_personne'];
           <div class="detail-bloc">
             <h2>Galerie</h2>
             <div id="detail-galerie">
-              <?php foreach ($images as $img): ?>
+              <?php foreach (array_slice($images, 1) as $img): ?>
                 <div class="detail-galerie-img">
                   <img src="../<?= htmlspecialchars($img['chemin']) ?>" alt="<?= htmlspecialchars($menu['titre']) ?>">
                 </div>
