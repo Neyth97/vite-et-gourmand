@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once '../PHP/includes/session.php';
 require_once '../PHP/config/db.php';
 
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="collapse navbar-collapse" id="navMenu">
           <ul class="navbar-nav ms-auto align-items-center gap-3">
             <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
-            <li class="nav-item"><a class="nav-link" href="menus.html">Menus</a></li>
+            <li class="nav-item"><a class="nav-link" href="menus.php">Menus</a></li>
             <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
             <li class="nav-item"><a class="nav-link" href="a-propos.html">À propos</a></li>
             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <p class="footer-col-title">Navigation</p>
           <ul class="footer-links">
             <li><a href="index.html">Accueil</a></li>
-            <li><a href="menus.html">Menus</a></li>
+            <li><a href="menus.php">Menus</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="a-propos.html">À propos</a></li>
             <li><a href="contact.html">Contact</a></li>
