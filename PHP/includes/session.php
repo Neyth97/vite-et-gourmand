@@ -1,12 +1,10 @@
 <?php
 
 ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-error_reporting(E_ALL);
+error_reporting(0);
 
 if (session_status() === PHP_SESSION_NONE) {
-    $started = session_start();
-    error_log('[VEG-SESSION] start=' . ($started ? 'OK' : 'FAIL') . ' id=' . session_id() . ' save_path=' . ini_get('session.save_path'));
+    session_start();
 }
 
 function isConnecte(): bool
