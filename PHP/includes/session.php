@@ -3,11 +3,12 @@
 ob_start();
 
 ini_set('display_errors', 0);
-error_reporting(0);
+ini_set('log_errors', 1);
+error_reporting(E_ALL);
 
 ini_set('session.save_path', '/tmp');
 ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_samesite', 'Strict');
+ini_set('session.cookie_samesite', 'Lax');
 ini_set('session.use_strict_mode', 1);
 
 if (getenv('APP_ENV') === 'production') {
@@ -15,7 +16,8 @@ if (getenv('APP_ENV') === 'production') {
 }
 
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    $started = session_start();
+    error_log('[VEG-SESSION] start=' . ($started ? 'OK' : 'FAIL') . ' id=' . session_id() . ' save_path=' . ini_get('session.save_path') . ' secure=' . ini_get('session.cookie_secure'));
 }
 
 function isConnecte(): bool

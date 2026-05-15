@@ -16,8 +16,9 @@ $erreur    = '';
 $email_val = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    error_log('[VEG-CSRF] session_id=' . session_id() . ' sess_csrf=' . ($_SESSION['csrf_token'] ?? 'EMPTY') . ' post_csrf=' . ($_POST['csrf_token'] ?? 'EMPTY'));
 
-    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
+    if (!hash_equals($_SESSION['csrf_token'] ?? '', $_POST['csrf_token'] ?? '')) {
         $erreur = 'Requête invalide. Veuillez réessayer.';
     } else {
         $email    = trim($_POST['email'] ?? '');
