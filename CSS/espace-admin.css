@@ -116,3 +116,43 @@ body {
   color: #1a1a1a;
   margin-bottom: 1.25rem;
 }
+
+/* ============================================================
+   Responsive — mobile (≤768px) — admin-specific overrides
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Header admin : masquer nom + badge sur très petit écran */
+  .ea-header { padding: 0.75rem 1rem; }
+  .ea-user-name { display: none; }
+
+  /* Layout — la sidebar ee-layout/ee-sidebar gère déjà le collapse
+     via espace-employe.css ; ici on écrase les classes ea- si utilisées */
+  .ea-layout { flex-direction: column; }
+
+  .ea-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .ea-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.25rem;
+    padding-bottom: 0.25rem;
+    scrollbar-width: none;
+  }
+
+  .ea-nav::-webkit-scrollbar { display: none; }
+
+  .ea-nav li { flex-shrink: 0; }
+
+  .ea-nav-link { padding: 0.45rem 0.75rem; font-size: 0.8rem; }
+
+  .ea-main { padding: 1rem; }
+
+  /* Stat cards */
+  .stat-card { padding: 1rem; }
+}

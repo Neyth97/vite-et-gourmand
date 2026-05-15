@@ -450,3 +450,79 @@ body {
   gap: 0.75rem;
   margin-top: 1.25rem;
 }
+
+/* ============================================================
+   Responsive — mobile (≤768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Header */
+  .eu-header { padding: 0.75rem 1rem; }
+  .eu-user-name { display: none; }
+
+  /* Layout : sidebar passe en nav horizontale */
+  .eu-layout { flex-direction: column; }
+
+  .eu-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .eu-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.25rem;
+    padding-bottom: 0.25rem;
+    scrollbar-width: none;
+  }
+
+  .eu-nav::-webkit-scrollbar { display: none; }
+
+  .eu-nav li { flex-shrink: 0; }
+
+  .eu-nav-link { padding: 0.45rem 0.75rem; font-size: 0.8rem; }
+
+  /* Main */
+  .eu-main { padding: 1rem; }
+
+  /* Carte commande */
+  .eu-order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .eu-order-meta { flex-wrap: wrap; }
+
+  .eu-order-summary {
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .eu-order-price { margin-left: 0; }
+
+  .eu-order-actions { flex-wrap: wrap; }
+
+  /* Formulaires */
+  .eu-form-row { grid-template-columns: 1fr; }
+
+  .eu-info-form { max-width: 100%; }
+
+  /* Modal */
+  .eu-modal-overlay {
+    align-items: flex-start;
+    padding: 0.75rem;
+  }
+
+  .eu-modal {
+    max-width: 100%;
+    max-height: calc(100vh - 1.5rem);
+    overflow-y: auto;
+  }
+
+  .eu-modal-footer { flex-wrap: wrap; }
+}
