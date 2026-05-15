@@ -5,4 +5,4 @@ nixPkgs = ["php83Extensions.mongodb"]
 cmds = ["composer install --no-dev --optimize-autoloader --ignore-platform-reqs"]
 
 [start]
-cmd = "php-fpm -D && caddy run --config /app/Caddyfile --adapter caddyfile"
+cmd = "sh /app/start.sh"
