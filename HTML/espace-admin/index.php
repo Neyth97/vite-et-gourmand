@@ -4,7 +4,7 @@ require_once '../../PHP/config/db.php';
 require_once '../../PHP/includes/mailer.php';
 
 requireConnexion();
-if (!in_array(getRoleId(), [1, 2])) {
+if (!isAdmin()) {
     header('Location: /vite-et-gourmand/HTML/connexion.php');
     exit;
 }
@@ -75,9 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mode  = trim($_POST['mode_contact'] ?? '');
 
         $err = [];
-        if (!$cid)                                       $err[] = 'Commande invalide.';
-        if (empty($motif))                               $err[] = 'Le motif est requis.';
-        if (!in_array($mode, ['gsm','mail'], true))      $err[] = 'Mode de contact requis.';
+        if (!$cid)                                  $err[] = 'Commande invalide.';
+        if (empty($motif))                           $err[] = 'Le motif est requis.';
+        if (!in_array($mode, ['gsm','mail'], true))  $err[] = 'Mode de contact requis.';
 
         if (!$err) {
             $stmt = $pdo->prepare('SELECT commande_id FROM commande WHERE commande_id = ? AND statut NOT IN ("terminee","annulee")');
@@ -115,17 +115,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stock      = filter_input(INPUT_POST, 'quantite_restante', FILTER_VALIDATE_INT) ?: 0;
 
         $err = [];
-        if (empty($titre))               $err[] = 'Titre requis.';
-        if (!$theme_id)                  $err[] = 'Thème requis.';
-        if (!$regime_id)                 $err[] = 'Régime requis.';
-        if (!$nb_min || $nb_min < 1)     $err[] = 'Nombre de personnes minimum invalide.';
+        if (empty($titre))                $err[] = 'Titre requis.';
+        if (!$theme_id)                   $err[] = 'Thème requis.';
+        if (!$regime_id)                  $err[] = 'Régime requis.';
+        if (!$nb_min || $nb_min < 1)      $err[] = 'Nombre de personnes minimum invalide.';
         if ($prix === false || $prix < 0) $err[] = 'Prix invalide.';
 
-        if ($err) {
-            $_SESSION['flash_err'] = implode(' ', $err);
-            header('Location: index.php?section=menus');
-            exit;
-        }
+        if ($err) { $_SESSION['flash_err'] = implode(' ', $err); header('Location: index.php?section=menus'); exit; }
 
         $pdo->prepare(
             'INSERT INTO menu (titre, description, theme_id, regime_id, nombre_personne_minimum, prix_par_personne, conditions, quantite_restante)
@@ -158,11 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$nb_min || $nb_min < 1)      $err[] = 'Nombre de personnes minimum invalide.';
         if ($prix === false || $prix < 0) $err[] = 'Prix invalide.';
 
-        if ($err) {
-            $_SESSION['flash_err'] = implode(' ', $err);
-            header('Location: index.php?section=menus');
-            exit;
-        }
+        if ($err) { $_SESSION['flash_err'] = implode(' ', $err); header('Location: index.php?section=menus'); exit; }
 
         $pdo->prepare(
             'UPDATE menu SET titre=?, description=?, theme_id=?, regime_id=?,
@@ -194,14 +186,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $aids = array_filter(array_map('intval', (array)($_POST['allergene_ids'] ?? [])));
 
         $err = [];
-        if (empty($nom))                                    $err[] = 'Nom requis.';
-        if (!in_array($type, ['entree','plat','dessert']))  $err[] = 'Type invalide.';
+        if (empty($nom))                                   $err[] = 'Nom requis.';
+        if (!in_array($type, ['entree','plat','dessert'])) $err[] = 'Type invalide.';
 
-        if ($err) {
-            $_SESSION['flash_err'] = implode(' ', $err);
-            header('Location: index.php?section=menus');
-            exit;
-        }
+        if ($err) { $_SESSION['flash_err'] = implode(' ', $err); header('Location: index.php?section=menus'); exit; }
 
         $pdo->prepare('INSERT INTO plat (nom, type, description) VALUES (?, ?, ?)')->execute([$nom, $type, $desc ?: null]);
         $pid = (int)$pdo->lastInsertId();
@@ -223,15 +211,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $aids = array_filter(array_map('intval', (array)($_POST['allergene_ids'] ?? [])));
 
         $err = [];
-        if (!$pid)                                          $err[] = 'Plat invalide.';
-        if (empty($nom))                                    $err[] = 'Nom requis.';
-        if (!in_array($type, ['entree','plat','dessert']))  $err[] = 'Type invalide.';
+        if (!$pid)                                         $err[] = 'Plat invalide.';
+        if (empty($nom))                                   $err[] = 'Nom requis.';
+        if (!in_array($type, ['entree','plat','dessert'])) $err[] = 'Type invalide.';
 
-        if ($err) {
-            $_SESSION['flash_err'] = implode(' ', $err);
-            header('Location: index.php?section=menus');
-            exit;
-        }
+        if ($err) { $_SESSION['flash_err'] = implode(' ', $err); header('Location: index.php?section=menus'); exit; }
 
         $pdo->prepare('UPDATE plat SET nom=?, type=?, description=? WHERE plat_id=?')->execute([$nom, $type, $desc ?: null, $pid]);
         $pdo->prepare('DELETE FROM plat_allergene WHERE plat_id=?')->execute([$pid]);
@@ -288,6 +272,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // --- Créer employé ---
+    if ($action === 'creer_employe') {
+        $email    = trim($_POST['email']    ?? '');
+        $password = $_POST['password']      ?? '';
+        $nom      = trim($_POST['nom']      ?? '');
+        $prenom   = trim($_POST['prenom']   ?? '');
+
+        $err = [];
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $err[] = 'Adresse email invalide.';
+        if (strlen($password) < 8)                      $err[] = 'Mot de passe trop court (8 caractères minimum).';
+
+        if (!$err) {
+            $stmt = $pdo->prepare('SELECT utilisateur_id FROM utilisateur WHERE email = ?');
+            $stmt->execute([$email]);
+            if ($stmt->fetch()) $err[] = 'Cette adresse email est déjà utilisée.';
+        }
+
+        if ($err) {
+            $_SESSION['flash_err'] = implode(' ', $err);
+            header('Location: index.php?section=employes');
+            exit;
+        }
+
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $pdo->prepare('INSERT INTO utilisateur (email, password, nom, prenom, role_id, actif) VALUES (?, ?, ?, ?, 2, 1)')
+            ->execute([$email, $hash, $nom ?: null, $prenom ?: null]);
+
+        mailCreationCompteEmploye($email);
+
+        $_SESSION['flash_ok'] = 'Compte employé créé. Un email de notification a été envoyé (sans le mot de passe).';
+        header('Location: index.php?section=employes');
+        exit;
+    }
+
+    // --- Activer / désactiver employé ---
+    if ($action === 'toggle_employe') {
+        $uid = filter_input(INPUT_POST, 'employe_id', FILTER_VALIDATE_INT);
+        if ($uid) {
+            $stmt = $pdo->prepare('SELECT actif FROM utilisateur WHERE utilisateur_id = ? AND role_id = 2');
+            $stmt->execute([$uid]);
+            $emp = $stmt->fetch();
+            if ($emp) {
+                $newActif = $emp['actif'] ? 0 : 1;
+                $pdo->prepare('UPDATE utilisateur SET actif = ? WHERE utilisateur_id = ? AND role_id = 2')
+                    ->execute([$newActif, $uid]);
+                $_SESSION['flash_ok'] = $newActif ? 'Compte réactivé.' : 'Compte désactivé.';
+            }
+        }
+        header('Location: index.php?section=employes');
+        exit;
+    }
+
     header('Location: index.php');
     exit;
 }
@@ -296,7 +332,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // GET — fetch data
 // ============================================================
 
-$allowed_sections = ['commandes','menus','horaires','avis'];
+$allowed_sections = ['commandes','menus','horaires','avis','employes','statistiques'];
 $section_param    = $_GET['section'] ?? 'commandes';
 $active_section   = in_array($section_param, $allowed_sections, true) ? $section_param : 'commandes';
 
@@ -305,7 +341,7 @@ $filtre_client = trim($_GET['client'] ?? '');
 
 $valid_statuts = ['en_attente','accepte','en_preparation','en_cours_livraison','livre','attente_retour_materiel','terminee','annulee'];
 
-// Commandes avec filtres
+// Commandes
 $where  = [];
 $params = [];
 if ($filtre_statut && in_array($filtre_statut, $valid_statuts, true)) {
@@ -335,7 +371,7 @@ $s = $pdo->prepare(
 $s->execute($params);
 $commandes = $s->fetchAll();
 
-// Menus (actifs + inactifs pour gestion)
+// Menus
 $menus = $pdo->query(
     'SELECT m.menu_id, m.titre, m.description, m.nombre_personne_minimum, m.prix_par_personne,
             m.conditions, m.quantite_restante, m.actif, m.theme_id, m.regime_id,
@@ -374,10 +410,60 @@ $avis_liste = $pdo->query(
      ORDER BY a.created_at ASC'
 )->fetchAll();
 
+// Employés
+$employes = $pdo->query(
+    'SELECT utilisateur_id, nom, prenom, email, actif
+     FROM utilisateur WHERE role_id = 2 ORDER BY nom, prenom'
+)->fetchAll();
+
 // Listes pour formulaires
 $themes    = $pdo->query('SELECT theme_id, libelle FROM theme ORDER BY libelle')->fetchAll();
 $regimes   = $pdo->query('SELECT regime_id, libelle FROM regime ORDER BY libelle')->fetchAll();
 $allergenes = $pdo->query('SELECT allergene_id, libelle FROM allergene ORDER BY libelle')->fetchAll();
+
+// Statistiques MongoDB
+$ca_menu_id    = filter_input(INPUT_GET, 'ca_menu', FILTER_VALIDATE_INT) ?: 0;
+$ca_date_debut = trim($_GET['date_debut'] ?? '');
+$ca_date_fin   = trim($_GET['date_fin']   ?? '');
+
+$mongo_commandes_par_menu = [];
+$mongo_ca_par_menu        = [];
+$mongo_error              = false;
+
+try {
+    require_once '../../PHP/config/mongodb.php';
+    $col = getMongoDB()->commandes;
+
+    $result = $col->aggregate([
+        ['$group' => ['_id' => '$menu_titre', 'count' => ['$sum' => 1]]],
+        ['$sort'  => ['count' => -1]],
+    ]);
+    foreach ($result as $doc) {
+        $mongo_commandes_par_menu[] = ['menu' => (string)$doc['_id'], 'count' => (int)$doc['count']];
+    }
+
+    $match = [];
+    if ($ca_date_debut && preg_match('/^\d{4}-\d{2}-\d{2}$/', $ca_date_debut)) {
+        $match['date_commande']['$gte'] = new \MongoDB\BSON\UTCDateTime(strtotime($ca_date_debut) * 1000);
+    }
+    if ($ca_date_fin && preg_match('/^\d{4}-\d{2}-\d{2}$/', $ca_date_fin)) {
+        $match['date_commande']['$lte'] = new \MongoDB\BSON\UTCDateTime((strtotime($ca_date_fin) + 86399) * 1000);
+    }
+    if ($ca_menu_id) {
+        $match['menu_id'] = $ca_menu_id;
+    }
+
+    $pipeline_ca = [];
+    if ($match) $pipeline_ca[] = ['$match' => $match];
+    $pipeline_ca[] = ['$group' => ['_id' => '$menu_titre', 'ca' => ['$sum' => '$prix_total'], 'count' => ['$sum' => 1]]];
+    $pipeline_ca[] = ['$sort'  => ['ca' => -1]];
+
+    foreach ($col->aggregate($pipeline_ca) as $doc) {
+        $mongo_ca_par_menu[] = ['menu' => (string)$doc['_id'], 'ca' => (float)$doc['ca'], 'count' => (int)$doc['count']];
+    }
+} catch (\Throwable $e) {
+    $mongo_error = true;
+}
 
 $statut_labels = [
     'en_attente'              => 'En attente',
@@ -413,25 +499,24 @@ $transitions = [
 ];
 
 $type_labels = ['entree' => 'Entrée', 'plat' => 'Plat', 'dessert' => 'Dessert'];
-
-$role_label = isAdmin() ? 'Administrateur' : 'Employé';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Espace employé | Vite &amp; Gourmand</title>
+  <title>Espace administrateur | Vite &amp; Gourmand</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../../CSS/espace-employe.css">
+  <link rel="stylesheet" href="../../CSS/espace-admin.css">
 </head>
 <body>
 
   <header class="ee-header">
     <div class="ee-header-inner">
       <a href="../index.html" class="ee-logo">Vite &amp; Gourmand</a>
-      <span class="ee-role-badge"><?= htmlspecialchars($role_label) ?></span>
+      <span class="ea-role-badge">Administrateur</span>
       <span class="ee-user-name">Bonjour, <?= htmlspecialchars($_SESSION['prenom'] . ' ' . $_SESSION['nom']) ?></span>
       <a href="../../PHP/deconnexion.php" class="ee-logout">
         <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Déconnexion
@@ -442,37 +527,39 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
   <div class="ee-layout">
 
     <aside class="ee-sidebar">
-      <nav aria-label="Navigation espace employé">
+      <nav aria-label="Navigation espace administrateur">
         <ul class="ee-nav">
           <li>
-            <a href="?section=commandes"
-               class="ee-nav-link <?= $active_section === 'commandes' ? 'active' : '' ?>"
-               data-section="commandes">
+            <a href="?section=commandes" class="ee-nav-link <?= $active_section === 'commandes' ? 'active' : '' ?>">
               <i class="bi bi-bag" aria-hidden="true"></i> Commandes
             </a>
           </li>
           <li>
-            <a href="?section=menus"
-               class="ee-nav-link <?= $active_section === 'menus' ? 'active' : '' ?>"
-               data-section="menus">
+            <a href="?section=menus" class="ee-nav-link <?= $active_section === 'menus' ? 'active' : '' ?>">
               <i class="bi bi-journal-text" aria-hidden="true"></i> Menus &amp; plats
             </a>
           </li>
           <li>
-            <a href="?section=horaires"
-               class="ee-nav-link <?= $active_section === 'horaires' ? 'active' : '' ?>"
-               data-section="horaires">
+            <a href="?section=horaires" class="ee-nav-link <?= $active_section === 'horaires' ? 'active' : '' ?>">
               <i class="bi bi-clock" aria-hidden="true"></i> Horaires
             </a>
           </li>
           <li>
-            <a href="?section=avis"
-               class="ee-nav-link <?= $active_section === 'avis' ? 'active' : '' ?>"
-               data-section="avis">
+            <a href="?section=avis" class="ee-nav-link <?= $active_section === 'avis' ? 'active' : '' ?>">
               <i class="bi bi-star" aria-hidden="true"></i> Avis clients
               <?php if (count($avis_liste) > 0): ?>
                 <span class="ee-badge-count"><?= count($avis_liste) ?></span>
               <?php endif; ?>
+            </a>
+          </li>
+          <li>
+            <a href="?section=employes" class="ee-nav-link <?= $active_section === 'employes' ? 'active' : '' ?>">
+              <i class="bi bi-people" aria-hidden="true"></i> Employés
+            </a>
+          </li>
+          <li>
+            <a href="?section=statistiques" class="ee-nav-link <?= $active_section === 'statistiques' ? 'active' : '' ?>">
+              <i class="bi bi-bar-chart" aria-hidden="true"></i> Statistiques
             </a>
           </li>
         </ul>
@@ -518,8 +605,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
             </div>
             <div class="ee-filter-group">
               <label for="filtre-client">Client</label>
-              <input type="text" id="filtre-client" name="client"
-                     placeholder="Nom ou e-mail…"
+              <input type="text" id="filtre-client" name="client" placeholder="Nom ou e-mail…"
                      value="<?= htmlspecialchars($filtre_client) ?>">
             </div>
             <button type="submit" class="ee-btn ee-btn-primary">Filtrer</button>
@@ -533,14 +619,8 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           <table class="ee-table">
             <thead>
               <tr>
-                <th>N°</th>
-                <th>Client</th>
-                <th>Menu</th>
-                <th>Date prestation</th>
-                <th>Personnes</th>
-                <th>Total</th>
-                <th>Statut</th>
-                <th>Actions</th>
+                <th>N°</th><th>Client</th><th>Menu</th><th>Date prestation</th>
+                <th>Pers.</th><th>Total</th><th>Statut</th><th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -551,7 +631,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
                   $cid    = (int)$cmd['commande_id'];
                   $statut = $cmd['statut'];
                   $badge  = $statut_badges[$statut] ?? 'badge-attente';
-                  $label  = $statut_labels[$statut] ?? $statut;
+                  $label  = $statut_labels[$statut]  ?? $statut;
                   $nexts  = $transitions[$statut] ?? [];
                   $can_cancel = !in_array($statut, ['terminee','annulee'], true);
                 ?>
@@ -571,12 +651,10 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
                   <td><span class="ee-badge <?= $badge ?>"><?= $label ?></span></td>
                   <td class="ee-actions">
                     <?php if ($nexts): ?>
-                      <button class="ee-btn ee-btn-sm ee-btn-primary"
-                              data-modal="modal-statut-<?= $cid ?>">Avancer</button>
+                      <button class="ee-btn ee-btn-sm ee-btn-primary" data-modal="modal-statut-<?= $cid ?>">Avancer</button>
                     <?php endif; ?>
                     <?php if ($can_cancel): ?>
-                      <button class="ee-btn ee-btn-sm ee-btn-danger"
-                              data-modal="modal-annuler-<?= $cid ?>">Annuler</button>
+                      <button class="ee-btn ee-btn-sm ee-btn-danger" data-modal="modal-annuler-<?= $cid ?>">Annuler</button>
                     <?php endif; ?>
                     <?php if ($statut === 'annulee' && $cmd['motif_annulation']): ?>
                       <span class="ee-motif-link" data-modal="modal-motif-<?= $cid ?>" style="cursor:pointer;color:#888;font-size:.78rem;">
@@ -591,7 +669,6 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
             </tbody>
           </table>
         </div>
-
       </section>
 
       <!-- ===== SECTION : MENUS & PLATS ===== -->
@@ -600,7 +677,6 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
 
         <h1 class="ee-page-title">Menus &amp; plats</h1>
 
-        <!-- Menus -->
         <div class="ee-subsection">
           <div class="ee-subsection-header">
             <h2 class="ee-subsection-title">Menus</h2>
@@ -608,19 +684,12 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
               <i class="bi bi-plus" aria-hidden="true"></i> Ajouter un menu
             </button>
           </div>
-
           <div class="ee-table-wrapper">
             <table class="ee-table">
               <thead>
                 <tr>
-                  <th>Titre</th>
-                  <th>Thème</th>
-                  <th>Régime</th>
-                  <th>Prix/pers.</th>
-                  <th>Pers. min.</th>
-                  <th>Stock</th>
-                  <th>État</th>
-                  <th>Actions</th>
+                  <th>Titre</th><th>Thème</th><th>Régime</th><th>Prix/pers.</th>
+                  <th>Pers. min.</th><th>Stock</th><th>État</th><th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -672,7 +741,6 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           </div>
         </div>
 
-        <!-- Plats -->
         <div class="ee-subsection">
           <div class="ee-subsection-header">
             <h2 class="ee-subsection-title">Plats</h2>
@@ -680,17 +748,10 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
               <i class="bi bi-plus" aria-hidden="true"></i> Ajouter un plat
             </button>
           </div>
-
           <div class="ee-table-wrapper">
             <table class="ee-table">
               <thead>
-                <tr>
-                  <th>Nom</th>
-                  <th>Type</th>
-                  <th>Description</th>
-                  <th>Allergènes</th>
-                  <th>Actions</th>
-                </tr>
+                <tr><th>Nom</th><th>Type</th><th>Description</th><th>Allergènes</th><th>Actions</th></tr>
               </thead>
               <tbody>
                 <?php if (empty($plats)): ?>
@@ -703,9 +764,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
                     <td style="max-width:200px;font-size:.82rem;color:#555;">
                       <?= $p['description'] ? htmlspecialchars(mb_strimwidth($p['description'], 0, 60, '…')) : '—' ?>
                     </td>
-                    <td style="font-size:.82rem;">
-                      <?= $p['allergenes'] ? htmlspecialchars($p['allergenes']) : '—' ?>
-                    </td>
+                    <td style="font-size:.82rem;"><?= $p['allergenes'] ? htmlspecialchars($p['allergenes']) : '—' ?></td>
                     <td class="ee-actions">
                       <button class="ee-btn ee-btn-sm ee-btn-secondary"
                               data-modal="modal-modifier-plat-<?= $p['plat_id'] ?>">Modifier</button>
@@ -719,7 +778,6 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
             </table>
           </div>
         </div>
-
       </section>
 
       <!-- ===== SECTION : HORAIRES ===== -->
@@ -731,12 +789,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
         <div class="ee-table-wrapper">
           <table class="ee-table">
             <thead>
-              <tr>
-                <th>Jour</th>
-                <th>Ouverture</th>
-                <th>Fermeture</th>
-                <th>Actions</th>
-              </tr>
+              <tr><th>Jour</th><th>Ouverture</th><th>Fermeture</th><th>Actions</th></tr>
             </thead>
             <tbody>
               <?php foreach ($horaires as $h): ?>
@@ -757,7 +810,6 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
             </tbody>
           </table>
         </div>
-
       </section>
 
       <!-- ===== SECTION : AVIS ===== -->
@@ -775,15 +827,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           <div class="ee-table-wrapper">
             <table class="ee-table">
               <thead>
-                <tr>
-                  <th>Client</th>
-                  <th>Commande</th>
-                  <th>Menu</th>
-                  <th>Note</th>
-                  <th>Commentaire</th>
-                  <th>Date</th>
-                  <th>Actions</th>
-                </tr>
+                <tr><th>Client</th><th>Commande</th><th>Menu</th><th>Note</th><th>Commentaire</th><th>Date</th><th>Actions</th></tr>
               </thead>
               <tbody>
                 <?php foreach ($avis_liste as $av): ?>
@@ -793,17 +837,11 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
                   <td><?= htmlspecialchars($av['menu_titre']) ?></td>
                   <td>
                     <span class="ee-stars" aria-label="<?= (int)$av['note'] ?>/5">
-                      <?php for ($i = 1; $i <= 5; $i++): ?>
-                        <?= $i <= $av['note'] ? '★' : '☆' ?>
-                      <?php endfor; ?>
+                      <?php for ($i = 1; $i <= 5; $i++): ?><?= $i <= $av['note'] ? '★' : '☆' ?><?php endfor; ?>
                     </span>
                   </td>
-                  <td style="max-width:250px;font-size:.85rem;">
-                    <?= htmlspecialchars($av['commentaire']) ?>
-                  </td>
-                  <td style="font-size:.8rem;color:#888;">
-                    <?= date('d/m/Y', strtotime($av['created_at'])) ?>
-                  </td>
+                  <td style="max-width:250px;font-size:.85rem;"><?= htmlspecialchars($av['commentaire']) ?></td>
+                  <td style="font-size:.8rem;color:#888;"><?= date('d/m/Y', strtotime($av['created_at'])) ?></td>
                   <td class="ee-actions">
                     <form action="index.php" method="post" style="display:inline">
                       <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
@@ -828,6 +866,153 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
             </table>
           </div>
         <?php endif; ?>
+      </section>
+
+      <!-- ===== SECTION : EMPLOYÉS ===== -->
+      <section id="section-employes" class="ee-section"
+               <?= $active_section !== 'employes' ? 'style="display:none"' : '' ?>>
+
+        <h1 class="ee-page-title">Employés</h1>
+
+        <div class="ee-subsection">
+          <div class="ee-subsection-header">
+            <h2 class="ee-subsection-title">Comptes employés</h2>
+            <button class="ee-btn ee-btn-primary" data-modal="modal-ajouter-employe">
+              <i class="bi bi-person-plus" aria-hidden="true"></i> Ajouter un employé
+            </button>
+          </div>
+
+          <div class="ee-table-wrapper">
+            <table class="ee-table">
+              <thead>
+                <tr><th>Prénom</th><th>Nom</th><th>Adresse email</th><th>Statut</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <?php if (empty($employes)): ?>
+                  <tr><td colspan="5" style="text-align:center;color:#888;padding:2rem;">Aucun employé.</td></tr>
+                <?php else: ?>
+                  <?php foreach ($employes as $emp): ?>
+                  <tr>
+                    <td><?= htmlspecialchars($emp['prenom'] ?? '—') ?></td>
+                    <td><?= htmlspecialchars($emp['nom'] ?? '—') ?></td>
+                    <td><?= htmlspecialchars($emp['email']) ?></td>
+                    <td>
+                      <?php if ($emp['actif']): ?>
+                        <span class="ee-badge badge-accepte">Actif</span>
+                      <?php else: ?>
+                        <span class="ee-badge badge-annulee">Inactif</span>
+                      <?php endif; ?>
+                    </td>
+                    <td class="ee-actions">
+                      <form action="index.php" method="post" style="display:inline">
+                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                        <input type="hidden" name="action" value="toggle_employe">
+                        <input type="hidden" name="employe_id" value="<?= (int)$emp['utilisateur_id'] ?>">
+                        <?php if ($emp['actif']): ?>
+                          <button type="submit" class="ee-btn ee-btn-sm ee-btn-danger"
+                                  onclick="return confirm('Désactiver ce compte ?')">
+                            <i class="bi bi-person-x" aria-hidden="true"></i> Désactiver
+                          </button>
+                        <?php else: ?>
+                          <button type="submit" class="ee-btn ee-btn-sm ee-btn-secondary"
+                                  onclick="return confirm('Réactiver ce compte ?')">
+                            <i class="bi bi-person-check" aria-hidden="true"></i> Réactiver
+                          </button>
+                        <?php endif; ?>
+                      </form>
+                    </td>
+                  </tr>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION : STATISTIQUES ===== -->
+      <section id="section-statistiques" class="ee-section"
+               <?= $active_section !== 'statistiques' ? 'style="display:none"' : '' ?>>
+
+        <h1 class="ee-page-title">Statistiques</h1>
+
+        <?php if ($mongo_error): ?>
+          <div class="alert alert-warning mb-4" role="alert">
+            <i class="bi bi-database-exclamation me-2" aria-hidden="true"></i>
+            MongoDB non disponible — lancez MongoDB et rechargez la page pour voir les statistiques.
+          </div>
+        <?php endif; ?>
+
+        <!-- Commandes par menu -->
+        <div class="stat-card">
+          <h2 class="stat-card-title">Nombre de commandes par menu</h2>
+          <?php if (empty($mongo_commandes_par_menu)): ?>
+            <p style="color:#888;text-align:center;padding:2rem;">Aucune donnée disponible.</p>
+          <?php else: ?>
+            <canvas id="chart-commandes" style="max-height:350px"></canvas>
+          <?php endif; ?>
+        </div>
+
+        <!-- Chiffre d'affaires -->
+        <div class="stat-card">
+          <h2 class="stat-card-title">Chiffre d'affaires par menu</h2>
+
+          <form action="index.php" method="get" class="ee-filter-form" style="margin-bottom:1.5rem">
+            <input type="hidden" name="section" value="statistiques">
+            <div class="ee-filter-group">
+              <label for="ca-menu">Menu</label>
+              <select id="ca-menu" name="ca_menu">
+                <option value="">Tous les menus</option>
+                <?php foreach ($menus as $m): ?>
+                  <option value="<?= $m['menu_id'] ?>" <?= $ca_menu_id == $m['menu_id'] ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($m['titre']) ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <div class="ee-filter-group">
+              <label for="ca-date-debut">Du</label>
+              <input type="date" id="ca-date-debut" name="date_debut"
+                     value="<?= htmlspecialchars($ca_date_debut) ?>">
+            </div>
+            <div class="ee-filter-group">
+              <label for="ca-date-fin">Au</label>
+              <input type="date" id="ca-date-fin" name="date_fin"
+                     value="<?= htmlspecialchars($ca_date_fin) ?>">
+            </div>
+            <button type="submit" class="ee-btn ee-btn-primary">Filtrer</button>
+            <?php if ($ca_menu_id || $ca_date_debut || $ca_date_fin): ?>
+              <a href="?section=statistiques" class="ee-btn ee-btn-secondary">Réinitialiser</a>
+            <?php endif; ?>
+          </form>
+
+          <?php if (empty($mongo_ca_par_menu)): ?>
+            <p style="color:#888;text-align:center;padding:2rem;">Aucune donnée disponible.</p>
+          <?php else: ?>
+            <canvas id="chart-ca" style="max-height:350px"></canvas>
+            <div class="ee-table-wrapper" style="margin-top:1.5rem">
+              <table class="ee-table">
+                <thead>
+                  <tr><th>Menu</th><th>Commandes</th><th>Chiffre d'affaires</th></tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($mongo_ca_par_menu as $row): ?>
+                  <tr>
+                    <td><?= htmlspecialchars($row['menu']) ?></td>
+                    <td><?= (int)$row['count'] ?></td>
+                    <td><?= number_format($row['ca'], 2, ',', ' ') ?> €</td>
+                  </tr>
+                  <?php endforeach; ?>
+                  <tr style="font-weight:bold;background:#fafafa">
+                    <td>Total</td>
+                    <td><?= array_sum(array_column($mongo_ca_par_menu, 'count')) ?></td>
+                    <td><?= number_format(array_sum(array_column($mongo_ca_par_menu, 'ca')), 2, ',', ' ') ?> €</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          <?php endif; ?>
+        </div>
 
       </section>
 
@@ -849,9 +1034,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
          role="dialog" aria-modal="true" aria-labelledby="modal-statut-title-<?= $cid ?>">
       <div class="ee-modal">
         <div class="ee-modal-header">
-          <h2 id="modal-statut-title-<?= $cid ?>">
-            Avancer la commande <?= htmlspecialchars($cmd['numero_commande']) ?>
-          </h2>
+          <h2 id="modal-statut-title-<?= $cid ?>">Avancer la commande <?= htmlspecialchars($cmd['numero_commande']) ?></h2>
           <button class="ee-modal-close" data-modal="modal-statut-<?= $cid ?>" aria-label="Fermer">
             <i class="bi bi-x-lg" aria-hidden="true"></i>
           </button>
@@ -871,8 +1054,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
             </select>
           </div>
           <div class="ee-modal-footer">
-            <button type="button" class="ee-btn ee-btn-secondary"
-                    data-modal="modal-statut-<?= $cid ?>">Annuler</button>
+            <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-statut-<?= $cid ?>">Annuler</button>
             <button type="submit" class="ee-btn ee-btn-primary">Enregistrer</button>
           </div>
         </form>
@@ -885,16 +1067,12 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
          role="dialog" aria-modal="true" aria-labelledby="modal-annuler-title-<?= $cid ?>">
       <div class="ee-modal">
         <div class="ee-modal-header">
-          <h2 id="modal-annuler-title-<?= $cid ?>">
-            Annuler <?= htmlspecialchars($cmd['numero_commande']) ?>
-          </h2>
+          <h2 id="modal-annuler-title-<?= $cid ?>">Annuler <?= htmlspecialchars($cmd['numero_commande']) ?></h2>
           <button class="ee-modal-close" data-modal="modal-annuler-<?= $cid ?>" aria-label="Fermer">
             <i class="bi bi-x-lg" aria-hidden="true"></i>
           </button>
         </div>
-        <p class="ee-modal-info">
-          Vous devez avoir contacté le client avant d'annuler cette commande.
-        </p>
+        <p class="ee-modal-info">Vous devez avoir contacté le client avant d'annuler cette commande.</p>
         <form action="index.php" method="post">
           <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
           <input type="hidden" name="action" value="annuler_commande">
@@ -909,12 +1087,10 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           </div>
           <div class="ee-form-group">
             <label for="motif-<?= $cid ?>">Motif d'annulation</label>
-            <textarea id="motif-<?= $cid ?>" name="motif" rows="3"
-                      placeholder="Décrivez le motif…" required></textarea>
+            <textarea id="motif-<?= $cid ?>" name="motif" rows="3" placeholder="Décrivez le motif…" required></textarea>
           </div>
           <div class="ee-modal-footer">
-            <button type="button" class="ee-btn ee-btn-secondary"
-                    data-modal="modal-annuler-<?= $cid ?>">Retour</button>
+            <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-annuler-<?= $cid ?>">Retour</button>
             <button type="submit" class="ee-btn ee-btn-danger">
               <i class="bi bi-x-circle" aria-hidden="true"></i> Confirmer l'annulation
             </button>
@@ -925,8 +1101,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
     <?php endif; ?>
 
     <?php if ($statut === 'annulee' && $cmd['motif_annulation']): ?>
-    <div class="ee-modal-overlay" id="modal-motif-<?= $cid ?>" style="display:none"
-         role="dialog" aria-modal="true">
+    <div class="ee-modal-overlay" id="modal-motif-<?= $cid ?>" style="display:none" role="dialog" aria-modal="true">
       <div class="ee-modal">
         <div class="ee-modal-header">
           <h2>Motif d'annulation — <?= htmlspecialchars($cmd['numero_commande']) ?></h2>
@@ -952,12 +1127,10 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
        MODALS — Menus
   ============================================================ -->
 
-  <!-- Modal : Ajouter menu -->
-  <div class="ee-modal-overlay" id="modal-ajouter-menu" style="display:none"
-       role="dialog" aria-modal="true" aria-labelledby="modal-ajouter-menu-title">
+  <div class="ee-modal-overlay" id="modal-ajouter-menu" style="display:none" role="dialog" aria-modal="true">
     <div class="ee-modal ee-modal-large">
       <div class="ee-modal-header">
-        <h2 id="modal-ajouter-menu-title">Ajouter un menu</h2>
+        <h2>Ajouter un menu</h2>
         <button class="ee-modal-close" data-modal="modal-ajouter-menu" aria-label="Fermer">
           <i class="bi bi-x-lg" aria-hidden="true"></i>
         </button>
@@ -1021,9 +1194,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
   </div>
 
   <?php foreach ($menus as $m): ?>
-  <!-- Modal : Modifier menu <?= $m['menu_id'] ?> -->
-  <div class="ee-modal-overlay" id="modal-modifier-menu-<?= $m['menu_id'] ?>" style="display:none"
-       role="dialog" aria-modal="true">
+  <div class="ee-modal-overlay" id="modal-modifier-menu-<?= $m['menu_id'] ?>" style="display:none" role="dialog" aria-modal="true">
     <div class="ee-modal ee-modal-large">
       <div class="ee-modal-header">
         <h2>Modifier — <?= htmlspecialchars($m['titre']) ?></h2>
@@ -1102,10 +1273,8 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
     </div>
   </div>
 
-  <!-- Modal : Désactiver menu <?= $m['menu_id'] ?> -->
   <?php if ($m['actif']): ?>
-  <div class="ee-modal-overlay" id="modal-supprimer-menu-<?= $m['menu_id'] ?>" style="display:none"
-       role="dialog" aria-modal="true">
+  <div class="ee-modal-overlay" id="modal-supprimer-menu-<?= $m['menu_id'] ?>" style="display:none" role="dialog" aria-modal="true">
     <div class="ee-modal">
       <div class="ee-modal-header">
         <h2>Désactiver le menu</h2>
@@ -1115,7 +1284,6 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
       </div>
       <p class="ee-modal-info">
         Le menu <strong><?= htmlspecialchars($m['titre']) ?></strong> sera masqué du site.
-        Il restera accessible ici pour être réactivé si besoin.
       </p>
       <form action="index.php" method="post">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
@@ -1133,11 +1301,10 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
   <?php endforeach; ?>
 
   <!-- Modal : Ajouter plat -->
-  <div class="ee-modal-overlay" id="modal-ajouter-plat" style="display:none"
-       role="dialog" aria-modal="true" aria-labelledby="modal-ajouter-plat-title">
+  <div class="ee-modal-overlay" id="modal-ajouter-plat" style="display:none" role="dialog" aria-modal="true">
     <div class="ee-modal">
       <div class="ee-modal-header">
-        <h2 id="modal-ajouter-plat-title">Ajouter un plat</h2>
+        <h2>Ajouter un plat</h2>
         <button class="ee-modal-close" data-modal="modal-ajouter-plat" aria-label="Fermer">
           <i class="bi bi-x-lg" aria-hidden="true"></i>
         </button>
@@ -1180,12 +1347,10 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
     </div>
   </div>
 
-  <!-- Modals : Modifier / Supprimer plats -->
   <?php foreach ($plats as $p):
     $plat_aid_arr = $p['allergene_ids_str'] ? explode(',', $p['allergene_ids_str']) : [];
   ?>
-  <div class="ee-modal-overlay" id="modal-modifier-plat-<?= $p['plat_id'] ?>" style="display:none"
-       role="dialog" aria-modal="true">
+  <div class="ee-modal-overlay" id="modal-modifier-plat-<?= $p['plat_id'] ?>" style="display:none" role="dialog" aria-modal="true">
     <div class="ee-modal">
       <div class="ee-modal-header">
         <h2>Modifier — <?= htmlspecialchars($p['nom']) ?></h2>
@@ -1235,8 +1400,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
     </div>
   </div>
 
-  <div class="ee-modal-overlay" id="modal-supprimer-plat-<?= $p['plat_id'] ?>" style="display:none"
-       role="dialog" aria-modal="true">
+  <div class="ee-modal-overlay" id="modal-supprimer-plat-<?= $p['plat_id'] ?>" style="display:none" role="dialog" aria-modal="true">
     <div class="ee-modal">
       <div class="ee-modal-header">
         <h2>Supprimer le plat</h2>
@@ -1265,8 +1429,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
        MODALS — Horaires
   ============================================================ -->
   <?php foreach ($horaires as $h): ?>
-  <div class="ee-modal-overlay" id="modal-horaire-<?= $h['horaire_id'] ?>" style="display:none"
-       role="dialog" aria-modal="true">
+  <div class="ee-modal-overlay" id="modal-horaire-<?= $h['horaire_id'] ?>" style="display:none" role="dialog" aria-modal="true">
     <div class="ee-modal">
       <div class="ee-modal-header">
         <h2>Modifier — <?= htmlspecialchars($h['jour']) ?></h2>
@@ -1310,22 +1473,54 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
   </div>
   <?php endforeach; ?>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Navigation sidebar
-    document.querySelectorAll('.ee-nav-link').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const section = link.dataset.section;
-        document.querySelectorAll('.ee-nav-link').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-        document.querySelectorAll('.ee-section').forEach(s => s.style.display = 'none');
-        document.getElementById('section-' + section).style.display = 'block';
-        history.replaceState(null, '', '?section=' + section);
-      });
-    });
+  <!-- ============================================================
+       MODAL — Ajouter employé
+  ============================================================ -->
+  <div class="ee-modal-overlay" id="modal-ajouter-employe" style="display:none" role="dialog" aria-modal="true">
+    <div class="ee-modal">
+      <div class="ee-modal-header">
+        <h2>Ajouter un employé</h2>
+        <button class="ee-modal-close" data-modal="modal-ajouter-employe" aria-label="Fermer">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      </div>
+      <p class="ee-modal-info">
+        Un email de notification sera envoyé à l'employé. Le mot de passe ne lui sera pas communiqué — il devra se rapprocher de l'administrateur pour l'obtenir.
+      </p>
+      <form action="index.php" method="post">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+        <input type="hidden" name="action" value="creer_employe">
+        <div class="ee-form-row">
+          <div class="ee-form-group">
+            <label for="employe-prenom">Prénom</label>
+            <input type="text" id="employe-prenom" name="prenom" placeholder="Julie">
+          </div>
+          <div class="ee-form-group">
+            <label for="employe-nom">Nom</label>
+            <input type="text" id="employe-nom" name="nom" placeholder="Martin">
+          </div>
+        </div>
+        <div class="ee-form-group">
+          <label for="employe-email">Adresse email (identifiant)</label>
+          <input type="email" id="employe-email" name="email"
+                 placeholder="prenom.nom@vite-et-gourmand.fr" required>
+        </div>
+        <div class="ee-form-group">
+          <label for="employe-password">Mot de passe temporaire</label>
+          <input type="password" id="employe-password" name="password"
+                 placeholder="••••••••" minlength="8" required>
+        </div>
+        <div class="ee-modal-footer">
+          <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-ajouter-employe">Annuler</button>
+          <button type="submit" class="ee-btn ee-btn-primary">Créer le compte</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-    // Modals
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
     document.querySelectorAll('[data-modal]').forEach(el => {
       el.addEventListener('click', () => {
         const modal = document.getElementById(el.dataset.modal);
@@ -1339,6 +1534,46 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
         if (e.target === overlay) overlay.style.display = 'none';
       });
     });
+
+    <?php if (!empty($mongo_commandes_par_menu)): ?>
+    new Chart(document.getElementById('chart-commandes'), {
+      type: 'bar',
+      data: {
+        labels: <?= json_encode(array_column($mongo_commandes_par_menu, 'menu'), JSON_UNESCAPED_UNICODE) ?>,
+        datasets: [{
+          label: 'Commandes',
+          data: <?= json_encode(array_column($mongo_commandes_par_menu, 'count')) ?>,
+          backgroundColor: '#b8860b',
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+      }
+    });
+    <?php endif; ?>
+
+    <?php if (!empty($mongo_ca_par_menu)): ?>
+    new Chart(document.getElementById('chart-ca'), {
+      type: 'bar',
+      data: {
+        labels: <?= json_encode(array_column($mongo_ca_par_menu, 'menu'), JSON_UNESCAPED_UNICODE) ?>,
+        datasets: [{
+          label: 'CA (€)',
+          data: <?= json_encode(array_column($mongo_ca_par_menu, 'ca')) ?>,
+          backgroundColor: '#2c7a3a',
+          borderRadius: 6,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+    <?php endif; ?>
   </script>
 </body>
 </html>

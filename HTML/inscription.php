@@ -1,6 +1,7 @@
 ﻿<?php
 require_once '../PHP/includes/session.php';
 require_once '../PHP/config/db.php';
+require_once '../PHP/includes/mailer.php';
 
 if (isConnecte()) {
     header('Location: espace-utilisateur/index.html');
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare('INSERT INTO utilisateur (email, password, nom, prenom, telephone, adresse, role_id) VALUES (?, ?, ?, ?, ?, ?, 3)');
                 $stmt->execute([$email, $hash, $nom, $prenom, $gsm, $adresse]);
 
-                //  envoyer email de bienvenue 
+                mailBienvenue($email, $prenom, $nom);
 
                 $succes = 'Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.';
                 $vals   = ['prenom' => '', 'nom' => '', 'email' => '', 'gsm' => '', 'adresse' => ''];

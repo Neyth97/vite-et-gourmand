@@ -1,6 +1,7 @@
 <?php
 require_once '../PHP/includes/session.php';
 require_once '../PHP/config/db.php';
+require_once '../PHP/includes/mailer.php';
 
 requireConnexion();
 
@@ -148,6 +149,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $pdo->commit();
                 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+
+                try {
+                    require_once '../PHP/config/mongodb.php';
+                    getMongoDB()->commandes->insertOne([
+                        'commande_id'     => $commande_id,
+                        'menu_id'         => (int)$form['menu_id'],
+                        'menu_titre'      => $menu_cmd['titre'],
+                        'prix_total'      => round($prix_total, 2),
+                        'nombre_personne' => $nb,
+                        'date_commande'   => new \MongoDB\BSON\UTCDateTime(),
+                    ]);
+                } catch (\Throwable $e) {
+                    // MongoDB indisponible — non bloquant
+                }
+
+                $stmt_u = getPDO()->prepare('SELECT prenom, nom, email FROM utilisateur WHERE utilisateur_id = ?');
+                $stmt_u->execute([$_SESSION['utilisateur_id']]);
+                $u_mail = $stmt_u->fetch();
+                if ($u_mail) {
+                    mailConfirmationCommande($u_mail['email'], $u_mail['prenom'], $u_mail['nom'], [
+                        'numero'    => $numero_commande,
+                        'menu'      => $menu_cmd['titre'],
+                        'date'      => date('d/m/Y', strtotime($form['date_prestation'])),
+                        'heure'     => substr($form['heure_livraison'], 0, 5),
+                        'personnes' => $nb,
+                        'adresse'   => $form['adresse_prestation'] . ', ' . $form['ville_prestation'],
+                        'total'     => round($prix_total, 2),
+                    ]);
+                }
 
                 header('Location: /vite-et-gourmand/HTML/commande-confirmation.php?id=' . $commande_id);
                 exit;
