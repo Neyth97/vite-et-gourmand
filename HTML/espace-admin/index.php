@@ -161,6 +161,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($img_menu) {
             $pdo->prepare('INSERT INTO menu_image (menu_id, chemin, ordre) VALUES (?, ?, 1)')->execute([$new_menu_id, $img_menu]);
         }
+        $plat_ids = array_filter(array_map('intval', (array)($_POST['plat_ids'] ?? [])));
+        foreach ($plat_ids as $pid_lien) {
+            $pdo->prepare('INSERT IGNORE INTO menu_plat (menu_id, plat_id) VALUES (?, ?)')->execute([$new_menu_id, $pid_lien]);
+        }
 
         $_SESSION['flash_ok'] = 'Menu ajouté.';
         header('Location: index.php?section=menus');
@@ -206,6 +210,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $pdo->prepare('INSERT INTO menu_image (menu_id, chemin, ordre) VALUES (?, ?, 1)')->execute([$mid, $img_menu]);
             }
+        }
+        $plat_ids = array_filter(array_map('intval', (array)($_POST['plat_ids'] ?? [])));
+        $pdo->prepare('DELETE FROM menu_plat WHERE menu_id = ?')->execute([$mid]);
+        foreach ($plat_ids as $pid_lien) {
+            $pdo->prepare('INSERT IGNORE INTO menu_plat (menu_id, plat_id) VALUES (?, ?)')->execute([$mid, $pid_lien]);
         }
 
         $_SESSION['flash_ok'] = 'Menu modifié.';
@@ -475,6 +484,18 @@ $employes = $pdo->query(
 $themes    = $pdo->query('SELECT theme_id, libelle FROM theme ORDER BY libelle')->fetchAll();
 $regimes   = $pdo->query('SELECT regime_id, libelle FROM regime ORDER BY libelle')->fetchAll();
 $allergenes = $pdo->query('SELECT allergene_id, libelle FROM allergene ORDER BY libelle')->fetchAll();
+
+// Map menu → plats pour les modals composition
+$menu_plat_raw = $pdo->query('SELECT menu_id, plat_id FROM menu_plat')->fetchAll();
+$menu_plat_map = [];
+foreach ($menu_plat_raw as $mp) {
+    $menu_plat_map[(int)$mp['menu_id']][] = (int)$mp['plat_id'];
+}
+$plats_by_type = ['entree' => [], 'plat' => [], 'dessert' => []];
+foreach ($plats as $p) {
+    if (isset($plats_by_type[$p['type']])) $plats_by_type[$p['type']][] = $p;
+}
+$type_labels_compo = ['entree' => 'Entrées', 'plat' => 'Plats principaux', 'dessert' => 'Desserts'];
 
 // Statistiques MongoDB
 $ca_menu_id    = filter_input(INPUT_GET, 'ca_menu', FILTER_VALIDATE_INT) ?: 0;
@@ -1245,6 +1266,21 @@ $type_labels = ['entree' => 'Entrée', 'plat' => 'Plat', 'dessert' => 'Dessert']
           <input type="file" id="new-menu-image" name="image" accept="image/*" class="form-control">
           <small class="text-muted">JPG, PNG, WebP — max 5 Mo</small>
         </div>
+        <div class="ee-form-group">
+          <label>Composition du menu</label>
+          <?php foreach ($plats_by_type as $type_key => $group): ?>
+            <?php if (empty($group)) continue; ?>
+            <p style="font-weight:600;margin:.6rem 0 .2rem;font-size:.82rem;text-transform:uppercase;color:#888;"><?= $type_labels_compo[$type_key] ?></p>
+            <div class="ee-checkboxes">
+              <?php foreach ($group as $gp): ?>
+                <label class="ee-checkbox-label">
+                  <input type="checkbox" name="plat_ids[]" value="<?= $gp['plat_id'] ?>">
+                  <?= htmlspecialchars($gp['nom']) ?>
+                </label>
+              <?php endforeach; ?>
+            </div>
+          <?php endforeach; ?>
+        </div>
         <div class="ee-modal-footer">
           <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-ajouter-menu">Annuler</button>
           <button type="submit" class="ee-btn ee-btn-primary">Ajouter</button>
@@ -1327,6 +1363,23 @@ $type_labels = ['entree' => 'Entrée', 'plat' => 'Plat', 'dessert' => 'Dessert']
           <?php endif; ?>
           <input type="file" id="image-<?= $m['menu_id'] ?>" name="image" accept="image/*" class="form-control">
           <small class="text-muted">Laisser vide pour conserver l'image existante</small>
+        </div>
+        <div class="ee-form-group">
+          <label>Composition du menu</label>
+          <?php $current_plat_ids = $menu_plat_map[(int)$m['menu_id']] ?? []; ?>
+          <?php foreach ($plats_by_type as $type_key => $group): ?>
+            <?php if (empty($group)) continue; ?>
+            <p style="font-weight:600;margin:.6rem 0 .2rem;font-size:.82rem;text-transform:uppercase;color:#888;"><?= $type_labels_compo[$type_key] ?></p>
+            <div class="ee-checkboxes">
+              <?php foreach ($group as $gp): ?>
+                <label class="ee-checkbox-label">
+                  <input type="checkbox" name="plat_ids[]" value="<?= $gp['plat_id'] ?>"
+                         <?= in_array($gp['plat_id'], $current_plat_ids) ? 'checked' : '' ?>>
+                  <?= htmlspecialchars($gp['nom']) ?>
+                </label>
+              <?php endforeach; ?>
+            </div>
+          <?php endforeach; ?>
         </div>
         <div class="ee-form-group">
           <label>
