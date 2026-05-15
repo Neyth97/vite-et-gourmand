@@ -397,3 +397,67 @@ body {
   gap: 0.75rem;
   margin-top: 1.25rem;
 }
+
+/* ============================================================
+   Responsive — mobile (≤768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Header */
+  .ee-header { padding: 0.75rem 1rem; }
+  .ee-user-name { display: none; }
+
+  /* Layout : sidebar passe en nav horizontale au-dessus du contenu */
+  .ee-layout { flex-direction: column; }
+
+  .ee-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .ee-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.25rem;
+    padding-bottom: 0.25rem;
+    scrollbar-width: none;
+  }
+
+  .ee-nav::-webkit-scrollbar { display: none; }
+
+  .ee-nav li { flex-shrink: 0; }
+
+  .ee-nav-link { padding: 0.45rem 0.75rem; font-size: 0.8rem; }
+
+  .ee-badge-count { display: none; }
+
+  /* Main */
+  .ee-main { padding: 1rem; }
+
+  /* Filtres */
+  .ee-filter-group select,
+  .ee-filter-group input { min-width: 140px; }
+
+  /* Formulaires */
+  .ee-form-row { grid-template-columns: 1fr; }
+
+  /* Actions inline */
+  .ee-actions { flex-wrap: wrap; }
+
+  /* Modals */
+  .ee-modal-overlay {
+    align-items: flex-start;
+    padding: 0.75rem;
+  }
+
+  .ee-modal,
+  .ee-modal.ee-modal-large {
+    max-width: 100%;
+    max-height: calc(100vh - 1.5rem);
+    overflow-y: auto;
+  }
+
+  .ee-modal-footer { flex-wrap: wrap; }
+}
