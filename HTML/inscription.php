@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li class="nav-item"><a class="nav-link" href="menus.php">Menus</a></li>
             <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
             <li class="nav-item"><a class="nav-link" href="a-propos.html">À propos</a></li>
-            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
             <li class="nav-item"><a class="nav-link active" href="connexion.php">Connexion</a></li>
           </ul>
         </div>
@@ -240,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="menus.php">Menus</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="a-propos.html">À propos</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.php">Contact</a></li>
           </ul>
         </div>
 
