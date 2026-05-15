@@ -3,6 +3,34 @@ require_once '../../PHP/includes/session.php';
 require_once '../../PHP/config/db.php';
 require_once '../../PHP/includes/mailer.php';
 
+function uploadMenuImage(): ?string {
+    if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) return null;
+    $file = $_FILES['image'];
+    if ($file['size'] > 5 * 1024 * 1024) return null;
+    $mime = mime_content_type($file['tmp_name']);
+    if (!in_array($mime, ['image/jpeg','image/png','image/gif','image/webp'], true)) return null;
+    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (!in_array($ext, ['jpg','jpeg','png','gif','webp'], true)) return null;
+    $filename = uniqid('menu_', true) . '.' . $ext;
+    if (!move_uploaded_file($file['tmp_name'], __DIR__ . '/../../assets/menus/' . $filename)) return null;
+    return 'assets/menus/' . $filename;
+}
+
+function uploadPlatImage(): ?string {
+    if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) return null;
+    $file = $_FILES['image'];
+    if ($file['size'] > 5 * 1024 * 1024) return null;
+    $mime = mime_content_type($file['tmp_name']);
+    if (!in_array($mime, ['image/jpeg','image/png','image/gif','image/webp'], true)) return null;
+    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (!in_array($ext, ['jpg','jpeg','png','gif','webp'], true)) return null;
+    $dir = __DIR__ . '/../../assets/plats';
+    if (!is_dir($dir)) mkdir($dir, 0755, true);
+    $filename = uniqid('plat_', true) . '.' . $ext;
+    if (!move_uploaded_file($file['tmp_name'], $dir . '/' . $filename)) return null;
+    return 'assets/plats/' . $filename;
+}
+
 requireConnexion();
 if (!in_array(getRoleId(), [1, 2])) {
     header('Location: /vite-et-gourmand/HTML/connexion.php');
@@ -132,6 +160,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
         )->execute([$titre, $desc ?: null, $theme_id, $regime_id, $nb_min, $prix, $conditions ?: null, $stock]);
 
+        $new_menu_id = (int)$pdo->lastInsertId();
+        $img_menu = uploadMenuImage();
+        if ($img_menu) {
+            $pdo->prepare('INSERT INTO menu_image (menu_id, chemin, ordre) VALUES (?, ?, 1)')->execute([$new_menu_id, $img_menu]);
+        }
+
         $_SESSION['flash_ok'] = 'Menu ajouté.';
         header('Location: index.php?section=menus');
         exit;
@@ -170,6 +204,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              WHERE menu_id=?'
         )->execute([$titre, $desc ?: null, $theme_id, $regime_id, $nb_min, $prix, $conditions ?: null, $stock, $actif, $mid]);
 
+        $img_menu = uploadMenuImage();
+        if ($img_menu) {
+            $existing = $pdo->prepare('SELECT image_id FROM menu_image WHERE menu_id = ? ORDER BY ordre ASC LIMIT 1');
+            $existing->execute([$mid]);
+            $existing_row = $existing->fetch();
+            if ($existing_row) {
+                $pdo->prepare('UPDATE menu_image SET chemin = ? WHERE image_id = ?')->execute([$img_menu, $existing_row['image_id']]);
+            } else {
+                $pdo->prepare('INSERT INTO menu_image (menu_id, chemin, ordre) VALUES (?, ?, 1)')->execute([$mid, $img_menu]);
+            }
+        }
+
         $_SESSION['flash_ok'] = 'Menu modifié.';
         header('Location: index.php?section=menus');
         exit;
@@ -205,6 +251,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $pdo->prepare('INSERT INTO plat (nom, type, description) VALUES (?, ?, ?)')->execute([$nom, $type, $desc ?: null]);
         $pid = (int)$pdo->lastInsertId();
+        $img_plat = uploadPlatImage();
+        if ($img_plat) {
+            $pdo->prepare('UPDATE plat SET image = ? WHERE plat_id = ?')->execute([$img_plat, $pid]);
+        }
         foreach ($aids as $aid) {
             $pdo->prepare('INSERT IGNORE INTO plat_allergene (plat_id, allergene_id) VALUES (?, ?)')->execute([$pid, $aid]);
         }
@@ -234,6 +284,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $pdo->prepare('UPDATE plat SET nom=?, type=?, description=? WHERE plat_id=?')->execute([$nom, $type, $desc ?: null, $pid]);
+        $img_plat = uploadPlatImage();
+        if ($img_plat) {
+            $pdo->prepare('UPDATE plat SET image = ? WHERE plat_id = ?')->execute([$img_plat, $pid]);
+        }
         $pdo->prepare('DELETE FROM plat_allergene WHERE plat_id=?')->execute([$pid]);
         foreach ($aids as $aid) {
             $pdo->prepare('INSERT IGNORE INTO plat_allergene (plat_id, allergene_id) VALUES (?, ?)')->execute([$pid, $aid]);
@@ -339,7 +393,8 @@ $commandes = $s->fetchAll();
 $menus = $pdo->query(
     'SELECT m.menu_id, m.titre, m.description, m.nombre_personne_minimum, m.prix_par_personne,
             m.conditions, m.quantite_restante, m.actif, m.theme_id, m.regime_id,
-            t.libelle AS theme_libelle, r.libelle AS regime_libelle
+            t.libelle AS theme_libelle, r.libelle AS regime_libelle,
+            (SELECT chemin FROM menu_image WHERE menu_id = m.menu_id ORDER BY ordre ASC LIMIT 1) AS image
      FROM menu m
      JOIN theme t ON m.theme_id = t.theme_id
      JOIN regime r ON m.regime_id = r.regime_id
@@ -348,7 +403,7 @@ $menus = $pdo->query(
 
 // Plats
 $plats = $pdo->query(
-    "SELECT p.plat_id, p.nom, p.type, p.description,
+    "SELECT p.plat_id, p.nom, p.type, p.description, p.image,
             GROUP_CONCAT(a.libelle ORDER BY a.libelle SEPARATOR ', ') AS allergenes,
             GROUP_CONCAT(a.allergene_id ORDER BY a.libelle SEPARATOR ',') AS allergene_ids_str
      FROM plat p
@@ -962,7 +1017,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           <i class="bi bi-x-lg" aria-hidden="true"></i>
         </button>
       </div>
-      <form action="index.php" method="post">
+      <form action="index.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <input type="hidden" name="action" value="ajouter_menu">
         <div class="ee-form-group">
@@ -1012,6 +1067,11 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           <textarea id="new-menu-conditions" name="conditions" rows="2"
                     placeholder="Ex : commander 7 jours avant la prestation…"></textarea>
         </div>
+        <div class="ee-form-group">
+          <label for="new-menu-image">Image principale</label>
+          <input type="file" id="new-menu-image" name="image" accept="image/*" class="form-control">
+          <small class="text-muted">JPG, PNG, WebP — max 5 Mo</small>
+        </div>
         <div class="ee-modal-footer">
           <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-ajouter-menu">Annuler</button>
           <button type="submit" class="ee-btn ee-btn-primary">Ajouter</button>
@@ -1031,7 +1091,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           <i class="bi bi-x-lg" aria-hidden="true"></i>
         </button>
       </div>
-      <form action="index.php" method="post">
+      <form action="index.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <input type="hidden" name="action" value="modifier_menu">
         <input type="hidden" name="menu_id" value="<?= $m['menu_id'] ?>">
@@ -1089,6 +1149,15 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           <textarea id="cond-<?= $m['menu_id'] ?>" name="conditions" rows="2"><?= htmlspecialchars($m['conditions'] ?? '') ?></textarea>
         </div>
         <div class="ee-form-group">
+          <label for="image-<?= $m['menu_id'] ?>">Image principale</label>
+          <?php if (!empty($m['image'])): ?>
+            <img src="../../<?= htmlspecialchars($m['image']) ?>" alt="Image actuelle"
+                 style="max-height:80px;border-radius:4px;display:block;margin-bottom:.4rem;">
+          <?php endif; ?>
+          <input type="file" id="image-<?= $m['menu_id'] ?>" name="image" accept="image/*" class="form-control">
+          <small class="text-muted">Laisser vide pour conserver l'image existante</small>
+        </div>
+        <div class="ee-form-group">
           <label>
             <input type="checkbox" name="actif" <?= $m['actif'] ? 'checked' : '' ?>> Menu actif (visible sur le site)
           </label>
@@ -1142,7 +1211,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           <i class="bi bi-x-lg" aria-hidden="true"></i>
         </button>
       </div>
-      <form action="index.php" method="post">
+      <form action="index.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <input type="hidden" name="action" value="ajouter_plat">
         <div class="ee-form-group">
@@ -1172,6 +1241,11 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
             <?php endforeach; ?>
           </div>
         </div>
+        <div class="ee-form-group">
+          <label for="new-plat-image">Photo du plat</label>
+          <input type="file" id="new-plat-image" name="image" accept="image/*" class="form-control">
+          <small class="text-muted">JPG, PNG, WebP — max 5 Mo</small>
+        </div>
         <div class="ee-modal-footer">
           <button type="button" class="ee-btn ee-btn-secondary" data-modal="modal-ajouter-plat">Annuler</button>
           <button type="submit" class="ee-btn ee-btn-primary">Ajouter</button>
@@ -1193,7 +1267,7 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
           <i class="bi bi-x-lg" aria-hidden="true"></i>
         </button>
       </div>
-      <form action="index.php" method="post">
+      <form action="index.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <input type="hidden" name="action" value="modifier_plat">
         <input type="hidden" name="plat_id" value="<?= $p['plat_id'] ?>">
@@ -1225,6 +1299,15 @@ $role_label = isAdmin() ? 'Administrateur' : 'Employé';
               </label>
             <?php endforeach; ?>
           </div>
+        </div>
+        <div class="ee-form-group">
+          <label for="plat-image-<?= $p['plat_id'] ?>">Photo du plat</label>
+          <?php if (!empty($p['image'])): ?>
+            <img src="../../<?= htmlspecialchars($p['image']) ?>" alt="Photo actuelle"
+                 style="max-height:80px;border-radius:4px;display:block;margin-bottom:.4rem;">
+          <?php endif; ?>
+          <input type="file" id="plat-image-<?= $p['plat_id'] ?>" name="image" accept="image/*" class="form-control">
+          <small class="text-muted">Laisser vide pour conserver la photo existante</small>
         </div>
         <div class="ee-modal-footer">
           <button type="button" class="ee-btn ee-btn-secondary"
