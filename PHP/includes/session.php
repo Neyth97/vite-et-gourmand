@@ -5,6 +5,7 @@ ob_start();
 ini_set('display_errors', 0);
 error_reporting(0);
 
+ini_set('session.save_path', '/tmp');
 ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_samesite', 'Strict');
 ini_set('session.use_strict_mode', 1);
