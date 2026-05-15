@@ -2,5 +2,10 @@
     "require": {
         "mongodb/mongodb": "^2.0",
         "phpmailer/phpmailer": "^6.9"
+    },
+    "config": {
+        "platform": {
+            "ext-mongodb": "2.3.0"
+        }
     }
 }
