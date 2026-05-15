@@ -1,5 +1,8 @@
-[phases.build]
-cmds = ["install-php-extensions pdo_mysql mongodb"]
+[phases.setup]
+aptPkgs = ["unzip"]
 
 [phases.install]
-cmds = ["composer install --no-dev --optimize-autoloader --ignore-platform-reqs"]
+cmds = [
+    "install-php-extensions pdo_mysql mongodb",
+    "composer install --no-dev --optimize-autoloader --ignore-platform-reqs"
+]
