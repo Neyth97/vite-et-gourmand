@@ -3,6 +3,3 @@ nixPkgs = ["php83Extensions.mongodb"]
 
 [phases.install]
 cmds = ["composer install --no-dev --optimize-autoloader --ignore-platform-reqs"]
-
-[start]
-cmd = "sh /app/start.sh"
