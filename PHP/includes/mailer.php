@@ -18,6 +18,7 @@ function sendMail(string $to, string $toName, string $subject, string $htmlBody)
         $mail->Host       = getenv('SMTP_HOST') ?: 'localhost';
         $mail->Port       = (int)(getenv('SMTP_PORT') ?: 1025);
         $mail->SMTPSecure = getenv('SMTP_SECURE') ?: '';
+        $mail->Timeout    = 10;
         $mail->CharSet    = PHPMailer::CHARSET_UTF8;
 
         if (getenv('SMTP_USER')) {
@@ -41,6 +42,7 @@ function sendMail(string $to, string $toName, string $subject, string $htmlBody)
         $mail->send();
         return true;
     } catch (Exception $e) {
+        error_log('[MAIL ERROR] ' . $mail->ErrorInfo);
         return false;
     }
 }
