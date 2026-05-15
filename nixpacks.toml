@@ -1,5 +1,8 @@
+[phases.setup]
+nixPkgs = ["php83Extensions.mongodb"]
+
 [phases.install]
-cmds = ["composer install --no-dev --optimize-autoloader"]
+cmds = ["composer install --no-dev --optimize-autoloader --ignore-platform-reqs"]
 
 [start]
 cmd = "php-fpm -D && caddy run --config /app/Caddyfile --adapter caddyfile"
