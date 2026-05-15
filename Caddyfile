@@ -19,7 +19,7 @@
     redir /HTML/menu-detail.html        /HTML/menu-detail.php        301
     redir /HTML/mot-de-passe-oublie.html /HTML/mot-de-passe-oublie.php 301
 
-    php_fastcgi 127.0.0.1:9000 {
+    php_fastcgi unix//tmp/php-fpm.sock {
         index index.php
     }
 
