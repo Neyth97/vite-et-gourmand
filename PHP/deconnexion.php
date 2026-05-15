@@ -2,5 +2,5 @@
 require_once '../PHP/includes/session.php';
 
 session_destroy();
-header('Location: /vite-et-gourmand/HTML/index.html');
+header('Location: /HTML/index.html');
 exit;

@@ -1,0 +1,27 @@
+{
+    admin off
+}
+
+:80 {
+    root * /app
+
+    encode gzip
+
+    header X-Frame-Options "DENY"
+    header X-Content-Type-Options "nosniff"
+    header Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Redirections legacy .html → .php
+    redir /HTML/menus.html              /HTML/menus.php              301
+    redir /HTML/connexion.html          /HTML/connexion.php          301
+    redir /HTML/inscription.html        /HTML/inscription.php        301
+    redir /HTML/commande.html           /HTML/commande.php           301
+    redir /HTML/menu-detail.html        /HTML/menu-detail.php        301
+    redir /HTML/mot-de-passe-oublie.html /HTML/mot-de-passe-oublie.php 301
+
+    php_fastcgi unix//run/php-fpm.sock {
+        index index.php
+    }
+
+    file_server
+}

@@ -33,7 +33,7 @@ function uploadPlatImage(): ?string {
 
 requireConnexion();
 if (!in_array(getRoleId(), [1, 2])) {
-    header('Location: /vite-et-gourmand/HTML/connexion.php');
+    header('Location: /HTML/connexion.php');
     exit;
 }
 

@@ -4,15 +4,28 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+function appUrl(string $path = ''): string
+{
+    $base = rtrim(getenv('APP_URL') ?: 'http://localhost/vite-et-gourmand', '/');
+    return $base . $path;
+}
+
 function sendMail(string $to, string $toName, string $subject, string $htmlBody): bool
 {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->Host     = 'localhost';
-        $mail->Port     = 1025;
-        $mail->SMTPAuth = false;
-        $mail->CharSet  = PHPMailer::CHARSET_UTF8;
+        $mail->Host    = getenv('SMTP_HOST') ?: 'localhost';
+        $mail->Port    = (int)(getenv('SMTP_PORT') ?: 1025);
+        $mail->CharSet = PHPMailer::CHARSET_UTF8;
+
+        if (getenv('SMTP_USER')) {
+            $mail->SMTPAuth = true;
+            $mail->Username = getenv('SMTP_USER');
+            $mail->Password = getenv('SMTP_PASS') ?: '';
+        } else {
+            $mail->SMTPAuth = false;
+        }
 
         $mail->setFrom('noreply@vite-et-gourmand.fr', 'Vite & Gourmand');
         $mail->addAddress($to, $toName);
@@ -46,7 +59,7 @@ function mailBienvenue(string $email, string $prenom, string $nom): bool
           <li>Suivre vos commandes en temps réel</li>
           <li>Laisser un avis après chaque prestation</li>
         </ul>
-        <a href="http://localhost/vite-et-gourmand/HTML/connexion.php"
+        <a href="' . appUrl('/HTML/connexion.php') . '"
            style="display:inline-block;background:#b8860b;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;margin-top:8px">
           Se connecter
         </a>
@@ -61,7 +74,7 @@ function mailBienvenue(string $email, string $prenom, string $nom): bool
 
 function mailResetPassword(string $email, string $prenom, string $nom, string $token): bool
 {
-    $lien = 'http://localhost/vite-et-gourmand/HTML/reinitialiser-mot-de-passe.php?token=' . urlencode($token);
+    $lien = appUrl('/HTML/reinitialiser-mot-de-passe.php?token=' . urlencode($token));
     $html = '
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#333">
       <div style="background:#b8860b;padding:24px 32px">
@@ -123,7 +136,7 @@ function mailConfirmationCommande(string $email, string $prenom, string $nom, ar
           </tr>
         </table>
         <p>Vous pouvez suivre votre commande depuis votre espace client.</p>
-        <a href="http://localhost/vite-et-gourmand/HTML/espace-utilisateur/index.php"
+        <a href="' . appUrl('/HTML/espace-utilisateur/index.php') . '"
            style="display:inline-block;background:#b8860b;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none">
           Mon espace
         </a>
@@ -138,7 +151,7 @@ function mailConfirmationCommande(string $email, string $prenom, string $nom, ar
 
 function mailCommandeTerminee(string $email, string $prenom, string $nom, string $numeroCommande, int $commandeId): bool
 {
-    $lien = 'http://localhost/vite-et-gourmand/HTML/espace-utilisateur/index.php?section=commandes';
+    $lien = appUrl('/HTML/espace-utilisateur/index.php?section=commandes');
     $html = '
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#333">
       <div style="background:#b8860b;padding:24px 32px">
@@ -185,7 +198,7 @@ function mailRetourMateriel(string $email, string $prenom, string $nom, string $
           <li>Par email : <a href="mailto:contact@vite-et-gourmand.fr">contact@vite-et-gourmand.fr</a></li>
           <li>Via le formulaire de contact de notre site</li>
         </ul>
-        <a href="http://localhost/vite-et-gourmand/HTML/contact.php"
+        <a href="' . appUrl('/HTML/contact.php') . '"
            style="display:inline-block;background:#b8860b;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none">
           Nous contacter
         </a>
@@ -210,7 +223,7 @@ function mailCreationCompteEmploye(string $email): bool
         <p>Un compte employé a été créé pour l\'adresse <strong>' . htmlspecialchars($email) . '</strong>.</p>
         <p>Pour obtenir votre mot de passe, rapprochez-vous de l\'administrateur.</p>
         <p>Une fois en possession de vos identifiants, vous pourrez vous connecter à votre espace :</p>
-        <a href="http://localhost/vite-et-gourmand/HTML/connexion.php"
+        <a href="' . appUrl('/HTML/connexion.php') . '"
            style="display:inline-block;background:#b8860b;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;margin-top:8px">
           Se connecter
         </a>
