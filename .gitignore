@@ -8,7 +8,6 @@ vendor/
 node_modules/
 
 # Configuration sensible
-php/config/db.php
 php/config/mail.php
 
 # Uploads utilisateurs
