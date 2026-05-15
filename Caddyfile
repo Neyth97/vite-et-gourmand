@@ -1,6 +1,7 @@
 {
     frankenphp
     admin off
+    order php_server before file_server
 }
 
 :80 {
