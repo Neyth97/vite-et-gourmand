@@ -44,7 +44,7 @@ function requireRole(int $roleId): void
 {
     requireConnexion();
     if (getRoleId() !== $roleId) {
-        header('Location: /HTML/index.html');
+        header('Location: /HTML/index.php');
         exit;
     }
 }

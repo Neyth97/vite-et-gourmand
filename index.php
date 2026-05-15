@@ -1,3 +1,3 @@
 <?php
-header('Location: /HTML/index.html', true, 301);
+header('Location: /HTML/index.php', true, 301);
 exit;

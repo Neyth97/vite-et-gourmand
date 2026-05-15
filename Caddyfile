@@ -13,6 +13,7 @@
     header X-Content-Type-Options "nosniff"
     header Referrer-Policy "strict-origin-when-cross-origin"
 
+    redir /HTML/index.html               /HTML/index.php              301
     redir /HTML/menus.html               /HTML/menus.php              301
     redir /HTML/connexion.html           /HTML/connexion.php          301
     redir /HTML/inscription.html         /HTML/inscription.php        301

@@ -753,6 +753,38 @@ body {
   color: #666666;
 }
 
+.temoignage-card-carousel {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.temoignage-card-carousel cite {
+  align-items: center;
+}
+
+.temoignage-stars {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #c8a84b;
+}
+
+#carouselAvis {
+  position: relative;
+  padding: 0 3rem;
+}
+
+#carouselAvis .carousel-control-prev,
+#carouselAvis .carousel-control-next {
+  width: 2.5rem;
+  opacity: 0.7;
+}
+
+#carouselAvis .carousel-control-prev:hover,
+#carouselAvis .carousel-control-next:hover {
+  opacity: 1;
+}
+
 /* ============================================================
    Stats
    ============================================================ */
