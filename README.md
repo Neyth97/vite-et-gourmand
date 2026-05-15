@@ -137,8 +137,8 @@ http://localhost/vite-et-gourmand
 | Rôle | Email | Mot de passe |
 |---|---|---|
 | Administrateur | `jose@vitegourmand.fr` | `Admin@Vite2026!` |
-| Employé | `julie@vitegourmand.fr` | `Employe@Vite2026!` |
-| Utilisateur | `alice@example.com` | `User@Vite2026!` |
+| Employé | `julie@vitegourmand.fr` | `Julie@Vite2026!` |
+| Utilisateur | `thomas@example.fr` | `password` |
 
 ---
 
