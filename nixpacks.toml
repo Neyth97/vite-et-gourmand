@@ -1,5 +1,5 @@
-[phases.setup]
-nixPkgs = ["php83Extensions.mongodb"]
+[phases.build]
+cmds = ["install-php-extensions mongodb"]
 
 [phases.install]
 cmds = ["composer install --no-dev --optimize-autoloader --ignore-platform-reqs"]
