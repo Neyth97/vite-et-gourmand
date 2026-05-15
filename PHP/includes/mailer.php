@@ -15,9 +15,10 @@ function sendMail(string $to, string $toName, string $subject, string $htmlBody)
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->Host    = getenv('SMTP_HOST') ?: 'localhost';
-        $mail->Port    = (int)(getenv('SMTP_PORT') ?: 1025);
-        $mail->CharSet = PHPMailer::CHARSET_UTF8;
+        $mail->Host       = getenv('SMTP_HOST') ?: 'localhost';
+        $mail->Port       = (int)(getenv('SMTP_PORT') ?: 1025);
+        $mail->SMTPSecure = getenv('SMTP_SECURE') ?: '';
+        $mail->CharSet    = PHPMailer::CHARSET_UTF8;
 
         if (getenv('SMTP_USER')) {
             $mail->SMTPAuth = true;
