@@ -5,7 +5,8 @@ function getMongoDB(): \MongoDB\Database
 {
     static $db = null;
     if ($db === null) {
-        $client = new \MongoDB\Client('mongodb://localhost:27017');
+        $uri    = getenv('MONGODB_URI') ?: 'mongodb://localhost:27017';
+        $client = new \MongoDB\Client($uri);
         $db     = $client->vite_gourmand;
     }
     return $db;

@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ]);
                 }
 
-                header('Location: /vite-et-gourmand/HTML/commande-confirmation.php?id=' . $commande_id);
+                header('Location: /HTML/commande-confirmation.php?id=' . $commande_id);
                 exit;
 
             } catch (\Exception $e) {
