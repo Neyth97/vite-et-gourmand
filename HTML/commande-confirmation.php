@@ -62,7 +62,7 @@ if (!$commande) {
           <ul class="navbar-nav ms-auto align-items-center gap-3">
             <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
             <li class="nav-item"><a class="nav-link" href="menus.php">Menus</a></li>
-            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
             <li class="nav-item">
               <a class="nav-link" href="espace-utilisateur/index.php">
                 <i class="bi bi-person-circle" aria-hidden="true"></i>
@@ -191,7 +191,7 @@ if (!$commande) {
           <ul class="footer-links">
             <li><a href="index.html">Accueil</a></li>
             <li><a href="menus.php">Menus</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.php">Contact</a></li>
           </ul>
         </div>
 
