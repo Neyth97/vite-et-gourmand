@@ -1,8 +1,4 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 function appUrl(string $path = ''): string
 {
@@ -12,39 +8,46 @@ function appUrl(string $path = ''): string
 
 function sendMail(string $to, string $toName, string $subject, string $htmlBody): bool
 {
-    $mail = new PHPMailer(true);
-    try {
-        $mail->isSMTP();
-        $mail->Host       = getenv('SMTP_HOST') ?: 'localhost';
-        $mail->Port       = (int)(getenv('SMTP_PORT') ?: 1025);
-        $mail->SMTPSecure = getenv('SMTP_SECURE') ?: '';
-        $mail->Timeout    = 10;
-        $mail->CharSet    = PHPMailer::CHARSET_UTF8;
-
-        if (getenv('SMTP_USER')) {
-            $mail->SMTPAuth = true;
-            $mail->Username = getenv('SMTP_USER');
-            $mail->Password = getenv('SMTP_PASS') ?: '';
-        } else {
-            $mail->SMTPAuth = false;
-        }
-
-        $from     = getenv('MAIL_FROM')      ?: 'noreply@vite-et-gourmand.fr';
-        $fromName = getenv('MAIL_FROM_NAME') ?: 'Vite & Gourmand';
-        $mail->setFrom($from, $fromName);
-        $mail->addAddress($to, $toName);
-
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->Body    = $htmlBody;
-        $mail->AltBody = strip_tags(str_replace(['<br>', '<br/>', '<br />'], "\n", $htmlBody));
-
-        $mail->send();
-        return true;
-    } catch (Exception $e) {
-        error_log('[MAIL ERROR] ' . $mail->ErrorInfo);
+    $apiKey = getenv('BREVO_API_KEY');
+    if (!$apiKey) {
+        error_log('[MAIL] BREVO_API_KEY manquante');
         return false;
     }
+
+    $from     = getenv('MAIL_FROM')      ?: 'noreply@vite-et-gourmand.fr';
+    $fromName = getenv('MAIL_FROM_NAME') ?: 'Vite & Gourmand';
+
+    $payload = json_encode([
+        'sender'      => ['name' => $fromName, 'email' => $from],
+        'to'          => [['email' => $to, 'name' => $toName]],
+        'subject'     => $subject,
+        'htmlContent' => $htmlBody,
+        'textContent' => strip_tags(str_replace(['<br>', '<br/>', '<br />'], "\n", $htmlBody)),
+    ]);
+
+    $ch = curl_init('https://api.brevo.com/v3/smtp/email');
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $payload,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 15,
+        CURLOPT_HTTPHEADER     => [
+            'accept: application/json',
+            'api-key: ' . $apiKey,
+            'content-type: application/json',
+        ],
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($httpCode !== 201) {
+        error_log('[MAIL ERROR] Brevo API HTTP ' . $httpCode . ' : ' . $response);
+        return false;
+    }
+
+    return true;
 }
 
 function mailBienvenue(string $email, string $prenom, string $nom): bool
@@ -154,7 +157,7 @@ function mailConfirmationCommande(string $email, string $prenom, string $nom, ar
     return sendMail($email, "$prenom $nom", 'Confirmation de votre commande ' . $commande['numero'], $html);
 }
 
-function mailCommandeTerminee(string $email, string $prenom, string $nom, string $numeroCommande, int $commandeId): bool
+function mailCommandeTerminee(string $email, string $prenom, string $nom, string $numeroCommande): bool
 {
     $lien = appUrl('/HTML/espace-utilisateur/index.php?section=commandes');
     $html = '

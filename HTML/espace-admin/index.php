@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $row = $s->fetch();
                 if ($row) {
                     if ($statut === 'terminee') {
-                        mailCommandeTerminee($row['email'], $row['prenom'], $row['nom'], $row['numero_commande'], (int)$row['commande_id']);
+                        mailCommandeTerminee($row['email'], $row['prenom'], $row['nom'], $row['numero_commande']);
                     } else {
                         mailRetourMateriel($row['email'], $row['prenom'], $row['nom'], $row['numero_commande']);
                     }
