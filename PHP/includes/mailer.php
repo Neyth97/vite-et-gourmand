@@ -28,7 +28,9 @@ function sendMail(string $to, string $toName, string $subject, string $htmlBody)
             $mail->SMTPAuth = false;
         }
 
-        $mail->setFrom('noreply@vite-et-gourmand.fr', 'Vite & Gourmand');
+        $from     = getenv('MAIL_FROM')      ?: 'noreply@vite-et-gourmand.fr';
+        $fromName = getenv('MAIL_FROM_NAME') ?: 'Vite & Gourmand';
+        $mail->setFrom($from, $fromName);
         $mail->addAddress($to, $toName);
 
         $mail->isHTML(true);
