@@ -1,6 +1,7 @@
 ﻿<?php
 require_once '../PHP/includes/session.php';
 require_once '../PHP/config/db.php';
+require_once '../PHP/includes/mailer.php';
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -27,11 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $token  = bin2hex(random_bytes(32));
                 $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
-                $stmt = $pdo->prepare('UPDATE utilisateur SET token_reset = ?, token_reset_expire = ? WHERE utilisateur_id = ?');
-                $stmt->execute([$token, $expiry, $u['utilisateur_id']]);
+                $pdo->prepare('UPDATE utilisateur SET token_reset = ?, token_reset_expire = ? WHERE utilisateur_id = ?')
+                    ->execute([$token, $expiry, $u['utilisateur_id']]);
 
-                //  envoyer email avec lien de réinitialisation 
-                // Lien : /vite-et-gourmand/HTML/reinitialiser-mot-de-passe.php?token=<?= $token ?>
+                $su = $pdo->prepare('SELECT prenom, nom FROM utilisateur WHERE utilisateur_id = ?');
+                $su->execute([$u['utilisateur_id']]);
+                $info = $su->fetch();
+                mailResetPassword($email, $info['prenom'] ?? '', $info['nom'] ?? '', $token);
             }
         }
 

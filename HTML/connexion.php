@@ -3,8 +3,8 @@ require_once '../PHP/includes/session.php';
 require_once '../PHP/config/db.php';
 
 if (isConnecte()) {
-    if (isAdmin())   { header('Location: espace-admin/index.html');      exit; }
-    if (isEmploye()) { header('Location: espace-employe/index.php');    exit; }
+    if (isAdmin())   { header('Location: espace-admin/index.php');       exit; }
+    if (isEmploye()) { header('Location: espace-employe/index.php');     exit; }
                        header('Location: espace-utilisateur/index.php'); exit;
 }
 
@@ -43,8 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['email']          = $u['email'];
                 $_SESSION['role_id']        = $u['role_id'];
 
-                if (isAdmin())   { header('Location: espace-admin/index.html');      exit; }
-                if (isEmploye()) { header('Location: espace-employe/index.php');    exit; }
+                if (isAdmin())   { header('Location: espace-admin/index.php');       exit; }
+                if (isEmploye()) { header('Location: espace-employe/index.php');   exit; }
                                    header('Location: espace-utilisateur/index.php'); exit;
             }
         }
