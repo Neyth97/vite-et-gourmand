@@ -1,5 +1,5 @@
 [phases.build]
-cmds = ["install-php-extensions mongodb"]
+cmds = ["install-php-extensions pdo_mysql mongodb"]
 
 [phases.install]
 cmds = ["composer install --no-dev --optimize-autoloader --ignore-platform-reqs"]
