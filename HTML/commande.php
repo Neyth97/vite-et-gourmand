@@ -237,7 +237,7 @@ $menus_json = json_encode(array_map(fn($m) => [
             <li class="nav-item"><a class="nav-link" href="a-propos.html">À propos</a></li>
             <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="espace-utilisateur/index.html">
+              <a class="nav-link" href="espace-utilisateur/index.php">
                 <i class="bi bi-person-circle" aria-hidden="true"></i>
                 <?= htmlspecialchars($_SESSION['prenom'] ?? 'Mon espace') ?>
               </a>
@@ -295,7 +295,7 @@ $menus_json = json_encode(array_map(fn($m) => [
                 <span class="commande-step" aria-hidden="true">1</span>
                 <h2>Vos informations</h2>
               </div>
-              <p class="commande-section-note">Ces informations sont issues de votre compte. <a href="espace-utilisateur/index.html" class="link-gold">Les modifier</a></p>
+              <p class="commande-section-note">Ces informations sont issues de votre compte. <a href="espace-utilisateur/index.php" class="link-gold">Les modifier</a></p>
 
               <div class="row g-3">
                 <div class="col-md-6">

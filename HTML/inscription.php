@@ -4,7 +4,7 @@ require_once '../PHP/config/db.php';
 require_once '../PHP/includes/mailer.php';
 
 if (isConnecte()) {
-    header('Location: espace-utilisateur/index.html');
+    header('Location: espace-utilisateur/index.php');
     exit;
 }
 
