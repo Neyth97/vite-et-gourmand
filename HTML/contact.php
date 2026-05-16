@@ -48,7 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
             </div>';
 
-            $sent = sendMail('contact@vite-et-gourmand.fr', 'Vite & Gourmand', '[Contact] ' . $titre, $html);
+            $dest = getenv('MAIL_FROM') ?: 'contact@vite-et-gourmand.fr';
+            $sent = sendMail($dest, 'Vite & Gourmand', '[Contact] ' . $titre, $html);
 
             if ($sent) {
                 $message      = 'Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.';
