@@ -2,6 +2,8 @@
 require_once '../../PHP/includes/session.php';
 require_once '../../PHP/config/db.php';
 require_once '../../PHP/includes/mailer.php';
+require_once '../../PHP/classes/Commande.php';
+require_once '../../PHP/classes/Menu.php';
 
 function uploadMenuImage(): ?string {
     if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) return null;
@@ -37,7 +39,9 @@ if (!in_array(getRoleId(), [1, 2])) {
     exit;
 }
 
-$pdo = getPDO();
+$pdo          = getPDO();
+$commandeRepo = new Commande();
+$menuRepo     = new Menu();
 
 $flash_ok  = $_SESSION['flash_ok']  ?? null; unset($_SESSION['flash_ok']);
 $flash_err = $_SESSION['flash_err'] ?? null; unset($_SESSION['flash_err']);
@@ -63,31 +67,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'changer_statut') {
         $cid    = filter_input(INPUT_POST, 'commande_id', FILTER_VALIDATE_INT);
         $statut = trim($_POST['statut'] ?? '');
-        $allowed = ['accepte','en_preparation','en_cours_livraison','livre','attente_retour_materiel','terminee'];
 
-        if ($cid && in_array($statut, $allowed, true)) {
-            $pdo->beginTransaction();
-            $pdo->prepare('UPDATE commande SET statut = ? WHERE commande_id = ?')->execute([$statut, $cid]);
-            $pdo->prepare('INSERT INTO commande_historique (commande_id, statut) VALUES (?, ?)')->execute([$cid, $statut]);
-            $pdo->commit();
-
+        if ($cid && $commandeRepo->changerStatut($cid, $statut)) {
             if (in_array($statut, ['terminee', 'attente_retour_materiel'], true)) {
-                $s = $pdo->prepare(
-                    'SELECT c.numero_commande, u.email, u.prenom, u.nom, c.commande_id
-                     FROM commande c JOIN utilisateur u ON c.utilisateur_id = u.utilisateur_id
-                     WHERE c.commande_id = ?'
-                );
-                $s->execute([$cid]);
-                $row = $s->fetch();
+                $row = $commandeRepo->trouverParId($cid);
                 if ($row) {
                     if ($statut === 'terminee') {
-                        mailCommandeTerminee($row['email'], $row['prenom'], $row['nom'], $row['numero_commande']);
+                        mailCommandeTerminee($row['client_email'], $row['client_prenom'], $row['client_nom'], $row['numero_commande']);
                     } else {
-                        mailRetourMateriel($row['email'], $row['prenom'], $row['nom'], $row['numero_commande']);
+                        mailRetourMateriel($row['client_email'], $row['client_prenom'], $row['client_nom'], $row['numero_commande']);
                     }
                 }
             }
-
             $_SESSION['flash_ok'] = 'Statut mis à jour.';
         } else {
             $_SESSION['flash_err'] = 'Données invalides.';
@@ -102,65 +93,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $motif = trim($_POST['motif'] ?? '');
         $mode  = trim($_POST['mode_contact'] ?? '');
 
-        $err = [];
-        if (!$cid)                                       $err[] = 'Commande invalide.';
-        if (empty($motif))                               $err[] = 'Le motif est requis.';
-        if (!in_array($mode, ['gsm','mail'], true))      $err[] = 'Mode de contact requis.';
-
-        if (!$err) {
-            $stmt = $pdo->prepare('SELECT commande_id FROM commande WHERE commande_id = ? AND statut NOT IN ("terminee","annulee")');
-            $stmt->execute([$cid]);
-            if (!$stmt->fetch()) $err[] = 'Cette commande ne peut pas être annulée.';
+        if ($cid && $commandeRepo->annuler($cid, $motif, $mode)) {
+            $_SESSION['flash_ok'] = 'Commande annulée.';
+        } else {
+            $_SESSION['flash_err'] = 'Impossible d\'annuler cette commande.';
         }
-
-        if ($err) {
-            $_SESSION['flash_err'] = implode(' ', $err);
-            header('Location: index.php?section=commandes');
-            exit;
-        }
-
-        $pdo->beginTransaction();
-        $pdo->prepare('UPDATE commande SET statut="annulee", motif_annulation=?, mode_contact_annulation=? WHERE commande_id=?')
-            ->execute([$motif, $mode, $cid]);
-        $pdo->prepare('INSERT INTO commande_historique (commande_id, statut, commentaire) VALUES (?, "annulee", ?)')
-            ->execute([$cid, $motif]);
-        $pdo->commit();
-
-        $_SESSION['flash_ok'] = 'Commande annulée.';
         header('Location: index.php?section=commandes');
         exit;
     }
 
     // --- Ajouter menu ---
     if ($action === 'ajouter_menu') {
-        $titre      = trim($_POST['titre'] ?? '');
-        $desc       = trim($_POST['description'] ?? '');
-        $theme_id   = filter_input(INPUT_POST, 'theme_id', FILTER_VALIDATE_INT);
-        $regime_id  = filter_input(INPUT_POST, 'regime_id', FILTER_VALIDATE_INT);
-        $nb_min     = filter_input(INPUT_POST, 'nombre_personne_minimum', FILTER_VALIDATE_INT);
-        $prix       = filter_input(INPUT_POST, 'prix_par_personne', FILTER_VALIDATE_FLOAT);
-        $conditions = trim($_POST['conditions'] ?? '');
-        $stock      = filter_input(INPUT_POST, 'quantite_restante', FILTER_VALIDATE_INT) ?: 0;
+        $donnees = [
+            'titre'                    => trim($_POST['titre'] ?? ''),
+            'description'              => trim($_POST['description'] ?? ''),
+            'theme_id'                 => filter_input(INPUT_POST, 'theme_id', FILTER_VALIDATE_INT),
+            'regime_id'                => filter_input(INPUT_POST, 'regime_id', FILTER_VALIDATE_INT),
+            'nombre_personne_minimum'  => filter_input(INPUT_POST, 'nombre_personne_minimum', FILTER_VALIDATE_INT),
+            'prix_par_personne'        => filter_input(INPUT_POST, 'prix_par_personne', FILTER_VALIDATE_FLOAT),
+            'conditions'               => trim($_POST['conditions'] ?? ''),
+            'quantite_restante'        => filter_input(INPUT_POST, 'quantite_restante', FILTER_VALIDATE_INT) ?: 0,
+        ];
 
-        $err = [];
-        if (empty($titre))               $err[] = 'Titre requis.';
-        if (!$theme_id)                  $err[] = 'Thème requis.';
-        if (!$regime_id)                 $err[] = 'Régime requis.';
-        if (!$nb_min || $nb_min < 1)     $err[] = 'Nombre de personnes minimum invalide.';
-        if ($prix === false || $prix < 0) $err[] = 'Prix invalide.';
-
+        $err = $menuRepo->validerDonnees($donnees);
         if ($err) {
             $_SESSION['flash_err'] = implode(' ', $err);
             header('Location: index.php?section=menus');
             exit;
         }
 
-        $pdo->prepare(
-            'INSERT INTO menu (titre, description, theme_id, regime_id, nombre_personne_minimum, prix_par_personne, conditions, quantite_restante)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
-        )->execute([$titre, $desc ?: null, $theme_id, $regime_id, $nb_min, $prix, $conditions ?: null, $stock]);
-
-        $new_menu_id = (int)$pdo->lastInsertId();
+        $new_menu_id = $menuRepo->creer($donnees);
         $img_menu = uploadMenuImage();
         if ($img_menu) {
             $pdo->prepare('INSERT INTO menu_image (menu_id, chemin, ordre) VALUES (?, ?, 1)')->execute([$new_menu_id, $img_menu]);
@@ -177,36 +139,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // --- Modifier menu ---
     if ($action === 'modifier_menu') {
-        $mid        = filter_input(INPUT_POST, 'menu_id', FILTER_VALIDATE_INT);
-        $titre      = trim($_POST['titre'] ?? '');
-        $desc       = trim($_POST['description'] ?? '');
-        $theme_id   = filter_input(INPUT_POST, 'theme_id', FILTER_VALIDATE_INT);
-        $regime_id  = filter_input(INPUT_POST, 'regime_id', FILTER_VALIDATE_INT);
-        $nb_min     = filter_input(INPUT_POST, 'nombre_personne_minimum', FILTER_VALIDATE_INT);
-        $prix       = filter_input(INPUT_POST, 'prix_par_personne', FILTER_VALIDATE_FLOAT);
-        $conditions = trim($_POST['conditions'] ?? '');
-        $stock      = filter_input(INPUT_POST, 'quantite_restante', FILTER_VALIDATE_INT) ?: 0;
-        $actif      = isset($_POST['actif']) ? 1 : 0;
+        $mid     = filter_input(INPUT_POST, 'menu_id', FILTER_VALIDATE_INT);
+        $donnees = [
+            'titre'                   => trim($_POST['titre'] ?? ''),
+            'description'             => trim($_POST['description'] ?? ''),
+            'theme_id'                => filter_input(INPUT_POST, 'theme_id', FILTER_VALIDATE_INT),
+            'regime_id'               => filter_input(INPUT_POST, 'regime_id', FILTER_VALIDATE_INT),
+            'nombre_personne_minimum' => filter_input(INPUT_POST, 'nombre_personne_minimum', FILTER_VALIDATE_INT),
+            'prix_par_personne'       => filter_input(INPUT_POST, 'prix_par_personne', FILTER_VALIDATE_FLOAT),
+            'conditions'              => trim($_POST['conditions'] ?? ''),
+            'quantite_restante'       => filter_input(INPUT_POST, 'quantite_restante', FILTER_VALIDATE_INT) ?: 0,
+            'actif'                   => isset($_POST['actif']) ? 1 : 0,
+        ];
 
-        $err = [];
-        if (!$mid)                        $err[] = 'Menu invalide.';
-        if (empty($titre))                $err[] = 'Titre requis.';
-        if (!$theme_id)                   $err[] = 'Thème requis.';
-        if (!$regime_id)                  $err[] = 'Régime requis.';
-        if (!$nb_min || $nb_min < 1)      $err[] = 'Nombre de personnes minimum invalide.';
-        if ($prix === false || $prix < 0) $err[] = 'Prix invalide.';
-
+        $err = $mid ? $menuRepo->validerDonnees($donnees) : ['Menu invalide.'];
         if ($err) {
             $_SESSION['flash_err'] = implode(' ', $err);
             header('Location: index.php?section=menus');
             exit;
         }
 
-        $pdo->prepare(
-            'UPDATE menu SET titre=?, description=?, theme_id=?, regime_id=?,
-             nombre_personne_minimum=?, prix_par_personne=?, conditions=?, quantite_restante=?, actif=?
-             WHERE menu_id=?'
-        )->execute([$titre, $desc ?: null, $theme_id, $regime_id, $nb_min, $prix, $conditions ?: null, $stock, $actif, $mid]);
+        $menuRepo->modifier($mid, $donnees);
 
         $img_menu = uploadMenuImage();
         if ($img_menu) {
@@ -234,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'supprimer_menu') {
         $mid = filter_input(INPUT_POST, 'menu_id', FILTER_VALIDATE_INT);
         if ($mid) {
-            $pdo->prepare('UPDATE menu SET actif = 0 WHERE menu_id = ?')->execute([$mid]);
+            $menuRepo->desactiver($mid);
             $_SESSION['flash_ok'] = 'Menu désactivé.';
         }
         header('Location: index.php?section=menus');
@@ -369,46 +322,13 @@ $filtre_client = trim($_GET['client'] ?? '');
 $valid_statuts = ['en_attente','accepte','en_preparation','en_cours_livraison','livre','attente_retour_materiel','terminee','annulee'];
 
 // Commandes avec filtres
-$where  = [];
-$params = [];
-if ($filtre_statut && in_array($filtre_statut, $valid_statuts, true)) {
-    $where[]  = 'c.statut = ?';
-    $params[] = $filtre_statut;
-}
-if ($filtre_client !== '') {
-    $where[]  = '(u.nom LIKE ? OR u.prenom LIKE ? OR u.email LIKE ?)';
-    $like     = '%' . $filtre_client . '%';
-    array_push($params, $like, $like, $like);
-}
-$wclause = $where ? 'WHERE ' . implode(' AND ', $where) : '';
-
-$s = $pdo->prepare(
-    "SELECT c.commande_id, c.numero_commande, c.date_commande, c.date_prestation,
-            c.heure_livraison, c.nombre_personne, c.prix_total, c.statut,
-            c.motif_annulation, c.mode_contact_annulation,
-            m.titre AS menu_titre,
-            u.nom AS client_nom, u.prenom AS client_prenom,
-            u.email AS client_email, u.telephone AS client_tel
-     FROM commande c
-     JOIN menu m ON c.menu_id = m.menu_id
-     JOIN utilisateur u ON c.utilisateur_id = u.utilisateur_id
-     $wclause
-     ORDER BY c.date_commande DESC"
-);
-$s->execute($params);
-$commandes = $s->fetchAll();
+$commandes = $commandeRepo->listerTout([
+    'statut' => $filtre_statut,
+    'client' => $filtre_client,
+]);
 
 // Menus (actifs + inactifs pour gestion)
-$menus = $pdo->query(
-    'SELECT m.menu_id, m.titre, m.description, m.nombre_personne_minimum, m.prix_par_personne,
-            m.conditions, m.quantite_restante, m.actif, m.theme_id, m.regime_id,
-            t.libelle AS theme_libelle, r.libelle AS regime_libelle,
-            (SELECT chemin FROM menu_image WHERE menu_id = m.menu_id ORDER BY ordre ASC LIMIT 1) AS image
-     FROM menu m
-     JOIN theme t ON m.theme_id = t.theme_id
-     JOIN regime r ON m.regime_id = r.regime_id
-     ORDER BY m.actif DESC, m.titre ASC'
-)->fetchAll();
+$menus = $menuRepo->lister();
 
 // Plats
 $plats = $pdo->query(

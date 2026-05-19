@@ -1,11 +1,15 @@
 <?php
 require_once '../PHP/includes/session.php';
-require_once '../PHP/config/db.php';
 require_once '../PHP/includes/mailer.php';
+require_once '../PHP/classes/Menu.php';
+require_once '../PHP/classes/Commande.php';
+require_once '../PHP/classes/Utilisateur.php';
 
 requireConnexion();
 
-$pdo     = getPDO();
+$menuRepo    = new Menu();
+$commandeRepo = new Commande();
+$utilisateurRepo = new Utilisateur();
 $erreurs = [];
 
 if (empty($_SESSION['csrf_token'])) {
@@ -14,18 +18,9 @@ if (empty($_SESSION['csrf_token'])) {
 
 $menu_id_get = filter_input(INPUT_GET, 'menu_id', FILTER_VALIDATE_INT);
 
-$stmt_menus = $pdo->query(
-    'SELECT menu_id, titre, nombre_personne_minimum, prix_par_personne, quantite_restante, conditions
-     FROM menu WHERE actif = 1 AND quantite_restante > 0 ORDER BY titre'
-);
-$menus_dispo = $stmt_menus->fetchAll();
+$menus_dispo = $menuRepo->listerDisponibles();
 
-$stmt_user = $pdo->prepare(
-    'SELECT nom, prenom, email, telephone, adresse, code_postal, ville
-     FROM utilisateur WHERE utilisateur_id = ?'
-);
-$stmt_user->execute([$_SESSION['utilisateur_id']]);
-$utilisateur = $stmt_user->fetch();
+$utilisateur = $utilisateurRepo->trouverParId($_SESSION['utilisateur_id']);
 
 $form = [
     'menu_id'                => $menu_id_get ?? '',
@@ -77,12 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $menu_cmd = null;
         if (empty($erreurs) && $form['menu_id']) {
-            $stmt_menu = $pdo->prepare(
-                'SELECT menu_id, titre, nombre_personne_minimum, prix_par_personne, quantite_restante
-                 FROM menu WHERE menu_id = ? AND actif = 1'
-            );
-            $stmt_menu->execute([$form['menu_id']]);
-            $menu_cmd = $stmt_menu->fetch();
+            $menu_cmd = $menuRepo->trouverParId((int)$form['menu_id'], seulementActif: true);
 
             if (!$menu_cmd) {
                 $erreurs[] = 'Menu introuvable.';
@@ -95,59 +85,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (empty($erreurs) && $menu_cmd) {
 
-            $nb          = (int)$form['nombre_personne'];
-            $prix_menu   = $nb * (float)$menu_cmd['prix_par_personne'];
-
-            if ($nb >= $menu_cmd['nombre_personne_minimum'] + 5) {
-                $prix_menu *= 0.9;
-            }
-
-            $prix_livraison = 0.00;
-            if (strtolower($form['ville_prestation']) !== 'bordeaux') {
-                $km             = max(0, (float)$form['distance_km']);
-                $prix_livraison = 5.00 + ($km * 0.59);
-            }
-
-            $prix_total      = $prix_menu + $prix_livraison;
-            $numero_commande = 'VG-' . date('Ymd') . '-' . strtoupper(bin2hex(random_bytes(3)));
+            $nb   = (int)$form['nombre_personne'];
+            $prix = $commandeRepo->calculerPrix(
+                (float)$menu_cmd['prix_par_personne'],
+                $nb,
+                (int)$menu_cmd['nombre_personne_minimum'],
+                (float)$form['distance_km'],
+                $form['ville_prestation']
+            );
 
             try {
-                $pdo->beginTransaction();
-
-                $pdo->prepare(
-                    'INSERT INTO commande
-                     (numero_commande, utilisateur_id, menu_id, date_prestation, heure_livraison,
-                      adresse_prestation, ville_prestation, code_postal_prestation,
-                      nombre_personne, prix_menu, prix_livraison, prix_total, statut)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, \'en_attente\')'
-                )->execute([
-                    $numero_commande,
-                    $_SESSION['utilisateur_id'],
-                    $form['menu_id'],
-                    $form['date_prestation'],
-                    $form['heure_livraison'],
-                    $form['adresse_prestation'],
-                    $form['ville_prestation'],
-                    $form['code_postal_prestation'],
-                    $nb,
-                    round($prix_menu, 2),
-                    round($prix_livraison, 2),
-                    round($prix_total, 2),
+                $result = $commandeRepo->creer([
+                    'utilisateur_id'          => $_SESSION['utilisateur_id'],
+                    'menu_id'                 => (int)$form['menu_id'],
+                    'date_prestation'         => $form['date_prestation'],
+                    'heure_livraison'         => $form['heure_livraison'],
+                    'adresse_prestation'      => $form['adresse_prestation'],
+                    'ville_prestation'        => $form['ville_prestation'],
+                    'code_postal_prestation'  => $form['code_postal_prestation'],
+                    'nombre_personne'         => $nb,
+                    'prix_menu'               => $prix['prix_menu'],
+                    'prix_livraison'          => $prix['prix_livraison'],
+                    'prix_total'              => $prix['prix_total'],
                 ]);
 
-                $commande_id = (int)$pdo->lastInsertId();
+                $commande_id     = $result['id'];
+                $numero_commande = $result['numero'];
 
-                $pdo->prepare(
-                    'INSERT INTO commande_historique (commande_id, statut, commentaire)
-                     VALUES (?, \'en_attente\', \'Commande passée par le client\')'
-                )->execute([$commande_id]);
-
-                $pdo->prepare(
-                    'UPDATE menu SET quantite_restante = quantite_restante - 1
-                     WHERE menu_id = ? AND quantite_restante > 0'
-                )->execute([$form['menu_id']]);
-
-                $pdo->commit();
                 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
                 try {
@@ -156,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'commande_id'     => $commande_id,
                         'menu_id'         => (int)$form['menu_id'],
                         'menu_titre'      => $menu_cmd['titre'],
-                        'prix_total'      => round($prix_total, 2),
+                        'prix_total'      => $prix['prix_total'],
                         'nombre_personne' => $nb,
                         'date_commande'   => new \MongoDB\BSON\UTCDateTime(),
                     ]);
@@ -164,26 +128,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // MongoDB indisponible — non bloquant
                 }
 
-                $stmt_u = getPDO()->prepare('SELECT prenom, nom, email FROM utilisateur WHERE utilisateur_id = ?');
-                $stmt_u->execute([$_SESSION['utilisateur_id']]);
-                $u_mail = $stmt_u->fetch();
-                if ($u_mail) {
-                    mailConfirmationCommande($u_mail['email'], $u_mail['prenom'], $u_mail['nom'], [
+                if ($utilisateur) {
+                    mailConfirmationCommande($utilisateur['email'], $utilisateur['prenom'], $utilisateur['nom'], [
                         'numero'    => $numero_commande,
                         'menu'      => $menu_cmd['titre'],
                         'date'      => date('d/m/Y', strtotime($form['date_prestation'])),
                         'heure'     => substr($form['heure_livraison'], 0, 5),
                         'personnes' => $nb,
                         'adresse'   => $form['adresse_prestation'] . ', ' . $form['ville_prestation'],
-                        'total'     => round($prix_total, 2),
+                        'total'     => $prix['prix_total'],
                     ]);
                 }
+
 
                 header('Location: /HTML/commande-confirmation.php?id=' . $commande_id);
                 exit;
 
             } catch (\Exception $e) {
-                $pdo->rollBack();
                 $erreurs[] = 'Une erreur est survenue. Veuillez réessayer.';
             }
         }
